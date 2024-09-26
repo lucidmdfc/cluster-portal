@@ -46,7 +46,14 @@ export default function Footer() {
 
   const pathname = usePathname();
 
-  const mobileList = navConfig.find((i) => i.title === 'Pages')?.children || [];
+  const mobileList =
+    (
+      navConfig.find((i) => i.title === 'Pages') as {
+        title: string;
+        path: string;
+        children?: any[];
+      }
+    )?.children || [];
 
   const desktopList = pageLinks.sort((listA, listB) => Number(listA.order) - Number(listB.order));
 
@@ -146,13 +153,13 @@ export default function Footer() {
           <Grid xs={12} md={6}>
             {mdUp ? (
               <Masonry columns={4} spacing={2} defaultColumns={4} defaultSpacing={2}>
-                {renderLists.map((list) => (
+                {renderLists.map((list: any) => (
                   <ListDesktop key={list.subheader} list={list} />
                 ))}
               </Masonry>
             ) : (
               <Stack spacing={1.5}>
-                {renderLists.map((list) => (
+                {renderLists.map((list: any) => (
                   <ListMobile key={list.subheader} list={list} />
                 ))}
               </Stack>
