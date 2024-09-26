@@ -27,7 +27,7 @@ type Props = {
 
 export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
   const theme = useTheme();
-  const coverImage = blog.illustrations.find(
+  const coverImage = blog?.illustrations.find(
     (illustration: any) => illustration.isCoverImage === true
   );
   return (
@@ -35,7 +35,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
       {coverImage && (
         <Image
           src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
-          alt={blog.title}
+          alt={blog?.title}
           ratio="1/1"
           overlay={`linear-gradient(to bottom, ${alpha(theme.palette.common.black, 0)} 0%, ${
             theme.palette.common.black
@@ -57,14 +57,14 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
         }}
       >
         <PostTimeBlock
-          createdAt={fDate(blog.publishedAt)}
-          duration={blog.readingTime}
+          createdAt={fDate(blog?.publishedAt)}
+          duration={blog?.readingTime}
           sx={{ color: 'inherit', opacity: 0.72 }}
         />
 
         <Link
           component={RouterLink}
-          href={`${paths.asfc.chronique_injustice}/${blog?.slug?.current || ''}`}
+          href={`${paths.career.blog}/${blog?.slug?.current || ''}`}
           color="inherit"
         >
           <TextMaxLine
@@ -75,15 +75,15 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
               }),
             }}
           >
-            {blog.title}
+            {blog?.title}
           </TextMaxLine>
         </Link>
 
-        {largePost && <TextMaxLine sx={{ opacity: 0.48 }}>{blog.description}</TextMaxLine>}
+        {largePost && <TextMaxLine sx={{ opacity: 0.48 }}>{blog?.description}</TextMaxLine>}
 
         <Stack direction="row" alignItems="center" sx={{ typography: 'body2', pt: 1.5 }}>
           <Avatar
-            src={urlFor(blog.author.image?.imageAsset.image.asset)?.url() ?? ''}
+            src={blog ? urlFor(blog?.author.image?.imageAsset.image.asset)?.url() : ''}
             sx={{
               mr: 1,
               width: 32,
@@ -94,7 +94,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
               }),
             }}
           />
-          {blog.author.name}
+          {blog?.author.name}
         </Stack>
       </Stack>
     </Box>

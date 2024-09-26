@@ -1,7 +1,7 @@
 import { sanityFetch } from 'src/lib/client';
 import { BLOG_QUERY } from 'src/lib/queries';
 
-import BlogDetailView from 'src/sections/asfc-sections/_blog/view/blog-detail-view';
+import BlogDetailView from 'src/sections/_cluster-portal/_blog/view/blog-detail-view';
 
 // ----------------------------------------------------------------------
 

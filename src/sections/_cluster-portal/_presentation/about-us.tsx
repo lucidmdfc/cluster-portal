@@ -29,8 +29,12 @@ export default function AboutUs({ roj }: props) {
     >
       <Box
         component="img"
-        alt={roj.imageRoj?.image.alt}
-        src={roj.imageRoj?.image.asset ? (urlFor(roj.imageRoj.image.asset)?.url() ?? '') : ''}
+        alt={roj?.imagePresentation?.image.alt}
+        src={
+          roj?.imagePresentation?.image.asset
+            ? (urlFor(roj.imagePresentation.image.asset)?.url() ?? '')
+            : ''
+        }
         sx={{
           borderRadius: 1.5,
           mb: { xs: 5, md: 10 },

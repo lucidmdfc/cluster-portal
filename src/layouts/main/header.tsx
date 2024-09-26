@@ -87,14 +87,12 @@ export default function Header({ headerOnDark }: Props) {
         <Button
           variant="contained"
           color="inherit"
-          href={paths.zoneStore}
-          target="_blank"
-          rel="noopener"
+          href={paths.career.communique}
           sx={{
             display: { xs: 'none', md: 'inline-flex' },
           }}
         >
-          Buy Now
+          Espace media
         </Button>
       </Stack>
 

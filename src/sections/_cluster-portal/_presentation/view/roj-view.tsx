@@ -1,5 +1,5 @@
-import RojFaqs from 'src/sections/asfc-sections/_roj/faqs';
-import AboutUs from 'src/sections/asfc-sections/_roj/about-us';
+import RojFaqs from 'src/sections/_cluster-portal/_presentation/faqs';
+import AboutUs from 'src/sections/_cluster-portal/_presentation/about-us';
 
 type props = {
   roj: any;

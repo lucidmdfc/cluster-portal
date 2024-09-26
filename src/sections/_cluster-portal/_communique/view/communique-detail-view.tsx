@@ -57,7 +57,7 @@ export default function CommuniqueDetailView({ communique, latestCommunique }: P
             <CustomBreadcrumbs
               links={[
                 { name: 'Home', href: '/' },
-                { name: 'communique de presse', href: paths.asfc.communique },
+                { name: 'communique de presse', href: paths.career.communique },
                 { name: communique.title },
               ]}
               sx={{ my: 5 }}

@@ -13,7 +13,6 @@ type Props = {
 
 export default function BlogFeaturedPosts({ blogs }: Props) {
   const featuredBlog = blogs[0];
-  console.log('featuredBlog', featuredBlog);
   return (
     <Container
       sx={{

@@ -40,7 +40,7 @@ export default function SingleBlogPost({ blog }: Props) {
 
         <Link
           component={RouterLink}
-          href={`${paths.asfc.chronique_injustice}/${blog?.slug?.current || ''}`}
+          href={`${paths.career.blog}/${blog?.slug?.current || ''}`}
           color="inherit"
         >
           <TextMaxLine variant="h5" persistent>

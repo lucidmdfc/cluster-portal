@@ -1,6 +1,6 @@
 import { Divider } from '@mui/material';
 
-import BlogFeaturedPosts from 'src/sections/asfc-sections/_blog/home-blog/blog-featured-posts ';
+import BlogFeaturedPosts from 'src/sections/_cluster-portal/_blog/home-blog/blog-featured-posts ';
 
 import BlogPostsView from './blog-posts-view';
 

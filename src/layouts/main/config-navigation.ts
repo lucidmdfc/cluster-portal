@@ -42,9 +42,9 @@ export const pageLinks = [
       { title: 'Landing', path: paths.career.root },
       { title: 'Jobs', path: paths.career.jobs },
       { title: 'Job', path: paths.career.job },
-      { title: 'Blog Posts', path: paths.career.posts },
-      { title: 'Blog Post', path: paths.career.post },
-      { title: 'About', path: paths.career.about },
+      // { title: 'Blog Posts', path: paths.career.posts },
+      // { title: 'Blog Post', path: paths.career.post },
+      // { title: 'About', path: paths.career.about },
       { title: 'Contact', path: paths.career.contact },
     ],
   },
@@ -109,6 +109,8 @@ export const pageLinks = [
 
 export const navConfig = [
   { title: 'Home', path: '/' },
+  { title: 'Presentation', path: paths.career.presentation },
+  { title: 'blogs', path: paths.career.blog },
   { title: 'Contact', path: paths.career.contact },
   { title: 'jobs', path: paths.career.jobs },
   { title: 'job', path: paths.career.job },

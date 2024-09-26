@@ -33,6 +33,9 @@ export const paths = {
     posts: '/posts',
     post: `/post`,
     about: '/about',
+    presentation: '/presentation',
+    communique: '/communique',
+    blog: '/blog',
     contact: '/contact',
   },
   // E-learning
