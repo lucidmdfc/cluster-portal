@@ -1,4 +1,4 @@
-import HomeView from 'src/sections/_cluster-portal/_home/view/homeView';
+import EventBodyView from 'src/sections/_cluster-portal/_home/view/SubViewEvent';
 // ----------------------------------------------------------------------
 
 export const metadata = {
@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function CareerLandingPage() {
-  return <HomeView />;
+  return <EventBodyView />;
 }

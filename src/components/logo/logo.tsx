@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import Image from 'next/image';
-import clusterLogo from 'public/assets/logo/cluster-logo.png';
+import clusterLogo from 'public/assets/logo/cluster_logo.png';
 
 import Link from '@mui/material/Link';
 import Box, { BoxProps } from '@mui/material/Box';
@@ -8,7 +8,6 @@ import Box, { BoxProps } from '@mui/material/Box';
 import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
-
 interface LogoProps extends BoxProps {
   single?: boolean;
 }

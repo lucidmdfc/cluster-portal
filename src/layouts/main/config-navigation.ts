@@ -108,11 +108,11 @@ export const pageLinks = [
 ];
 
 export const navConfig = [
-  { title: 'acceuil ', path: '/' },
-  { title: ' Le cluster', path: paths.career.presentation },
-  { title: 'blogs', path: paths.career.blog },
-  { title: 'le studio', path: '/' },
-  { title: 'carrière', path: paths.career.jobs },
+  { title: 'Accueil ', path: '/' },
+  { title: 'Le Cluster', path: paths.career.presentation },
+  { title: 'Idées', path: paths.career.blog },
+  { title: 'Le Studio', path: '/' },
+  { title: 'Carrières', path: paths.career.jobs },
   // { title: 'Contact', path: paths.career.contact },
   // { title: 'jobs', path: paths.career.jobs },
   // { title: 'job', path: paths.career.job },
