@@ -9,17 +9,15 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { ITourProps } from 'src/types/tour';
-
 import PublicationItem from './publication-item';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  tours: ITourProps[];
+  Publications: any;
 };
 
-export default function FeaturedPublication({ tours }: Props) {
+export default function FeaturedPublication({ Publications }: Props) {
   return (
     <Container
       sx={{
@@ -46,8 +44,8 @@ export default function FeaturedPublication({ tours }: Props) {
           },
         }}
       >
-        {tours.map((tour) => (
-          <PublicationItem key={tour.id} tour={tour} />
+        {Publications.map((Publication: any) => (
+          <PublicationItem key={Publication.id} Publication={Publication} />
         ))}
       </Box>
 

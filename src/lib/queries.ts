@@ -88,14 +88,10 @@ export const COMMUNIQUES_QUERY = defineQuery(`*[_type =="communiques"]{
 // publishedAt Retrieves the publication date of the communique
 // illustrations Retrieves the illustrations image with some metadata  of the communique
 // isDisplayedOnHome Indicates if the communique should be displayed on the homepage
-export const EVENTS_QUERY = defineQuery(`
-*[_type == "Actus&Events"]{
+export const EVENTS_QUERY = defineQuery(`*[_type == "ActusEvents"]{
+  _id,
   image->{
-    image{
-      asset->{
-        url,
-      }
-    },
+    ...,
     alt,
     credit
   },
@@ -107,7 +103,14 @@ export const EVENTS_QUERY = defineQuery(`
   tags,
   author->{
     name,
-    slug
+    slug,
+    image->{
+      imageAsset->{
+        ...,
+        alt,
+        credit
+      }
+    }
   },
   publicationDate,
   timeToRead
@@ -123,22 +126,22 @@ export const EVENTS_QUERY = defineQuery(`
 // publicationDate Retrieves the publication date of the event
 // timeToRead Retrieves the time to read of the event
 // order(publicationDate desc) Sorts results by publication date in descending order
-export const PUBLICATION_QUERY = defineQuery(`*[_type == "Accueil"]{
-  image->{
-    image{
-      asset->{
-        url,
-
-      }
+export const PUBLICATION_QUERY = defineQuery(` *[_type == "publication"]{
+    _id,
+     image->{
+      ...,
+      alt,
+      credit
     },
-    alt,
-    credit
-  },
-  title,
-  slug,
-  "subTitle": SubTitle,
-  body,
-}
+    slug,
+    title,
+    "subTitle":SubTitle,
+    description,
+    body,
+    publicationDate,
+    "pdfUrl": pdfFile
+   
+  }
 `);
 // image Retrieves the image of the publication
 // title Retrieves the title of the publication
@@ -147,13 +150,9 @@ export const PUBLICATION_QUERY = defineQuery(`*[_type == "Accueil"]{
 // body Retrieves the body of the publication
 
 export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil"]{
+  _id,
   image->{
-    image{
-      asset->{
-        url,
-
-      }
-    },
+    ...,
     alt,
     credit
   },

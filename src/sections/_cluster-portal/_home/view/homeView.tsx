@@ -12,8 +12,6 @@ import { RouterLink } from 'src/routes/components';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { _tours, _coursePosts } from 'src/_mock';
-
 import Iconify from 'src/components/iconify';
 
 import FeaturedEvent from '../news&events/featured-event';
@@ -21,7 +19,13 @@ import FeaturedPublication from '../publications/featured-publication';
 import PresentationOfActivity from '../presentation-of-activity/presentation-of-activity';
 
 // ----------------------------------------------------------------------
-export default function HomeView() {
+type Props = {
+  Events: any;
+  Publications: any;
+  Accueil: any;
+};
+
+export default function HomeView({ Events, Publications, Accueil }: Props) {
   const mdUp = useResponsive('up', 'md');
   const events = 'allEvents';
   const viewAllBtn = (
@@ -36,7 +40,7 @@ export default function HomeView() {
   );
   return (
     <>
-      <PresentationOfActivity />
+      <PresentationOfActivity Accueil={Accueil} />
       <Container
         sx={{
           pt: 10,
@@ -56,7 +60,7 @@ export default function HomeView() {
         </Stack>
         <Grid container spacing={{ md: 8 }}>
           <Grid xs={12}>
-            <FeaturedEvent posts={_coursePosts} />
+            <FeaturedEvent Events={Events} />
           </Grid>
         </Grid>
         {!mdUp && (
@@ -65,7 +69,7 @@ export default function HomeView() {
           </Stack>
         )}
       </Container>
-      <FeaturedPublication tours={_tours.slice(0, 4)} />
+      <FeaturedPublication Publications={Publications} />
     </>
   );
 }

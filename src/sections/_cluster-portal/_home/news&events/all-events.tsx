@@ -29,7 +29,7 @@ export default function AllEvents({ posts }: Props) {
         }}
       >
         {posts.slice(0, 8).map((post) => (
-          <EventItem key={post.id} post={post} />
+          <EventItem key={post.id} Event={post} />
         ))}
       </Box>
 

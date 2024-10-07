@@ -4,12 +4,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { _products } from 'src/_mock';
-
 import HomePngBackground from '../../common/home-png-background';
 // ----------------------------------------------------------------------
-
-export default function PresentationOfActivity() {
+type Props = {
+  Accueil: any;
+};
+export default function PresentationOfActivity({ Accueil }: Props) {
   return (
     <Container
       sx={{
@@ -23,10 +23,11 @@ export default function PresentationOfActivity() {
             display="grid"
             gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
           >
-            {_products.slice(0, 3).map((product, index) => (
+            {Accueil.slice(0, 3).map((product: any, index: Number) => (
               <HomePngBackground
-                key={product.id}
-                product={product}
+                key={Accueil._id}
+                Accueil={product}
+                Links="/presentation-detail"
                 color={index === 0 ? 'primary' : 'secondary'}
               />
             ))}

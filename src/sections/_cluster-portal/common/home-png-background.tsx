@@ -7,28 +7,31 @@ import { Theme, alpha, SxProps, useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
-import { fCurrency } from 'src/utils/format-number';
-
+import urlFor from 'src/lib/sanity';
 import { ColorSchema } from 'src/theme/palette';
 
 import Image from 'src/components/image';
 import TextMaxLine from 'src/components/text-max-line';
 
-import { IProductItemProps } from 'src/types/product';
-
 // ----------------------------------------------------------------------
 
 type Props = {
-  product: IProductItemProps;
+  Accueil: any;
   color?: ColorSchema;
   sx?: SxProps<Theme>;
+  Links?: string;
 };
 
-export default function HomePngBackground({ product, color = 'primary', sx }: Props) {
+export default function HomePngBackground({ Accueil, color = 'primary', sx, Links }: Props) {
   const theme = useTheme();
 
   return (
-    <Link component={RouterLink} href="presentation-detail" color="inherit" underline="none">
+    <Link
+      component={RouterLink}
+      href={`${Links}/${Accueil?.slug?.current}` || ''}
+      color="inherit"
+      underline="none"
+    >
       <Stack
         spacing={3}
         sx={{
@@ -47,7 +50,7 @@ export default function HomePngBackground({ product, color = 'primary', sx }: Pr
         }}
       >
         <Image
-          src={product.coverUrl}
+          src={Accueil?.image?.image ? urlFor(Accueil?.image?.image.asset)?.url() : ''}
           sx={{
             filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
           }}
@@ -55,10 +58,10 @@ export default function HomePngBackground({ product, color = 'primary', sx }: Pr
 
         <Stack spacing={1} sx={{ textAlign: 'center' }}>
           <TextMaxLine variant="subtitle2" sx={{ opacity: 0.72 }}>
-            {product.name}
+            {Accueil?.title}
           </TextMaxLine>
 
-          <Typography variant="h5">{`From ${fCurrency(product.price)}`}</Typography>
+          <Typography variant="h5">{Accueil?.subTitle}</Typography>
         </Stack>
       </Stack>
     </Link>

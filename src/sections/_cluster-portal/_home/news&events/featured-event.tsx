@@ -1,17 +1,15 @@
 import Box from '@mui/material/Box';
 // import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
-import { IBlogPostProps } from 'src/types/blog';
-
 import EventItem from './event-item';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  posts: IBlogPostProps[];
+  Events: any;
 };
 
-export default function FeaturedEvent({ posts }: Props) {
+export default function FeaturedEvent({ Events }: Props) {
   return (
     <Box
       sx={{
@@ -24,8 +22,8 @@ export default function FeaturedEvent({ posts }: Props) {
         },
       }}
     >
-      {posts.slice(0, 6).map((post) => (
-        <EventItem key={post.id} post={post} />
+      {Events.slice(0, 6).map((Event: any) => (
+        <EventItem key={Event._id} Event={Event} Links="allEvents" />
       ))}
     </Box>
   );
