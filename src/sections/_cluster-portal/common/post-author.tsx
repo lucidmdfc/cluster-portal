@@ -1,3 +1,5 @@
+import clusterLogo from 'public/assets/logo/cluster_logo.png';
+
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -12,12 +14,13 @@ import Iconify from 'src/components/iconify';
 
 type Props = {
   author: any;
+  self?: boolean;
 };
 
-export default function PostAuthor({ author }: Props) {
+export default function PostAuthor({ author, self }: Props) {
   const socials = [
-    { key: 'twitter', url: author.social.twitter ?? '' },
-    { key: 'instagram', url: author.social.instagram ?? '' },
+    { key: 'twitter', url: author?.social?.twitter ?? '' },
+    { key: 'instagram', url: author?.social?.instagram ?? '' },
   ];
 
   const socialIcons = [
@@ -42,7 +45,6 @@ export default function PostAuthor({ author }: Props) {
       color: '#c13584',
     },
   ];
-
   return (
     <Stack
       direction="row"
@@ -52,7 +54,7 @@ export default function PostAuthor({ author }: Props) {
       }}
     >
       <Avatar
-        src={urlFor(author.image?.imageAsset.image.asset)?.url() ?? ''}
+        src={self ? clusterLogo.src : urlFor(author.image?.imageAsset?.image?.asset)?.url()}
         sx={{ width: 96, height: 96 }}
       />
 

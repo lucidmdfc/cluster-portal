@@ -46,7 +46,7 @@ export default function EventItem({ Event, Links }: Props) {
         <Stack spacing={1}>
           <Link
             component={RouterLink}
-            href={`${Links}/${Event.slug?.current || ''}`}
+            href={Links ? `${Links}/${Event.slug?.current || ''}` : `${Event.slug?.current || ''}`}
             color="inherit"
           >
             <TextMaxLine variant="h6" persistent>

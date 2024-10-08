@@ -22,12 +22,12 @@ import { fDate } from 'src/utils/format-time';
 import { _socials, _coursePosts } from 'src/_mock';
 
 import Iconify from 'src/components/iconify';
-import Markdown from 'src/components/markdown';
+import RichText from 'src/components/rich-text/rich-text';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
-import PostAuthor from '../../../blog/common/post-author';
-import PostPrevAndNext from '../../../blog/common/post-prev-and-next';
-import PostSocialsShare from '../../../blog/common/post-socials-share';
+import PostAuthor from '../../common/post-author';
+import PostPrevAndNext from '../../common/post-prev-and-next';
+import PostSocialsShare from '../../common/post-socials-share';
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 
 // ----------------------------------------------------------------------
@@ -106,7 +106,7 @@ export default function EventBodyView({ Event }: Props) {
 
             <Divider sx={{ mb: 6 }} />
 
-            <Markdown content={Event?.body} firstLetter />
+            <RichText content={Event?.body} />
 
             {/* <PostTags tags={Event?.tags} /> */}
 
@@ -114,7 +114,7 @@ export default function EventBodyView({ Event }: Props) {
 
             <Divider sx={{ mt: 8 }} />
 
-            <PostAuthor author={Event?.author} />
+            <PostAuthor author={Event?.author} self />
 
             <Divider />
 
