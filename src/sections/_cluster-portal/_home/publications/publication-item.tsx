@@ -1,7 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 import Card from '@mui/material/Card';
 import Link from '@mui/material/Link';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -16,7 +19,7 @@ import urlFor from 'src/lib/sanity';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
-
+import PdfViewer from 'src/components/pdf-viewer/pdf-viewer';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -24,6 +27,10 @@ type Props = {
 };
 
 export default function PublicationItem({ Publication }: Props) {
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
+
+  const handleOpen = () => setIsPdfOpen(true);
+  const handleClose = () => setIsPdfOpen(false);
   return (
     <Card>
       <Image
@@ -58,8 +65,11 @@ export default function PublicationItem({ Publication }: Props) {
         </Stack>
 
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <Iconify icon="hugeicons:folder-open" sx={{ color: 'warning.main' }} />
+          <Button onClick={handleOpen}>
+            <Iconify icon="hugeicons:folder-open" sx={{ color: 'warning.main' }} />
+          </Button>
         </Stack>
+        <PdfViewer pdfUrl={Publication?.pdfUrl} open={isPdfOpen} onClose={handleClose} />
       </Stack>
     </Card>
   );

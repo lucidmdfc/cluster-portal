@@ -1,7 +1,8 @@
 'use client';
 
-import MainLayout from 'src/layouts/main';
+import { useState, useEffect } from 'react';
 
+import MainLayout from 'src/layouts/main';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -9,5 +10,17 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
-  return <MainLayout disabledSpacing>{children}</MainLayout>;
+  const [footerData, setFooterData] = useState(null);
+
+  useEffect(() => {
+    // Fetch footer data from the API route
+    async function fetchFooterData() {
+      const res = await fetch('/api/footer');
+      const data = await res.json();
+      setFooterData(data);
+    }
+
+    fetchFooterData();
+  }, []);
+  return <MainLayout footerContent={footerData}>{children}</MainLayout>;
 }

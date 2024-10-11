@@ -18,6 +18,7 @@ type Props = {
 };
 
 export default function FeaturedPublication({ Publications }: Props) {
+  console.log('Publications', Publications[0].pdfUrl);
   return (
     <Container
       sx={{
@@ -45,10 +46,9 @@ export default function FeaturedPublication({ Publications }: Props) {
         }}
       >
         {Publications.map((Publication: any) => (
-          <PublicationItem key={Publication.id} Publication={Publication} />
+          <PublicationItem key={Publication._id} Publication={Publication} />
         ))}
       </Box>
-
       <Box sx={{ textAlign: 'center' }}>
         <Button
           component={RouterLink}

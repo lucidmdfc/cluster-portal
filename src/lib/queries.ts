@@ -139,7 +139,7 @@ export const PUBLICATION_QUERY = defineQuery(` *[_type == "publication"]{
     description,
     body,
     publicationDate,
-    "pdfUrl": pdfFile
+    "pdfUrl": pdfFile.asset->url,
    
   }
 `);
@@ -162,3 +162,15 @@ export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil"]{
   body,
 }
   `);
+
+export const FOOTER_QUERY = defineQuery(`*[_type == "footer"][0]{
+  _id,
+  socialLinks,
+  sitemapLinks[]{...},
+  copyrightText,
+  extraSections[]{
+    title,
+    content,
+  },
+  ...
+}`);

@@ -10,6 +10,7 @@ type Props = BoxProps & {
   children: React.ReactNode;
   headerOnDark?: boolean;
   disabledSpacing?: boolean;
+  footerContent?: any;
 };
 
 export default function MainLayout({
@@ -17,6 +18,7 @@ export default function MainLayout({
   headerOnDark = false,
   disabledSpacing = false,
   sx,
+  footerContent,
   ...other
 }: Props) {
   return (
@@ -43,7 +45,7 @@ export default function MainLayout({
         {children}
       </Box>
 
-      <Footer />
+      <Footer footer={footerContent} />
     </Box>
   );
 }
