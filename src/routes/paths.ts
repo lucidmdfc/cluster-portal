@@ -68,10 +68,10 @@ export const paths = {
     },
   },
   // Auth
-  loginCover: '/auth/login-cover',
+  loginCover: '/auth/sign-in',
   loginBackground: '/auth/login-background',
   loginIllustration: '/auth/login-illustration',
-  registerCover: '/auth/register-cover',
+  registerCover: '/auth/sign-up',
   registerBackground: '/auth/register-background',
   registerIllustration: '/auth/register-illustration',
   forgotPassword: '/auth/forgot-password',

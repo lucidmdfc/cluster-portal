@@ -18,10 +18,11 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { signIn, signOutUser } from 'src/lib/firebase/firebaseAuth';
+
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-
 // ----------------------------------------------------------------------
 
 export default function LoginCoverView() {
@@ -52,13 +53,29 @@ export default function LoginCoverView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const user = await signIn(data.email, data.password);
+      console.log('User signed in:', user);
+      const idToken = await user.getIdToken(); // Get the ID token
+      // Send ID token to the server to create a session cookie
+      await fetch('/api/sessionLogin', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
       reset();
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
   });
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const renderHead = (
     <Stack
@@ -96,7 +113,11 @@ export default function LoginCoverView() {
       </Button>
     </Stack>
   );
-
+  const Logout = (
+    <Button fullWidth size="large" color="inherit" variant="outlined" onClick={handleSignOut}>
+      Sign Out
+    </Button>
+  );
   const renderForm = (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={2.5} alignItems="flex-end">
@@ -156,6 +177,7 @@ export default function LoginCoverView() {
       </Divider>
 
       {renderForm}
+      {Logout}
     </>
   );
 }

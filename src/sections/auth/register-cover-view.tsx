@@ -18,10 +18,11 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { signUp } from 'src/lib/firebase/firebaseAuth';
+
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-
 // ----------------------------------------------------------------------
 
 export default function RegisterCoverView() {
@@ -61,9 +62,17 @@ export default function RegisterCoverView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const user = await signUp(data.email, data.password);
+      const idToken = await user.getIdToken(); // Get the ID token
+      // Send ID token to the server to create a session cookie
+      await fetch('/api/sessionLogin', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+      console.log('User signed up:', user);
       reset();
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
