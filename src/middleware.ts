@@ -1,35 +1,38 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { auth } from 'src/lib/firebase/firebaseSdk'; // Client SDK
 
-import { paths } from 'src/routes/paths';
-
-import { adminAuth } from 'src/lib/firebase/firebaseAdmin';
-// Import the admin auth
-// This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
-  console.log('Middleware running for:', request.url);
-  const { cookies } = request;
-  // Check for a session cookie
-  const sessionCookie = cookies.get('session')?.value;
-
-  if (!sessionCookie) {
-    console.log('No session cookie found');
-    return NextResponse.redirect(new URL(paths.loginCover, request.url)); // Redirect to login if no session
-  }
+export async function middleware(req: NextRequest) {
   try {
-    // Verify the session cookie using Firebase Admin SDK
-    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie, true);
-    console.log('Session verified:', decodedClaims);
-    // Proceed with the request
-    return NextResponse.next();
+    // Step 1: Extract the Firebase token from the Authorization header
+    const token = req.headers.get('authorization')?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json({ message: 'No token provided' }, { status: 401 });
+    }
+
+    // Step 2: Verify the token using Firebase Auth Client SDK
+    const userCredential = await auth.signInWithCustomToken(token);
+    const user = userCredential.user;
+
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
+    // Step 3: Create a new NextResponse object and set a cookie with the user ID
+    const response = NextResponse.next();
+    response.cookies.set('user', ${user.uid}; Expires=${new Date(Date.now() + 2 * 60 * 60 * 1000).toUTCString()}; HttpOnly; Secure; SameSite=Lax);
+
+    console.log('Authenticated User:', user.uid);
+
+    return response;
   } catch (error) {
-    console.log('Session invalid or expired:', error);
-    // If the session cookie is invalid, redirect to login
-    return NextResponse.redirect(new URL(paths.loginCover, request.url));
+    console.error('Authentication Error:', error.message);
+    return NextResponse.json({ message: 'Unauthorized', error: error.message }, { status: 401 });
   }
 }
 
-//  See "Matching Paths" below to learn more
+// Configuration for the middleware to specify which paths to match
 export const config = {
-  matcher: '/jobs',
+  matcher: '/jobs', // Apply the middleware to /jobs
 };
