@@ -1,38 +1,41 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { auth } from 'src/lib/firebase/firebaseSdk'; // Client SDK
+import { NextRequest, NextResponse } from 'next/server';
+import { authMiddleware, redirectToHome, redirectToLogin } from 'next-firebase-auth-edge';
 
-export async function middleware(req: NextRequest) {
-  try {
-    // Step 1: Extract the Firebase token from the Authorization header
-    const token = req.headers.get('authorization')?.split('Bearer ')[1];
+import { clientConfig, serverConfig } from 'src/lib/firebase/config';
 
-    if (!token) {
-      return NextResponse.json({ message: 'No token provided' }, { status: 401 });
-    }
+const PUBLIC_PATHS = ['/auth/sign-in', '/auth/sign-up'];
+export async function middleware(request: NextRequest) {
+  console.log('Middleware', { pathname: request.nextUrl.pathname });
+  const cleanPath = request.nextUrl.pathname.replace(/\/$/, ''); // Normalize the path
+  console.log('Clean Path:', cleanPath);
 
-    // Step 2: Verify the token using Firebase Auth Client SDK
-    const userCredential = await auth.signInWithCustomToken(token);
-    const user = userCredential.user;
-
-    if (!user) {
-      throw new Error('User not authenticated');
-    }
-
-    // Step 3: Create a new NextResponse object and set a cookie with the user ID
-    const response = NextResponse.next();
-    response.cookies.set('user', ${user.uid}; Expires=${new Date(Date.now() + 2 * 60 * 60 * 1000).toUTCString()}; HttpOnly; Secure; SameSite=Lax);
-
-    console.log('Authenticated User:', user.uid);
-
-    return response;
-  } catch (error) {
-    console.error('Authentication Error:', error.message);
-    return NextResponse.json({ message: 'Unauthorized', error: error.message }, { status: 401 });
+  // Check if the current path is in the public paths list
+  if (PUBLIC_PATHS.includes(cleanPath)) {
+    return NextResponse.next(); // Let the request through, no redirection needed
   }
-}
+  return authMiddleware(request, {
+    loginPath: '/api/login',
+    logoutPath: '/api/logout',
+    apiKey: clientConfig.apiKey,
+    cookieName: serverConfig.cookieName,
+    cookieSignatureKeys: serverConfig.cookieSignatureKeys,
+    cookieSerializeOptions: serverConfig.cookieSerializeOptions,
+    serviceAccount: serverConfig.serviceAccount,
+    handleValidToken: async ({ token, decodedToken }, headers) => {
+      if (PUBLIC_PATHS.includes(cleanPath)) {
+        return redirectToHome(request);
+      }
+      return NextResponse.next({ request: { headers } });
+    },
+    handleInvalidToken: async (reason) => {
+      console.info('Missing or malformed credentials', { reason });
+      return redirectToLogin(request, { path: '/auth/sign-in', publicPaths: PUBLIC_PATHS });
+    },
+    handleError: async (error) => {
+      console.error('Unhandled authentication error', { error });
 
-// Configuration for the middleware to specify which paths to match
-export const config = {
-  matcher: '/jobs', // Apply the middleware to /jobs
-};
+      return redirectToLogin(request, { path: '/auth/sign-in', publicPaths: PUBLIC_PATHS });
+    },
+  });
+}
+export const config = { matcher: ['/', '/((?!_next|api|.*\\.).*)', '/api/login', '/api/logout'] };

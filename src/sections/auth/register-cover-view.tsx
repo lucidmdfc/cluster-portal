@@ -1,8 +1,10 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -18,7 +20,7 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { signUp } from 'src/lib/firebase/firebaseAuth';
+import { app } from 'src/lib/firebase/firebaseSdk';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
@@ -27,7 +29,7 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 export default function RegisterCoverView() {
   const passwordShow = useBoolean();
-
+  const router = useRouter();
   const RegisterSchema = Yup.object().shape({
     fullName: Yup.string()
       .required('Full name is required')
@@ -62,19 +64,11 @@ export default function RegisterCoverView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const user = await signUp(data.email, data.password);
-      const idToken = await user.getIdToken(); // Get the ID token
-      // Send ID token to the server to create a session cookie
-      await fetch('/api/sessionLogin', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
-      console.log('User signed up:', user);
+      await createUserWithEmailAndPassword(getAuth(app), data.email, data.password);
+      router.push(paths.loginCover);
       reset();
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error(e);
     }
   });
 

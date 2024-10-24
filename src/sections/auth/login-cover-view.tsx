@@ -1,8 +1,10 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -18,7 +20,7 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { signIn, signOutUser } from 'src/lib/firebase/firebaseAuth';
+import { app } from 'src/lib/firebase/firebaseSdk';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
@@ -27,6 +29,7 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 export default function LoginCoverView() {
   const passwordShow = useBoolean();
+  const router = useRouter();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -53,16 +56,10 @@ export default function LoginCoverView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const user = await signIn(data.email, data.password);
-      console.log('User signed in:', user);
-      const idToken = await user.getIdToken(); // Get the ID token
-      // Send ID token to the server to create a session cookie
-      await fetch('/api/sessionLogin', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
+      const credential = await signInWithEmailAndPassword(getAuth(app), data.email, data.password);
+      const idToken = await credential.user.getIdToken();
+      await fetch('/api/login', { headers: { Authorization: `Bearer ${idToken}` } });
+      router.push('/');
       reset();
     } catch (error) {
       console.error(error);
@@ -70,7 +67,9 @@ export default function LoginCoverView() {
   });
   const handleSignOut = async () => {
     try {
-      await signOutUser();
+      await signOut(getAuth(app));
+      await fetch('/api/logout');
+      router.push('/login');
       console.log('User signed out');
     } catch (error) {
       console.error('Error signing out:', error);
