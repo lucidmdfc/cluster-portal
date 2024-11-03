@@ -69,7 +69,7 @@ const RichText = ({ content }: props) => (
           </Link>
         ),
         externalLink: ({ children, value }) => (
-          <Link href={value.href} target="_blank" rel="noopener noreferrer" underline="hover">
+          <Link href={value} target="_blank" rel="noopener noreferrer" underline="hover">
             {children}
           </Link>
         ),
@@ -90,7 +90,7 @@ const RichText = ({ content }: props) => (
           <Box sx={{ marginBottom: 2, borderRadius: 2 }}>
             <Image
               src={value?.image ? (urlFor(value?.image.asset)?.url() ?? '') : ''}
-              alt={value.image.alt || ''}
+              alt={value?.image?.alt || ''}
               sx={{ borderRadius: 2 }}
             />
           </Box>

@@ -1,8 +1,8 @@
 'use client';
 
 import * as Yup from 'yup';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 

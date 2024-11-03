@@ -1,8 +1,8 @@
 'use client';
 
 import * as Yup from 'yup';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -57,19 +57,27 @@ export default function LoginCoverView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const credential = await signInWithEmailAndPassword(getAuth(app), data.email, data.password);
+      console.info('DATA', credential);
       const idToken = await credential.user.getIdToken();
-      await fetch('/api/login', { headers: { Authorization: `Bearer ${idToken}` } });
-      router.push('/');
+      console.info('ID TOKEN', idToken);
+      const response = await fetch('/api/login', {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+      console.info('RESPONSE', response);
       reset();
+      router.push('/');
     } catch (error) {
+      error.message = 'The email or password you entered is incorrect.';
       console.error(error);
     }
   });
   const handleSignOut = async () => {
     try {
-      await signOut(getAuth(app));
-      await fetch('/api/logout');
-      router.push('/login');
+      const responseFb = await signOut(getAuth(app));
+      console.log('RESPONSEFB', responseFb);
+      const response = await fetch('/api/logout');
+      console.log('RESPONSE', response);
+      router.push('/auth/sign-in/');
       console.log('User signed out');
     } catch (error) {
       console.error('Error signing out:', error);
