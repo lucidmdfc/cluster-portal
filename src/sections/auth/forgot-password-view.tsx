@@ -3,6 +3,7 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -12,10 +13,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
+import { app } from 'src/lib/firebase/firebaseSdk';
+
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-
 // ----------------------------------------------------------------------
 
 export default function ForgotPasswordView() {
@@ -33,6 +35,7 @@ export default function ForgotPasswordView() {
   });
 
   const {
+    setError,
     reset,
     handleSubmit,
     formState: { isSubmitting },
@@ -40,9 +43,10 @@ export default function ForgotPasswordView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      await sendPasswordResetEmail(getAuth(app), data.email);
       reset();
-      console.log('DATA', data);
     } catch (error) {
+      setError('email', { type: 'manual', message: error.message });
       console.error(error);
     }
   });

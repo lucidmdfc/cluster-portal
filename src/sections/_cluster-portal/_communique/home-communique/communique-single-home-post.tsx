@@ -54,7 +54,7 @@ export default function CommuniqueSingleHomePost({ communique }: Props) {
 
         <Link
           component={RouterLink}
-          href={`${paths.career.communique}/${communique?.slug?.current || ''}`}
+          href={`${paths.clusterPortal.communique}/${communique?.slug?.current || ''}`}
           color="inherit"
           variant="h5"
         >

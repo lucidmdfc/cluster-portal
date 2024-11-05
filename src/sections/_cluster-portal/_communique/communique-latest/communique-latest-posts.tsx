@@ -31,7 +31,7 @@ export default function CareerLatestPosts({ communiques }: Props) {
   const viewAllBtn = (
     <Button
       component={RouterLink}
-      href={paths.career.communique}
+      href={paths.clusterPortal.communique}
       color="inherit"
       endIcon={<Iconify icon="carbon:chevron-right" />}
     >

@@ -69,7 +69,7 @@ const RichText = ({ content }: props) => (
           </Link>
         ),
         externalLink: ({ children, value }) => (
-          <Link href={value} target="_blank" rel="noopener noreferrer" underline="hover">
+          <Link href={value?.url} target="_blank" rel="noopener noreferrer" underline="hover">
             {children}
           </Link>
         ),

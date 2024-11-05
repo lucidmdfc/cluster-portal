@@ -1,3 +1,8 @@
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { User, getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -12,13 +17,13 @@ import { useOffSetTop } from 'src/hooks/use-off-set-top';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { bgBlur } from 'src/theme/css';
+import { app } from 'src/lib/firebase/firebaseSdk';
 
 import Logo from 'src/components/logo';
 
 import NavMobile from './nav/mobile';
 import NavDesktop from './nav/desktop';
 import { HEADER } from '../config-layout';
-import Searchbar from '../common/searchbar';
 import { navConfig } from './config-navigation';
 import HeaderShadow from '../common/header-shadow';
 import SettingsButton from '../common/settings-button';
@@ -31,11 +36,29 @@ type Props = {
 
 export default function Header({ headerOnDark }: Props) {
   const theme = useTheme();
-
+  const auth = getAuth(app);
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // Updates the user state based on auth status
+    });
+    return () => unsubscribe();
+  }, [auth]);
   const offset = useOffSetTop();
-
+  const router = useRouter();
   const mdUp = useResponsive('up', 'md');
-
+  const handleSignOut = async () => {
+    try {
+      const responseFb = await signOut(getAuth(app));
+      console.log('RESPONSEFB', responseFb);
+      const response = await fetch('/api/logout');
+      console.log('RESPONSE', response);
+      router.push('/auth/sign-in/');
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
   const renderContent = (
     <>
       <Box sx={{ lineHeight: 0, position: 'relative' }}>
@@ -59,15 +82,32 @@ export default function Header({ headerOnDark }: Props) {
 
       <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
         <Stack spacing={1} direction="row" alignItems="center">
-          <Searchbar />
-
+          {user ? (
+            // Show "Logout" button if authenticated
+            <Button
+              fullWidth
+              size="large"
+              color="inherit"
+              variant="outlined"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </Button>
+          ) : (
+            // Show "Login" button if not authenticated
+            <Link href={paths.loginCover} passHref>
+              <Button fullWidth size="large" color="inherit" variant="outlined">
+                Login
+              </Button>
+            </Link>
+          )}
           <SettingsButton />
         </Stack>
 
         <Button
           variant="contained"
           color="inherit"
-          href={paths.career.communique}
+          href={paths.clusterPortal.communique}
           sx={{
             display: { xs: 'none', md: 'inline-flex' },
           }}

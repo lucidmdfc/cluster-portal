@@ -38,6 +38,16 @@ export const paths = {
     blog: '/blog',
     contact: '/contact',
   },
+  clusterPortal: {
+    root: '/',
+    jobs: '/jobs',
+    job: `/job`,
+    presentation: '/presentation',
+    communique: '/communique',
+    blog: '/blog',
+    allEvents: '/allEvents',
+    PresentationDetail: '/presentation-detail',
+  },
   // E-learning
   eLearning: {
     root: '/e-learning',

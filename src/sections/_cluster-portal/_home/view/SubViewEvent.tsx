@@ -17,6 +17,8 @@ import IconButton from '@mui/material/IconButton';
 
 import clusterLogo from 'public/assets/logo/cluster-logo.png';
 
+import { paths } from 'src/routes/paths';
+
 import { fDate } from 'src/utils/format-time';
 
 import { _socials, _coursePosts } from 'src/_mock';
@@ -57,7 +59,7 @@ export default function EventBodyView({ Event }: Props) {
         <CustomBreadcrumbs
           links={[
             { name: 'Home', href: '/' },
-            { name: 'All Events', href: '/allEvents' },
+            { name: 'All Events', href: paths.clusterPortal.allEvents },
             { name: Event?.title },
           ]}
           sx={{ my: 5 }}

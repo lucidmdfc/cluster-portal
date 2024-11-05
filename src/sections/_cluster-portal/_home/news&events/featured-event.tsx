@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 // import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
+import { paths } from 'src/routes/paths';
+
 import EventItem from './event-item';
 
 // ----------------------------------------------------------------------
@@ -23,7 +25,8 @@ export default function FeaturedEvent({ Events }: Props) {
       }}
     >
       {Events.slice(0, 6).map((Event: any) => (
-        <EventItem key={Event._id} Event={Event} Links="allEvents" />
+        // TODO paths
+        <EventItem key={Event._id} Event={Event} Links={paths.clusterPortal.allEvents} />
       ))}
     </Box>
   );

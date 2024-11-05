@@ -64,7 +64,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
 
         <Link
           component={RouterLink}
-          href={`${paths.career.blog}/${blog?.slug?.current || ''}`}
+          href={`${paths.clusterPortal.blog}/${blog?.slug?.current || ''}`}
           color="inherit"
         >
           <TextMaxLine

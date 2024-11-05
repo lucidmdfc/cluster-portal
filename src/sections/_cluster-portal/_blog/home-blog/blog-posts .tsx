@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
-import SingleBlogPost from './single-blog-post';
+import SingleBlogPost from './single-blog-post-card';
 
 // ----------------------------------------------------------------------
 

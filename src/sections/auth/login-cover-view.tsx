@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -49,6 +49,7 @@ export default function LoginCoverView() {
   });
 
   const {
+    setError,
     reset,
     handleSubmit,
     formState: { isSubmitting },
@@ -65,24 +66,12 @@ export default function LoginCoverView() {
       });
       console.info('RESPONSE', response);
       reset();
-      router.push('/');
+      router.push(paths.clusterPortal.jobs);
     } catch (error) {
-      error.message = 'The email or password you entered is incorrect.';
+      setError('email', { message: 'The email or password you entered is incorrect.' });
       console.error(error);
     }
   });
-  const handleSignOut = async () => {
-    try {
-      const responseFb = await signOut(getAuth(app));
-      console.log('RESPONSEFB', responseFb);
-      const response = await fetch('/api/logout');
-      console.log('RESPONSE', response);
-      router.push('/auth/sign-in/');
-      console.log('User signed out');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
 
   const renderHead = (
     <Stack
@@ -119,11 +108,6 @@ export default function LoginCoverView() {
         <Iconify icon="carbon:logo-github" width={24} sx={{ color: 'text.primary' }} />
       </Button>
     </Stack>
-  );
-  const Logout = (
-    <Button fullWidth size="large" color="inherit" variant="outlined" onClick={handleSignOut}>
-      Sign Out
-    </Button>
   );
   const renderForm = (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -184,7 +168,6 @@ export default function LoginCoverView() {
       </Divider>
 
       {renderForm}
-      {Logout}
     </>
   );
 }

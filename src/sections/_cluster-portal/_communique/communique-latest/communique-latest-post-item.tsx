@@ -79,7 +79,7 @@ export default function CommuniqueLatestPostItem({ communique, order, largePost 
           }}
         />
 
-        <Link component={RouterLink} href={paths.career.communique} color="inherit">
+        <Link component={RouterLink} href={paths.clusterPortal.communique} color="inherit">
           <TextMaxLine variant={largePost ? 'h3' : 'h6'}>{communique.title}</TextMaxLine>
         </Link>
 

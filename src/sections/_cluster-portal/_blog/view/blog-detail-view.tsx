@@ -35,7 +35,7 @@ export default function BlogDetailView({ blog, recentBlogs }: Props) {
           sx={{ my: 3 }}
           links={[
             { name: 'Home', href: '/' },
-            { name: 'Blog', href: paths.career.blog },
+            { name: 'Blog', href: paths.clusterPortal.blog },
             { name: blog.title },
           ]}
         />

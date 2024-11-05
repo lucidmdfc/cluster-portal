@@ -12,7 +12,7 @@ import urlFor from 'src/lib/sanity';
 import Image from 'src/components/image';
 import TextMaxLine from 'src/components/text-max-line';
 
-import PostTimeBlock from '../common/post-time-block';
+import PostTimeBlock from '../../common/post-time-block';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ export default function SingleBlogPost({ blog }: Props) {
 
         <Link
           component={RouterLink}
-          href={`${paths.career.blog}/${blog?.slug?.current || ''}`}
+          href={`${paths.clusterPortal.blog}/${blog?.slug?.current || ''}`}
           color="inherit"
         >
           <TextMaxLine variant="h5" persistent>

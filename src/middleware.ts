@@ -3,7 +3,7 @@ import { authMiddleware, redirectToHome, redirectToLogin } from 'next-firebase-a
 
 import { clientConfig, serverConfig } from 'src/lib/firebase/config';
 
-const PUBLIC_PATHS = ['/auth/sign-in/', '/auth/sign-up/'];
+const PUBLIC_PATHS = ['/auth/sign-in/', '/auth/sign-up/', '/auth/forgot-password/'];
 // always pay attention to the route you are trying to access they all end with '/'
 // so you have to add '/' to the end of the route you are trying to access
 export async function middleware(request: NextRequest) {
@@ -35,6 +35,7 @@ export async function middleware(request: NextRequest) {
     },
   });
 }
+// '/((?!_next|api|.*\\.).*)';
 export const config = {
-  matcher: ['/api/login/', '/api/logout/', '/jobs', '/((?!_next|api|.*\\.).*)'],
+  matcher: ['/api/login/', '/api/logout/', '/jobs'],
 };

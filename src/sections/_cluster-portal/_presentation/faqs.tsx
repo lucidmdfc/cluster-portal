@@ -21,7 +21,7 @@ type props = {
   roj: any;
 };
 
-export default function RojFaqs({ roj }: props) {
+export default function ClusterFaqs({ roj }: props) {
   const mdUp = useResponsive('up', 'md');
 
   const [expanded, setExpanded] = useState<string | false>(false);
