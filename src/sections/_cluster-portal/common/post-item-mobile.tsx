@@ -33,16 +33,18 @@ export default function PostItemMobile({ blog, onSiderbar }: Props) {
       alignItems={{ xs: 'flex-start', md: 'unset' }}
       sx={{ width: 1 }}
     >
-      <Image
-        alt={blog?.title}
-        src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
-        sx={{
-          width: 80,
-          height: 80,
-          flexShrink: 0,
-          borderRadius: 1.5,
-        }}
-      />
+      {coverImage && (
+        <Image
+          alt={blog?.title}
+          src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
+          sx={{
+            width: 80,
+            height: 80,
+            flexShrink: 0,
+            borderRadius: 1.5,
+          }}
+        />
+      )}
 
       <Stack spacing={onSiderbar ? 0.5 : 1}>
         <Link
