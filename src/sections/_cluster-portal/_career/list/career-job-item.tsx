@@ -66,7 +66,11 @@ export default function CareerJobItem({ job }: Props) {
         </Stack>
 
         <Stack spacing={0.5} sx={{ mt: 3, mb: 2 }}>
-          <Link component={RouterLink} href={paths.career.job} color="inherit">
+          <Link
+            component={RouterLink}
+            href={`${paths.clusterPortal.jobs}/${'slug'}`}
+            color="inherit"
+          >
             <TextMaxLine variant="h6" line={1}>
               {slug}
             </TextMaxLine>

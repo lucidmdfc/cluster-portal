@@ -46,7 +46,9 @@ export const paths = {
     communique: '/communique',
     blog: '/blog',
     allEvents: '/allEvents',
+    allJobs: '/allJobs',
     PresentationDetail: '/presentation-detail',
+    studio: '/studio',
   },
   // E-learning
   eLearning: {

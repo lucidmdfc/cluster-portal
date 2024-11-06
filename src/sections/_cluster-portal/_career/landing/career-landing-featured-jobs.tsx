@@ -70,7 +70,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
       <Stack alignItems="center">
         <Button
           component={RouterLink}
-          href={paths.career.jobs}
+          href={paths.clusterPortal.allJobs}
           color="inherit"
           size="large"
           variant="outlined"

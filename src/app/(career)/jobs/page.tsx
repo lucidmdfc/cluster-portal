@@ -1,4 +1,4 @@
-import CareerJobsView from 'src/sections/_career/view/career-jobs-view';
+import CareerLandingView from 'src/sections/_cluster-portal/_career/view/career-landing-view';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function CareerJobsPage() {
-  return <CareerJobsView />;
+  return <CareerLandingView />;
 }

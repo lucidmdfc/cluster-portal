@@ -12,10 +12,7 @@ export default function Layout({ children }: Props) {
   return (
     <AuthCoverLayout
       title={`Manage The Job \n More Effectively`}
-      images={[
-        '/assets/images/travel/travel_post_01.jpg',
-        '/assets/images/travel/travel_post_03.jpg',
-      ]}
+      images={['/assets/images/cluster/cluster01.jpg', '/assets/images/cluster/cluster02.jpg']}
     >
       {children}
     </AuthCoverLayout>

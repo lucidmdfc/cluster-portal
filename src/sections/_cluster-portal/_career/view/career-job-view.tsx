@@ -21,11 +21,9 @@ import { SplashScreen } from 'src/components/loading-screen';
 import Advertisement from '../../../advertisement';
 import CareerNewsletter from '../career-newsletter';
 import CareerJobListSimilar from '../list/career-job-list-similar';
-import CareerJobDetailsInfo from '../details/career-job-details-info';
-import CareerJobDetailsHero from '../details/career-job-details-hero';
-import CareerJobDetailsSummary from '../details/career-job-details-summary';
-import CareerJobDetailsCompanyInfo from '../details/career-job-details-company-info';
-import CareerJobDetailsCompanySimilar from '../details/career-job-details-company-similar';
+import CareerJobDetailsInfo from '../job-details/career-job-details-info';
+import CareerJobDetailsHero from '../job-details/career-job-details-hero';
+import CareerJobDetailsSummary from '../job-details/career-job-details-summary';
 
 // ----------------------------------------------------------------------
 
@@ -104,10 +102,6 @@ export default function CareerJobView() {
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
               {mdUp && <CareerJobDetailsInfo job={_mockJob} />}
-
-              <CareerJobDetailsCompanyInfo job={_mockJob} />
-
-              <CareerJobDetailsCompanySimilar jobs={_jobs.slice(-3)} />
 
               <Advertisement
                 advertisement={{
