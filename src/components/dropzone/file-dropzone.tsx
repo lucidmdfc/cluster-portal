@@ -154,7 +154,6 @@ export const FileDropzone: FC<FileDropzoneProps> = (props) => {
 
 FileDropzone.propTypes = {
   caption: PropTypes.string,
-  files: PropTypes.array,
   onRemove: PropTypes.func,
   onRemoveAll: PropTypes.func,
   onUpload: PropTypes.func,
