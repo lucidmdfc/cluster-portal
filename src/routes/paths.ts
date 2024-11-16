@@ -46,6 +46,7 @@ export const paths = {
     communique: '/communique',
     blog: '/blog',
     allEvents: '/allEvents',
+    AllPublications: '/allPublications',
     allJobs: '/allJobs',
     PresentationDetail: '/presentation-detail',
     studio: '/studio',

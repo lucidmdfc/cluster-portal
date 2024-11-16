@@ -86,10 +86,10 @@ export default function AuthCoverLayout({ title, images, children }: AuthCarouse
             sx={{
               p: 10,
               left: 0,
-              bottom: 80,
+              bottom: 10,
               width: 1,
               zIndex: 10,
-              textAlign: 'center',
+              textAlign: 'left',
               position: 'absolute',
               color: 'common.white',
               whiteSpace: 'pre-line',

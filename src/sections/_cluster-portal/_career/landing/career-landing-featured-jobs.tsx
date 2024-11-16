@@ -9,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import Iconify from 'src/components/iconify';
+import { SubmitForm } from 'src/components/form/form';
 
 import { IJobProps } from 'src/types/job';
 
@@ -37,14 +38,14 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
       >
         <Grid xs={12} md={4}>
           <Typography variant="overline" sx={{ color: 'text.disabled' }}>
-            Featured Jobs
+            Toutes nos offres
           </Typography>
         </Grid>
 
         <Grid xs={12} md={8}>
           <Typography variant="h3">
-            Jobs available apply to Editorial Specialist, Account Manager, Human Resources
-            Specialist and more!
+            Que vous soyez cadre ou ingénieur, vous trouverez ici toutes les dernières offres
+            postées par les entreprises partenaires du Cluster!
           </Typography>
         </Grid>
       </Grid>
@@ -76,8 +77,39 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
           variant="outlined"
           endIcon={<Iconify icon="carbon:chevron-right" />}
         >
-          View All Jobs
+          Voir tout
         </Button>
+      </Stack>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 4 }}
+        sx={{
+          textAlign: { xs: 'center', md: 'unset' },
+          mt: 5,
+        }}
+      >
+        <Grid xs={12} md={4}>
+          <Typography variant="overline" sx={{ color: 'text.disabled' }}>
+            Créer votre compte
+          </Typography>
+        </Grid>
+
+        <Grid xs={12} md={8}>
+          <Typography variant="h4">
+            Les données de ce formulaire constituent votre compte personnel. Pour les modifier, il
+            suffit de le remplir à nouveau. Vos anciennes données seront automatiquement remplacées.
+          </Typography>
+        </Grid>
+      </Grid>
+      <Stack
+        id="upload-cv"
+        alignItems="center"
+        direction="row"
+        justifyContent="center"
+        spacing={2}
+        sx={{ mt: 3 }}
+      >
+        <SubmitForm />
       </Stack>
     </Container>
   );

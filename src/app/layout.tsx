@@ -45,7 +45,7 @@ export default function RootLayout({ children }: Props) {
         <LocalizationProvider>
           <SettingsProvider
             defaultSettings={{
-              themeMode: 'light', // 'light' | 'dark'
+              themeMode: 'dark', // 'light' | 'dark'
               themeDirection: 'ltr', //  'rtl' | 'ltr'
               themeColorPresets: 'default', // 'default' | 'preset01' | 'preset02' | 'preset03' | 'preset04' | 'preset05'
             }}

@@ -10,7 +10,10 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <AuthCoverLayout title="Hi, Welcome Back" images={['/assets/images/cluster/cluster01.jpg']}>
+    <AuthCoverLayout
+      title="Créez votre profil et découvrez l'offre qui vous correspond le mieux!"
+      images={['/assets/images/cluster/cluster01.jpg']}
+    >
       {children}
     </AuthCoverLayout>
   );

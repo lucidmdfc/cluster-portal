@@ -52,7 +52,7 @@ export default function FeaturedPublication({ Publications }: Props) {
       <Box sx={{ textAlign: 'center' }}>
         <Button
           component={RouterLink}
-          href={paths.travel.tours}
+          href={paths.clusterPortal.AllPublications}
           size="large"
           variant="outlined"
           color="inherit"

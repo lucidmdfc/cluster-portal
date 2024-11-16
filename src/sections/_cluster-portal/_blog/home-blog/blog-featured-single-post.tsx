@@ -3,7 +3,6 @@
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import { paths } from 'src/routes/paths';
@@ -27,9 +26,13 @@ type Props = {
 
 export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
   const theme = useTheme();
+  console.log('blog', blog);
+
   const coverImage = blog?.illustrations.find(
     (illustration: any) => illustration.isCoverImage === true
   );
+  console.log('coverImage', coverImage);
+
   return (
     <Box sx={{ borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
       {coverImage && (
@@ -82,8 +85,8 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
         {largePost && <TextMaxLine sx={{ opacity: 0.48 }}>{blog?.description}</TextMaxLine>}
 
         <Stack direction="row" alignItems="center" sx={{ typography: 'body2', pt: 1.5 }}>
-          <Avatar
-            src={blog ? urlFor(blog?.author.image?.imageAsset.image.asset)?.url() : ''}
+          {/* <Avatar
+            src={blog ? urlFor(blog?.author?.imageAsset?.image?.asset)?.url() : ''}
             sx={{
               mr: 1,
               width: 32,
@@ -93,7 +96,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
                 height: { xs: 32, md: 40 },
               }),
             }}
-          />
+          /> */}
           {blog?.author.name}
         </Stack>
       </Stack>

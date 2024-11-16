@@ -9,7 +9,6 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -82,13 +81,13 @@ export default function LoginCoverView() {
       }}
     >
       <Typography variant="h3" paragraph>
-        Login
+        Authentification
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        {`Don’t have an account? `}
+        {`Vous n'avez pas encore de compte? `}
         <Link component={RouterLink} href={paths.registerCover} variant="subtitle2" color="primary">
-          Get started
+          Inscrivez-vous
         </Link>
       </Typography>
     </Stack>
@@ -136,7 +135,7 @@ export default function LoginCoverView() {
           underline="always"
           color="text.secondary"
         >
-          Forgot password?
+          Mot de psse oublié?
         </Link>
 
         <LoadingButton
@@ -147,7 +146,7 @@ export default function LoginCoverView() {
           variant="contained"
           loading={isSubmitting}
         >
-          Login
+          Connexion
         </LoadingButton>
       </Stack>
     </FormProvider>
@@ -158,15 +157,6 @@ export default function LoginCoverView() {
       <Logo />
 
       {renderHead}
-
-      {renderSocials}
-
-      <Divider sx={{ py: 3 }}>
-        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-          OR
-        </Typography>
-      </Divider>
-
       {renderForm}
     </>
   );

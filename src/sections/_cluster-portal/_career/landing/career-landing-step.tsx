@@ -1,3 +1,5 @@
+import { useForm } from 'react-hook-form';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -5,23 +7,22 @@ import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
-
 // ----------------------------------------------------------------------
 
 const STEPS = [
   {
-    title: 'Create an account',
-    description: 'Nunc nonummy metus. Donec elit libero.',
+    title: 'Créer votre compte',
+    description: "Il suffit d'uploader ensuite votre CV!.",
     icon: '/assets/icons/ic_resume_job.svg',
   },
   {
-    title: 'Complete your profile',
-    description: 'Nunc nonummy metus. Donec elit libero.',
+    title: 'Naviguez directement les offres',
+    description: 'Vous pouvez accéder à toutes les offres en un clic',
     icon: '/assets/icons/ic_resume_job.svg',
   },
   {
-    title: 'Search your job',
-    description: 'Nunc nonummy metus. Donec elit libero.',
+    title: 'Postulez',
+    description: 'En un clic votre candidature est reçue par le recruteur',
     icon: '/assets/icons/ic_search_job.svg',
   },
 ];
@@ -29,6 +30,15 @@ const STEPS = [
 // ----------------------------------------------------------------------
 
 export default function CareerLandingStep() {
+  const offre = " L'offre d'emploi qui vous correspond!";
+  const defaultValues = {
+    email: '',
+    password: '',
+  };
+
+  const methods = useForm({
+    defaultValues,
+  });
   return (
     <Box
       sx={{
@@ -39,16 +49,16 @@ export default function CareerLandingStep() {
     >
       <Container>
         <Typography variant="overline" sx={{ color: 'text.disabled' }}>
-          For Candidates
+          Pour les candidats
         </Typography>
 
         <Typography variant="h2" sx={{ my: 3 }}>
-          Explore Thousands of Jobs
+          {offre}
         </Typography>
 
         <Typography sx={{ color: 'text.secondary', maxWidth: 480, mx: 'auto' }}>
-          Donec mi odio, faucibus at, scelerisque quis, convallis in, nisi. Morbi mattis ullamcorper
-          velit.
+          La Job Marketplace du MDFC vous offre une expérience intuitive pour la recherche des
+          opportunités, avec des offres ciblées et orientées uniquement Textile
         </Typography>
 
         <Box
@@ -77,7 +87,7 @@ export default function CareerLandingStep() {
                 variant="overline"
                 sx={{ mt: 4, display: 'block', color: 'text.disabled' }}
               >
-                Step {index + 1}
+                étape {index + 1}
               </Typography>
 
               <Typography variant="h5" sx={{ mt: 2, mb: 1 }}>
@@ -97,7 +107,7 @@ export default function CareerLandingStep() {
           color="inherit"
           startIcon={<Iconify icon="carbon:cloud-upload" />}
         >
-          Upload Your CV
+          Créer mon profil
         </Button>
       </Container>
     </Box>

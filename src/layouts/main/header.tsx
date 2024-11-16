@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { User, getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
@@ -85,21 +84,28 @@ export default function Header({ headerOnDark }: Props) {
           {user ? (
             // Show "Logout" button if authenticated
             <Button
-              fullWidth
-              size="large"
-              color="inherit"
-              variant="outlined"
+              variant="contained"
+              color="primary"
+              sx={{
+                display: { xs: 'none', md: 'inline-flex' },
+              }}
               onClick={handleSignOut}
             >
-              Sign Out
+              Déconnexion
             </Button>
           ) : (
             // Show "Login" button if not authenticated
-            <Link href={paths.loginCover} passHref>
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                Login
-              </Button>
-            </Link>
+
+            <Button
+              variant="contained"
+              color="primary"
+              href={paths.loginCover}
+              sx={{
+                display: { xs: 'none', md: 'inline-flex' },
+              }}
+            >
+              Connexion
+            </Button>
           )}
           <SettingsButton />
         </Stack>

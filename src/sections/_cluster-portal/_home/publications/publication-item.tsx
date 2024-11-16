@@ -9,9 +9,6 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
-
 import { fDate } from 'src/utils/format-time';
 
 import urlFor from 'src/lib/sanity';
@@ -44,7 +41,7 @@ export default function PublicationItem({ Publication }: Props) {
           {Publication?.title}
         </Typography>
 
-        <Link component={RouterLink} href={paths.travel.tour} color="inherit">
+        <Link onClick={handleOpen} color="inherit">
           <TextMaxLine variant="h6" persistent>
             {Publication?.subTitle}
           </TextMaxLine>

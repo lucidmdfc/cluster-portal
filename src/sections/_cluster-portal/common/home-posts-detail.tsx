@@ -13,7 +13,6 @@ import RichText from 'src/components/rich-text/rich-text';
 
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
-import HomePngBackground from './home-png-background';
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 
 // ----------------------------------------------------------------------
@@ -29,9 +28,6 @@ export default function HomePostsDetail({ Data }: Props) {
           links={[{ name: 'Home', href: '/' }, { name: Data?.title }]}
           sx={{ my: 5 }}
         />
-
-        {Data?.image?.image && <HomePngBackground Accueil={Data} />}
-
         <Grid container spacing={3} justifyContent={{ md: 'center' }}>
           <Grid xs={12} md={8}>
             <Divider sx={{ mb: 6 }} />

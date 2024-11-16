@@ -60,12 +60,12 @@ export default function ForgotPasswordView() {
       />
 
       <Typography variant="h3" paragraph>
-        Forgot Your Password?
+        Mot de passe oublié?
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary', mb: 5 }}>
-        Please enter the email address associated with your account and We will email you a link to
-        reset your password.
+        Veuillez saisir votre email associé à ce compte pour recevoir un lien de réinitialisation de
+        mot de passe.
       </Typography>
 
       <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -80,7 +80,7 @@ export default function ForgotPasswordView() {
           loading={isSubmitting}
           sx={{ mt: 2.5 }}
         >
-          Reset Password
+          Réinitialiser
         </LoadingButton>
       </FormProvider>
 
@@ -97,7 +97,7 @@ export default function ForgotPasswordView() {
         }}
       >
         <Iconify icon="carbon:chevron-left" width={16} sx={{ mr: 1 }} />
-        Return to sign in
+        Retour à la connexion
       </Link>
     </Stack>
   );
