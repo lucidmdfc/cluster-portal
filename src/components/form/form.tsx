@@ -14,7 +14,157 @@ import {
   SvgIcon,
   ListItem,
   ListItemIcon,
+  ListItemText,'use client';
+
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
+import React, { FC, useState } from 'react';
+import {
+  Button,
+  TextField,
+  Box,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
   ListItemText,
+} from '@mui/material';
+import Upload01 from '@untitled-ui/icons-react/build/esm/Upload01';
+import { FileIcon } from 'src/components/file-icon/file-icon';
+
+type FormProps = {
+  onSubmit: (data: FormData) => void;
+  isSubmitting: boolean;
+};
+
+const validationSchema = yup.object({
+  nom: yup.string().required('Nom complet est requis'),
+  entreprise: yup.string().required('Entreprise partenaire est requise'),
+  projet: yup.string().required('Intitulé du projet est requis'),
+  email: yup.string().email('Format email invalide').required('Adresse email est requise'),
+});
+
+export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
+  const [files, setFiles] = useState<File[]>([]);
+  const formik = useFormik({
+    initialValues: {
+      nom: '',
+      entreprise: '',
+      projet: '',
+      email: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => formData.append(key, value));
+      files.forEach((file) => formData.append('files', file));
+
+      if (files.length !== 2) {
+        toast.error('Veuillez sélectionner exactement 2 fichiers.');
+        return;
+      }
+
+      onSubmit(formData);
+    },
+  });
+
+  return (
+    <Box>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container spacing={3}>
+          <Grid xs={12}>
+            <TextField
+              fullWidth
+              label="Nom complet"
+              name="nom"
+              required
+              value={formik.values.nom}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.nom && Boolean(formik.errors.nom)}
+              helperText={formik.touched.nom && formik.errors.nom}
+            />
+          </Grid>
+          <Grid xs={12}>
+            <TextField
+              fullWidth
+              label="Entreprise partenaire"
+              name="entreprise"
+              required
+              value={formik.values.entreprise}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.entreprise && Boolean(formik.errors.entreprise)}
+              helperText={formik.touched.entreprise && formik.errors.entreprise}
+            />
+          </Grid>
+          <Grid xs={12}>
+            <TextField
+              fullWidth
+              label="Intitulé du projet"
+              name="projet"
+              required
+              value={formik.values.projet}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.projet && Boolean(formik.errors.projet)}
+              helperText={formik.touched.projet && formik.errors.projet}
+            />
+          </Grid>
+          <Grid xs={12}>
+            <TextField
+              fullWidth
+              label="Adresse email"
+              name="email"
+              type="email"
+              required
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </Grid>
+          <Grid xs={12}>
+            <Button
+              startIcon={<Upload01 />}
+              variant="outlined"
+              onClick={() => document.getElementById('file-upload')?.click()}
+            >
+              Téléverser des fichiers
+            </Button>
+            <input
+              type="file"
+              id="file-upload"
+              multiple
+              hidden
+              onChange={(e) => setFiles([...e.target.files])}
+            />
+          </Grid>
+          <Grid xs={12}>
+            <List>
+              {files.map((file, index) => (
+                <ListItem key={index}>
+                  <ListItemIcon>
+                    <FileIcon extension={file.name.split('.').pop()} />
+                  </ListItemIcon>
+                  <ListItemText primary={file.name} />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+        </Grid>
+        <Box mt={4}>
+          <Button type="submit" variant="contained" disabled={isSubmitting}>
+            {isSubmitting ? 'En cours...' : 'Soumettre'}
+          </Button>
+        </Box>
+      </form>
+    </Box>
+  );
+};
+
   LinearProgress,
   CircularProgress,
 } from '@mui/material';
