@@ -1,0 +1,39 @@
+// Import the createClient function from the Sanity client setup.
+import { createClient } from '@/lib/client';
+// Import the serverAction utility from Next.js to handle server-side actions.
+import { serverAction } from 'next/server';
+
+// Initialize the Sanity client by calling the createClient function
+const client = createClient();
+
+// Define the server action function that will handle form submission
+export const handleFormSubmission = serverAction(async (formData: any) => {
+  try {
+    // Build the Sanity document based on the form data
+    const sanityDocument = {
+      _type: 'account', // Define the Sanity document type (should match your schema in Sanity)
+      name: formData.nom, // The name from the form
+      email: formData.email, // The email from the form
+      entreprise: formData.entreprise, // The entreprise from the form
+      projet: formData.projet, // The project title from the form
+      uploadedFiles: formData.files || [], // The uploaded files, if any (handle files properly)
+    };
+
+    // Send the data to Sanity using the 'create' method to create a new document
+    const result = await client.create(sanityDocument);
+
+    // Return a success response with the result from Sanity
+    return {
+      success: true,
+      message: 'Form data submitted successfully.',
+      result,
+    };
+  } catch (error) {
+    // Handle any errors during the submission process
+    return {
+      success: false,
+      message: 'Error while submitting form data.',
+      error: error.message, // Return the error message to the client
+    };
+  }
+});
