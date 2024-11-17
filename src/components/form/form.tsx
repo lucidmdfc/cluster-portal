@@ -133,36 +133,4 @@ export const DynamicForm: FC<DynamicFormProps> = ({
   );
 };
 
-// Example usage of DynamicForm
-const App: FC = () => {
-  const fields: FieldConfig[] = [
-    { name: 'nom', label: 'Nom complet', required: true },
-    { name: 'entreprise', label: 'Entreprise partenaire', required: true },
-    { name: 'projet', label: 'Intitulé du projet', required: true },
-    { name: 'email', label: 'Adresse email', type: 'email', required: true },
-  ];
-
-  const validationSchema = yup.object({
-    nom: yup.string().required('Nom complet est requis'),
-    entreprise: yup.string().required('Entreprise partenaire est requise'),
-    projet: yup.string().required('Intitulé du projet est requis'),
-    email: yup.string().email('Format email invalide').required('Adresse email est requise'),
-  });
-
-  const handleSubmit = (formData: FormData) => {
-    // Handle form submission
-    console.log('FormData submitted:', Array.from(formData.entries()));
-  };
-
-  return (
-    <DynamicForm
-      fields={fields}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      isSubmitting={false}
-    />
-  );
-};
-
-export default App;
 
