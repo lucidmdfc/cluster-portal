@@ -1,30 +1,12 @@
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import toast from 'react-hot-toast';
-import React, { FC, useRef, useState } from 'react';
-import Send01 from '@untitled-ui/icons-react/build/esm/Send01';
-import Upload01 from '@untitled-ui/icons-react/build/esm/Upload01';
-
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Unstable_Grid2';
-import TextField from '@mui/material/TextField';
-import {
-  List,
-  SvgIcon,
-  ListItem,
-  ListItemIcon,
-  ListItemText,'use client';
-
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
 import React, { FC, useState } from 'react';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
 import {
-  Button,
-  TextField,
   Box,
+  Button,
   Grid,
+  TextField,
   List,
   ListItem,
   ListItemIcon,
@@ -33,39 +15,55 @@ import {
 import Upload01 from '@untitled-ui/icons-react/build/esm/Upload01';
 import { FileIcon } from 'src/components/file-icon/file-icon';
 
-type FormProps = {
-  onSubmit: (data: FormData) => void;
-  isSubmitting: boolean;
+// Type definition for field configuration
+type FieldConfig = {
+  name: string; // Field name
+  label: string; // Label for the field
+  type?: string; // Input type, e.g., 'text', 'email'
+  required?: boolean; // Whether the field is required
+  initialValue?: string; // Initial value for the field
 };
 
-const validationSchema = yup.object({
-  nom: yup.string().required('Nom complet est requis'),
-  entreprise: yup.string().required('Entreprise partenaire est requise'),
-  projet: yup.string().required('Intitulé du projet est requis'),
-  email: yup.string().email('Format email invalide').required('Adresse email est requise'),
-});
+// Props for the form component
+type DynamicFormProps = {
+  fields: FieldConfig[]; // Field configurations
+  validationSchema: yup.ObjectSchema<any>; // Yup validation schema
+  onSubmit: (data: FormData) => void; // Submit handler
+  isSubmitting: boolean; // Loading state
+};
 
-export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
-  const [files, setFiles] = useState<File[]>([]);
+// Reusable form component
+export const DynamicForm: FC<DynamicFormProps> = ({
+  fields,
+  validationSchema,
+  onSubmit,
+  isSubmitting,
+}) => {
+  const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
+
+  // Generate initialValues dynamically from fields
+  const initialValues = fields.reduce(
+    (acc, field) => ({ ...acc, [field.name]: field.initialValue || '' }),
+    {}
+  );
+
+  // Initialize Formik with dynamic configurations
   const formik = useFormik({
-    initialValues: {
-      nom: '',
-      entreprise: '',
-      projet: '',
-      email: '',
-    },
+    initialValues,
     validationSchema,
     onSubmit: (values) => {
+      // Convert form values and files into FormData
       const formData = new FormData();
       Object.entries(values).forEach(([key, value]) => formData.append(key, value));
       files.forEach((file) => formData.append('files', file));
 
+      // Validate the number of files
       if (files.length !== 2) {
         toast.error('Veuillez sélectionner exactement 2 fichiers.');
         return;
       }
 
-      onSubmit(formData);
+      onSubmit(formData); // Pass FormData to the parent handler
     },
   });
 
@@ -73,60 +71,26 @@ export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
     <Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={3}>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Nom complet"
-              name="nom"
-              required
-              value={formik.values.nom}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.nom && Boolean(formik.errors.nom)}
-              helperText={formik.touched.nom && formik.errors.nom}
-            />
-          </Grid>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Entreprise partenaire"
-              name="entreprise"
-              required
-              value={formik.values.entreprise}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.entreprise && Boolean(formik.errors.entreprise)}
-              helperText={formik.touched.entreprise && formik.errors.entreprise}
-            />
-          </Grid>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Intitulé du projet"
-              name="projet"
-              required
-              value={formik.values.projet}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.projet && Boolean(formik.errors.projet)}
-              helperText={formik.touched.projet && formik.errors.projet}
-            />
-          </Grid>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Adresse email"
-              name="email"
-              type="email"
-              required
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-          </Grid>
-          <Grid xs={12}>
+          {/* Dynamically render form fields */}
+          {fields.map((field) => (
+            <Grid item xs={12} key={field.name}>
+              <TextField
+                fullWidth
+                label={field.label}
+                name={field.name}
+                type={field.type || 'text'}
+                required={field.required}
+                value={formik.values[field.name]}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
+                helperText={formik.touched[field.name] && formik.errors[field.name]}
+              />
+            </Grid>
+          ))}
+
+          {/* File upload button */}
+          <Grid item xs={12}>
             <Button
               startIcon={<Upload01 />}
               variant="outlined"
@@ -139,15 +103,17 @@ export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
               id="file-upload"
               multiple
               hidden
-              onChange={(e) => setFiles([...e.target.files])}
+              onChange={(e) => setFiles([...Array.from(e.target.files || [])])}
             />
           </Grid>
-          <Grid xs={12}>
+
+          {/* Display uploaded files */}
+          <Grid item xs={12}>
             <List>
               {files.map((file, index) => (
                 <ListItem key={index}>
                   <ListItemIcon>
-                    <FileIcon extension={file.name.split('.').pop()} />
+                    <FileIcon extension={file.name.split('.').pop() || ''} />
                   </ListItemIcon>
                   <ListItemText primary={file.name} />
                 </ListItem>
@@ -155,6 +121,8 @@ export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
             </List>
           </Grid>
         </Grid>
+
+        {/* Submit button */}
         <Box mt={4}>
           <Button type="submit" variant="contained" disabled={isSubmitting}>
             {isSubmitting ? 'En cours...' : 'Soumettre'}
@@ -165,210 +133,36 @@ export const SubmitForm: FC<FormProps> = ({ onSubmit, isSubmitting }) => {
   );
 };
 
-  LinearProgress,
-  CircularProgress,
-} from '@mui/material';
+// Example usage of DynamicForm
+const App: FC = () => {
+  const fields: FieldConfig[] = [
+    { name: 'nom', label: 'Nom complet', required: true },
+    { name: 'entreprise', label: 'Entreprise partenaire', required: true },
+    { name: 'projet', label: 'Intitulé du projet', required: true },
+    { name: 'email', label: 'Adresse email', type: 'email', required: true },
+  ];
 
-import { useDialog } from 'src/hooks/use-dialog';
-
-import { bytesToSize } from 'src/utils/bytes-to-size';
-
-import { FileIcon } from 'src/components/file-icon/file-icon';
-
-import { FileUploader } from './file-uploader';
-
-// Define the validation schema
-const validationSchema = yup.object({
-  nom: yup.string().required('Nom complet est requis'),
-  entreprise: yup.string().required('Entreprise partenaire est requis'),
-  projet: yup.string().required('Intitulé du projet est requis'),
-  email: yup.string().email('Format email invalide').required('Addresse Email est requis'),
-  // files: yup.mixed().required('Veuillez sélectionner un fichier'),
-});
-
-export const SubmitForm: FC = () => {
-  const [files, setFiles] = useState<File[]>([]);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const [loading, setLoading] = useState(false);
-  const uploadDialog = useDialog();
-
-  // Initialize Formik
-  const formik = useFormik({
-    initialValues: {
-      nom: '',
-      entreprise: '',
-      projet: '',
-      email: '',
-    },
-    validationSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      if (files.length === 0) {
-        toast.error('Aucun fichier sélectionné pour le téléchargement!');
-      } else if (files.length !== 2) {
-        toast.error('Veuillez sélectionner exactement 2 fichiers.');
-      } else {
-        handleUpload();
-        try {
-          setLoading(true);
-        } catch (error) {
-          toast.error('Échec de l’envoi de la candidature. Veuillez réessayer.');
-          console.error('Échec de l’envoi de la candidature. Veuillez réessayer.: ', error);
-        } finally {
-          setSubmitting(false);
-          setLoading(false);
-        }
-      }
-    },
+  const validationSchema = yup.object({
+    nom: yup.string().required('Nom complet est requis'),
+    entreprise: yup.string().required('Entreprise partenaire est requise'),
+    projet: yup.string().required('Intitulé du projet est requis'),
+    email: yup.string().email('Format email invalide').required('Adresse email est requise'),
   });
 
-  const handleUpload = async () => {
-    if (files.length === 0) {
-      toast.error('No files selected for upload');
-    }
+  const handleSubmit = (formData: FormData) => {
+    // Handle form submission
+    console.log('FormData submitted:', Array.from(formData.entries()));
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: 'neutral.900',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'top center',
-        color: 'neutral.100',
-        py: '120px',
-        p: 4,
-        my: 2,
-        borderRadius: 2,
-      }}
-    >
-      {loading && <LinearProgress />}
-      <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Nom complet"
-              name="nom"
-              ref={nameRef}
-              required
-              value={formik.values.nom}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.nom && Boolean(formik.errors.nom)}
-              helperText={formik.touched.nom && formik.errors.nom}
-            />
-          </Grid>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Entreprise partenaire"
-              name="entreprise"
-              required
-              value={formik.values.entreprise}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.entreprise && Boolean(formik.errors.entreprise)}
-              helperText={formik.touched.entreprise && formik.errors.entreprise}
-            />
-          </Grid>
-          <Grid xs={12}>
-            <TextField
-              fullWidth
-              label="Intitulé du projet"
-              name="projet"
-              required
-              value={formik.values.projet}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.projet && Boolean(formik.errors.projet)}
-              helperText={formik.touched.projet && formik.errors.projet}
-              size="small"
-            />
-          </Grid>
-          <Grid container xs={12} spacing={4}>
-            <Grid xs={12} md={8}>
-              <TextField
-                fullWidth
-                required
-                label="Addresse Email"
-                ref={emailRef}
-                name="email"
-                type="email"
-                size="small"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-            </Grid>
-            <Grid xs={12} md={4} alignSelf="end">
-              <Button
-                sx={{
-                  width: '100%',
-                  py: 1.3,
-                }}
-                onClick={uploadDialog.handleOpen}
-                startIcon={
-                  <SvgIcon>
-                    <Upload01 />
-                  </SvgIcon>
-                }
-                color="info"
-                variant="outlined"
-              >
-                Déposer/Remplacer mon CV
-              </Button>
-              <FileUploader
-                onClose={uploadDialog.handleClose}
-                open={uploadDialog.open}
-                onSelectFiles={(file) => {
-                  setFiles(files);
-                }}
-              />
-            </Grid>
-            <Grid xs={12}>
-              <List>
-                {files.map((file, i) => {
-                  const extension = file.name.split('.').pop();
-
-                  return (
-                    <ListItem
-                      key={i}
-                      sx={{
-                        border: 1,
-                        borderColor: 'divider',
-                        borderRadius: 1,
-                        '& + &': {
-                          mt: 1,
-                        },
-                      }}
-                    >
-                      <ListItemIcon>
-                        <FileIcon extension={extension} />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={file.name}
-                        primaryTypographyProps={{ variant: 'subtitle2' }}
-                        secondary={bytesToSize(file.size)}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Box sx={{ mt: 6 }}>
-          <Button
-            type="submit"
-            variant="contained"
-            startIcon={formik.isSubmitting ? <CircularProgress size={12} /> : <Send01 />}
-          >
-            Valider
-          </Button>
-        </Box>
-      </form>
-    </Box>
+    <DynamicForm
+      fields={fields}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+      isSubmitting={false}
+    />
   );
 };
+
+export default App;
+
