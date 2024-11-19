@@ -1,0 +1,51 @@
+// src/app/api/createCandidate/route.js
+import { NextResponse } from 'next/server';
+import { client } from '@/lib/sanityClient'; // Import your Sanity client
+import { IncomingForm } from 'formidable';
+import fs from 'fs';
+
+export async function POST(req) {
+  const form = new IncomingForm();
+  form.uploadDir = './public/uploads'; // Temporary file storage directory
+  form.keepExtensions = true; // Keep the file extension
+
+  return new Promise((resolve, reject) => {
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        reject(new NextResponse('Error parsing form data', { status: 400 }));
+        return;
+      }
+
+      const { fullName, email, phone } = fields;
+      const cvFile = files.cv && files.cv[0];
+
+      try {
+        // Upload the CV to Sanity
+        const fileUpload = await client.assets.upload('file', fs.createReadStream(cvFile.filepath), {
+          filename: cvFile.originalFilename,
+        });
+
+        // Create candidate profile in Sanity
+        const candidateProfile = {
+          _type: 'candidateProfile',
+          fullName,
+          email,
+          phone,
+          cv: {
+            _type: 'file',
+            asset: {
+              _ref: fileUpload._id,
+              _type: 'reference',
+            },
+          },
+        };
+
+        const result = await client.create(candidateProfile);
+
+        resolve(NextResponse.json({ message: 'Candidate profile created successfully', result }));
+      } catch (error) {
+        reject(new NextResponse(`Error: ${error.message}`, { status: 500 }));
+      }
+    });
+  });
+}
