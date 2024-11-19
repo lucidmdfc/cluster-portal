@@ -174,3 +174,5 @@ export const FOOTER_QUERY = defineQuery(`*[_type == "footer"][0]{
   },
   ...
 }`);
+
+

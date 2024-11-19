@@ -11,9 +11,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  SvgIcon,
 } from '@mui/material';
 import Upload01 from '@untitled-ui/icons-react/build/esm/Upload01';
 import { FileIcon } from 'src/components/file-icon/file-icon';
+
+import { FileUploader } from './file-uploader';
+import { useDialog } from 'src/hooks/use-dialog';
 
 // Type definition for field configuration
 type FieldConfig = {
@@ -40,6 +44,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
   isSubmitting,
 }) => {
   const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
+  const uploadDialog = useDialog();
 
   // Generate initialValues dynamically from fields
   const initialValues = fields.reduce(
@@ -92,18 +97,35 @@ export const DynamicForm: FC<DynamicFormProps> = ({
           {/* File upload button */}
           <Grid item xs={12}>
             <Button
-              startIcon={<Upload01 />}
+              sx={{
+                  width: '100%',
+                  py: 1.3,
+                }}
+                startIcon={
+                  <SvgIcon>
+                    <Upload01 />
+                  </SvgIcon>
+                }
+                color="info"
               variant="outlined"
-              onClick={() => document.getElementById('file-upload')?.click()}
+              onClick={uploadDialog.handleOpen}
+              // onClick={() => document.getElementById('file-upload')?.click()}
             >
               Téléverser des fichiers
             </Button>
-            <input
+            {/* <input
               type="file"
               id="file-upload"
               multiple
               hidden
               onChange={(e) => setFiles([...Array.from(e.target.files || [])])}
+            /> */}
+            <FileUploader
+              onClose={uploadDialog.handleClose}
+              open={uploadDialog.open}
+              onSelectFiles={(files) => {
+                setFiles(files);
+              }}
             />
           </Grid>
 
