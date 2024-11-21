@@ -1,4 +1,4 @@
-import ClusterFaqs from 'src/sections/_cluster-portal/_presentation/faqs';
+import ClusterFaqs from 'src/sections/_cluster-portal/FAQ_common-component/faqs';
 import AboutUs from 'src/sections/_cluster-portal/_presentation/about-us';
 
 type props = {

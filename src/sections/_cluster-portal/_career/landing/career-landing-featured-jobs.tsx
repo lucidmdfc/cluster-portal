@@ -50,16 +50,16 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
 
   // Handle form submission
   const handleSubmit = async (formData: FormData) => {
+    console.log('Submitted FormData:', formData);
     try {
       // Here, you can send the formData to your backend API
       console.log('Submitted FormData:', formData);
-
       // Display a success message
-      toast.success('Form successfully submitted!');
+      toast.success('Votre formulaire a été envoyé avec succès');
     } catch (error) {
       // Handle errors during form submission
       console.error('Error submitting form:', error);
-      toast.error('An error occurred. Please try again.');
+      toast.error("Échec de l'envoi du formulaire, veuillez réessayer");
     }
   };
 

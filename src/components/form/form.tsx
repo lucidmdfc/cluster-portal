@@ -71,6 +71,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
       onSubmit(formData); // Pass FormData to the parent handler
     },
   });
+  console.log(formik)
 
   return (
     <Box>
