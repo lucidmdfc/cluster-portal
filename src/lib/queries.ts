@@ -36,18 +36,13 @@ export const BLOG_QUERY = defineQuery(`*[_type == "blog"] {
 // order(publishedAt desc)  Sorts results by publication date in descending order
 
 export const PRESENTATION_QUERY = defineQuery(`*[_type == "presentation"][0]{
-        _id,
-        slug,
-        imagePresentation->{...},
-        faqs,
-        about->{...},
-	      seo->{...}
-      }`);
-// _id Retrieves the ID of the Roj
-// slug Retrieves the slug of the Roj
-// about Retrieves the About Us information of the Roj
-// imageRoj Retrieves the image of the Roj
-// seo Retrieves the SEO information of the Roj
+  _id,
+  slug,
+  imagePresentation->{...},
+  faqs,
+  about->{...},
+  seo->{...}
+}`);
 export const TAGS_QUERY = defineQuery(` *[_type == "tag"] {
         _id,
         title,
@@ -174,5 +169,32 @@ export const FOOTER_QUERY = defineQuery(`*[_type == "footer"][0]{
   },
   ...
 }`);
+
+export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
+  mainTitle,
+  subtitle,
+  duration,
+  review,
+  price,
+  buttonCta,
+  videoTitle,
+  illustrations[]->{
+    _id,
+    asset->{
+      _id,
+      url
+    }
+  },
+  faqs[]->{
+    question,
+    answer
+  },
+  seo->{
+    metaDescription,
+    title,
+    keywords
+  }
+}`);
+
 
 
