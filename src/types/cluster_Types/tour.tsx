@@ -1,10 +1,15 @@
 import { ReactNode } from 'react';
-import { IAuthorProps } from './author';
-import { ISocialLinks } from './socials';
+import { IAuthorProps } from '../author';
+import { ISocialLinks } from '../socials';
 
 // ----------------------------------------------------------------------
 
 export type ITourProps = {
+  subtitle: ReactNode;
+  mainTitle: ReactNode;
+  review: any;
+  buttonCTA: ReactNode;
+  illustrations: any;
   id: string;
   slug: string;
   price: number;

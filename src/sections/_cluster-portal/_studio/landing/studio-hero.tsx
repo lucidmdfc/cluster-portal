@@ -18,7 +18,7 @@ import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
 import Carousel, { useCarousel, CarouselDots } from 'src/components/carousel';
 
-import { ITourProps } from 'src/types/tour';
+import { ITourProps } from 'src/types/cluster_Types/tour';
 
 import urlFor from 'src/lib/sanity';
 
