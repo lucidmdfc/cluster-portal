@@ -4,7 +4,7 @@ import { STUDIO_QUERY } from 'src/lib/queries';
 
 // ----------------------------------------------------------------------
 
-export default async function CommuniquePage() {
+export default async function StudioPage() {
   const StudioData = await sanityFetch({ query: STUDIO_QUERY });
   
   return <StudioLandingView StudioData={StudioData} />;

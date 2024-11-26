@@ -74,7 +74,6 @@ export const DynamicForm: FC<DynamicFormProps> = ({
       onSubmit(formData); // Pass FormData to the parent handler
     },
   });
-  console.log(formik)
 
   return (
     <Box>
@@ -102,33 +101,26 @@ export const DynamicForm: FC<DynamicFormProps> = ({
           <Grid item xs={12}>
             <Button
               sx={{
-                  width: '100%',
-                  py: 1.3,
-                }}
-                startIcon={
-                  <SvgIcon>
-                    <Upload01 />
-                  </SvgIcon>
-                }
-                color="info"
+                width: '100%',
+                py: 1.3,
+              }}
+              startIcon={
+                <SvgIcon>
+                  <Upload01 />
+                </SvgIcon>
+              }
+              color="info"
               variant="outlined"
               onClick={uploadDialog.handleOpen}
-              // onClick={() => document.getElementById('file-upload')?.click()}
             >
               Téléverser des fichiers
             </Button>
-            {/* <input
-              type="file"
-              id="file-upload"
-              multiple
-              hidden
-              onChange={(e) => setFiles([...Array.from(e.target.files || [])])}
-            /> */}
+
             <FileUploader
               onClose={uploadDialog.handleClose}
               open={uploadDialog.open}
-              onSelectFiles={(files) => {
-                setFiles(files);
+              onSelectFiles={(newFiles) => {
+                setFiles(newFiles);
               }}
             />
           </Grid>
@@ -158,5 +150,3 @@ export const DynamicForm: FC<DynamicFormProps> = ({
     </Box>
   );
 };
-
-
