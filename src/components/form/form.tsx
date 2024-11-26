@@ -57,13 +57,16 @@ export const DynamicForm: FC<DynamicFormProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      // Rename the files variable inside onSubmit to uploadedFiles
+      const uploadedFiles = files; // Use the files state here
+
       // Convert form values and files into FormData
       const formData = new FormData();
       Object.entries(values).forEach(([key, value]) => formData.append(key, value));
-      files.forEach((file) => formData.append('files', file));
+      uploadedFiles.forEach((file) => formData.append('files', file)); // Use uploadedFiles here
 
       // Validate the number of files
-      if (files.length !== 2) {
+      if (uploadedFiles.length !== 2) {
         toast.error('Veuillez sélectionner exactement 2 fichiers.');
         return;
       }
