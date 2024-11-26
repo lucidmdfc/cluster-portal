@@ -4,6 +4,11 @@ import { ISocialLinks } from './socials';
 // ----------------------------------------------------------------------
 
 export type ITourProps = {
+  illustrations: any;
+  mainTitle: ReactNode;
+  review: any;
+  buttonCta: ReactNode;
+  subtitle: ReactNode;
   id: string;
   slug: string;
   price: number;

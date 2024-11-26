@@ -171,19 +171,28 @@ export const FOOTER_QUERY = defineQuery(`*[_type == "footer"][0]{
 }`);
 
 export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
-  mainTitle,
-  subtitle,
-  duration,
-  review,
-  price,
-  buttonCta,
-  videoTitle,
-  illustrations[]->{
-    _id,
-    asset->{
+  carousel[] {
+    mainTitle,
+    subtitle,
+    duration,
+    review,
+    price,
+    buttonCTA,
+    illustrations[]->{
       _id,
-      url
+      imageAsset->{
+        _id,
+        image
+      }
     }
+  },
+  videoTitle[] {
+    keyTitle,
+    title
+  },
+  videoCTA[] {
+    title,
+    subTitle
   },
   faqs[]->{
     question,
@@ -195,6 +204,7 @@ export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
     keywords
   }
 }`);
+
 
 
 

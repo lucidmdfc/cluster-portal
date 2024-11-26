@@ -35,9 +35,9 @@ const SUMMARY = [
 
 // ----------------------------------------------------------------------
 
-export default function StudioLandingIntroduce() {
+export default function StudioLandingIntroduce({videoCta,videoTitle}:any) {
   const mdUp = useResponsive('up', 'md');
-
+  console.log(videoTitle)
   const containerRef = useRef<HTMLDivElement>(null);
 
   const container = useBoundingClientRect(containerRef);
@@ -60,10 +60,10 @@ export default function StudioLandingIntroduce() {
             textAlign: { xs: 'center', md: 'unset' },
           }}
         >
-          <Typography variant="h2">Explore A Different Way To Travel</Typography>
+          <Typography variant="h2">{videoTitle[0].keyTitle}</Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            Cras ultricies mi eu turpis hendrerit fringilla. Nulla consequat massa quis enim.
+            {videoTitle[0].title}
           </Typography>
         </Stack>
       </Container>
@@ -94,11 +94,11 @@ export default function StudioLandingIntroduce() {
           }}
         >
           <Typography variant="overline" sx={{ color: 'text.disabled' }}>
-            Device
+            {videoCta[0].title}
           </Typography>
 
           <Typography variant="h4" sx={{ my: 3 }}>
-            The More Important the Work
+            {videoCta[0].keyTitle}
           </Typography>
 
           <Stack

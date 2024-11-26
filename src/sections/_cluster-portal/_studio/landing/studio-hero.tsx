@@ -20,6 +20,8 @@ import Carousel, { useCarousel, CarouselDots } from 'src/components/carousel';
 
 import { ITourProps } from 'src/types/tour';
 
+import urlFor from 'src/lib/sanity';
+
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -28,7 +30,7 @@ type Props = {
 
 export default function StudioLandingHero({ tours }: Props) {
   const mdUp = useResponsive('up', 'md');
-
+  // console.log(tours)
   const carouselLarge = useCarousel({
     speed: 500,
     slidesToShow: 1,
@@ -63,6 +65,8 @@ export default function StudioLandingHero({ tours }: Props) {
     carouselLarge.onSetNav();
     carouselThumb.onSetNav();
   }, [carouselLarge, carouselThumb]);
+
+  // console.log(carouselThumb.nav)
 
   return (
     <Box sx={{ minHeight: { md: '100vh' }, position: 'relative' }}>
@@ -119,7 +123,7 @@ type CarouselItemProps = {
 
 function CarouselItem({ tour }: CarouselItemProps) {
   const theme = useTheme();
-
+  // console.log(tour)
   const renderOverlay = (
     <Box
       sx={{
@@ -158,11 +162,11 @@ function CarouselItem({ tour }: CarouselItemProps) {
         }}
       >
         <Typography variant="overline" sx={{ color: 'info.main', mb: 5 }}>
-          {tour.location}
+          {tour.subtitle}
         </Typography>
 
         <Typography variant="h1" sx={{ maxWidth: 480 }}>
-          {tour.slug}
+          {tour.mainTitle}
         </Typography>
 
         <Stack
@@ -178,7 +182,7 @@ function CarouselItem({ tour }: CarouselItemProps) {
 
           <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:star" width={24} sx={{ mr: 1, color: 'primary.main' }} />
-            {`${tour.ratingNumber} reviews`}
+            {`${tour.review} reviews`}
           </Stack>
 
           <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
@@ -188,7 +192,7 @@ function CarouselItem({ tour }: CarouselItemProps) {
         </Stack>
 
         <Button variant="contained" size="large" color="primary">
-          Book Now
+          {tour.buttonCTA}
         </Button>
       </Stack>
 
@@ -206,7 +210,7 @@ function CarouselItem({ tour }: CarouselItemProps) {
 
         <Image
           alt="hero"
-          src={tour.heroUrl}
+          src={urlFor(tour?.illustrations[0]?.imageAsset.image.asset)}
           sx={{
             width: 1,
             height: { xs: 1, md: '100vh' },
@@ -226,7 +230,7 @@ type ThumbnailItemProps = {
 
 function ThumbnailItem({ tour, selected }: ThumbnailItemProps) {
   const theme = useTheme();
-
+  // console.log(tour);
   return (
     <Stack
       direction="row"
@@ -246,7 +250,7 @@ function ThumbnailItem({ tour, selected }: ThumbnailItemProps) {
         }),
       }}
     >
-      <Avatar src={tour.heroUrl} sx={{ width: 48, height: 48 }} />
+      <Avatar src={urlFor(tour?.illustrations[0]?.imageAsset.image.asset)} sx={{ width: 48, height: 48 }} />
 
       <Stack spacing={0.5}>
         <TextMaxLine variant="h6" line={1}>
