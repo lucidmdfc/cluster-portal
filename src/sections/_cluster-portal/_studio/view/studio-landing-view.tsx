@@ -1,8 +1,8 @@
 "use client"
 
-import StudioLandingHero from "../landing/studio-hero";
-import StudioLandingIntroduce from "../landing/studio-video";
-import ClusterFaqs from "../../Dynamic_FAQ/faqs";
+import StudioLandingHero from "src/sections/_cluster-portal/_studio/landing/studio-hero";
+import StudioLandingIntroduce from "src/sections/_cluster-portal/_studio/landing/studio-video";
+import ClusterFaqs from "src/sections/_cluster-portal/Dynamic_FAQ/faqs";
 
 import { _tours, _travelPosts, _testimonials } from 'src/_mock';
 

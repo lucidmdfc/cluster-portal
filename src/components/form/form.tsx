@@ -16,7 +16,7 @@ import {
 import Upload01 from '@untitled-ui/icons-react/build/esm/Upload01';
 import { FileIcon } from 'src/components/file-icon/file-icon';
 
-import { FileUploader } from './file-uploader';
+import { FileUploader } from 'src/components/form/file-uploader';
 import { useDialog } from 'src/hooks/use-dialog';
 
 // Type definition for field configuration
