@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import toast from 'react-hot-toast';
 
 // Import the DynamicForm component
-import { DynamicForm } from 'src/components/form/form';
+// import { DynamicForm } from 'src/components/form/form';
 
 // Import other necessary components and types
 import { paths } from 'src/routes/paths';
@@ -142,12 +142,12 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
         spacing={2}
         sx={{ mt: 3 }}
       >
-        <DynamicForm
+        {/* <DynamicForm
           fields={fields} // Pass form fields configuration
           validationSchema={validationSchema} // Pass validation schema
           onSubmit={handleSubmit} // Pass submit handler
           isSubmitting={false} // Set to `true` during API calls for a loading state
-        />
+        /> */}
       </Stack>
     </Container>
   );

@@ -208,14 +208,18 @@ function CarouselItem({ tour }: CarouselItemProps) {
       >
         {renderOverlay}
 
-        <Image
-          alt="hero"
-          src={urlFor(tour?.illustrations[0]?.imageAsset.image.asset)}
-          sx={{
-            width: 1,
-            height: { xs: 1, md: '100vh' },
-          }}
-        />
+      <Image
+        alt="hero"
+        src={
+          tour?.illustrations[0]?.imageAsset?.image?.asset
+            ? urlFor(tour.illustrations[0].imageAsset.image.asset)?.url()
+            : undefined
+        }
+        sx={{
+          width: 1,
+          height: { xs: 1, md: '100vh' },
+        }}
+      />
       </Box>
     </Box>
   );
@@ -250,8 +254,14 @@ function ThumbnailItem({ tour, selected }: ThumbnailItemProps) {
         }),
       }}
     >
-      <Avatar src={urlFor(tour?.illustrations[0]?.imageAsset.image.asset)} sx={{ width: 48, height: 48 }} />
-
+      <Avatar
+        src={
+          tour?.illustrations[0]?.imageAsset?.image?.asset
+            ? urlFor(tour.illustrations[0].imageAsset.image.asset)?.url()
+            : undefined
+        }
+        sx={{ width: 48, height: 48 }}
+      />
       <Stack spacing={0.5}>
         <TextMaxLine variant="h6" line={1}>
           {tour.location}
