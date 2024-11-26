@@ -37,7 +37,6 @@ const SUMMARY = [
 
 export default function StudioLandingIntroduce({videoCta,videoTitle}:any) {
   const mdUp = useResponsive('up', 'md');
-  console.log(videoTitle)
   const containerRef = useRef<HTMLDivElement>(null);
 
   const container = useBoundingClientRect(containerRef);

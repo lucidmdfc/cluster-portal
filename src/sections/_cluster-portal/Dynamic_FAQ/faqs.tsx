@@ -18,10 +18,11 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 type props = {
-  roj: any;
+  // roj: any;
+  Faqs: any;
 };
 
-export default function ClusterFaqs({ roj }: props) {
+export default function ClusterFaqs({ Faqs }: props) {
   const mdUp = useResponsive('up', 'md');
 
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -32,8 +33,8 @@ export default function ClusterFaqs({ roj }: props) {
     },
     []
   );
-  const Faqs = roj.faqs;
-  console.log('faqs', Faqs);
+  // const Faqs = roj.faqs;
+  // console.log('faqs', Faqs);
 
   return (
     <Container
