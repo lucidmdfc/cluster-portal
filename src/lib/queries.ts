@@ -191,8 +191,8 @@ export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
     title
   },
   videoCTA[] {
-    title,
-    subTitle
+    keyTitle,
+    title
   },
   faqs[]->{
     question,
