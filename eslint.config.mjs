@@ -20,7 +20,7 @@ export default [
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
-        project: './tsconfig.json', // Make sure the path to tsconfig is correct
+        project: './tsconfig.json',
       },
     },
   },
