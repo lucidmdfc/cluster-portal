@@ -29,6 +29,7 @@ type FieldConfig = {
   required?: boolean; // Whether the field is required
   initialValue?: string; // Initial value for the field
 };
+type FormValues = Record<string, string>;
 
 // Props for the form component
 type DynamicFormProps = {
@@ -55,7 +56,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
   );
 
   // Initialize Formik with dynamic configurations
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
@@ -64,18 +65,10 @@ export const DynamicForm: FC<DynamicFormProps> = ({
       Object.entries(values).forEach(([key, value]) => formData.append(key, value as string));
       files.forEach((file) => formData.append('files', file));
 
-      // formData.forEach((value, key) => {
-      //   console.log(key, value);
-      // });
-      // // Validate the number of files
-      // if (files.length !== 2) {
-      //   toast.error('Veuillez sélectionner exactement 2 fichiers.');
-      //   return;
-      // }
-      
       onSubmit(formData); // Pass FormData to the parent handler
     },
   });
+
 
   return (
     <Box>
@@ -151,7 +144,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
 
         {/* Submit button */}
         <Box mt={4}>
-          <Button type="submit" variant="contained" disabled={isSubmitting} onClick={onSubmit} >
+          <Button type="submit" variant="contained" disabled={isSubmitting}>
             {isSubmitting ? 'En cours...' : 'Soumettre'}
           </Button>
         </Box>

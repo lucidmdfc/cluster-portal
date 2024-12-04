@@ -10,12 +10,16 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import Iconify from 'src/components/iconify';
 
 import Nav from './nav';
-
+import {
+  ClerkProvider,
+} from "@clerk/nextjs";
 // ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
 };
+
+
 
 export default function AccountLayout({ children }: Props) {
   const mdUp = useResponsive('up', 'md');
@@ -24,6 +28,8 @@ export default function AccountLayout({ children }: Props) {
 
   return (
     <>
+      <ClerkProvider>
+
       {mdUp ? (
         <Container sx={{ my: 5 }}>
           <Typography variant="h3">Account</Typography>
@@ -76,7 +82,9 @@ export default function AccountLayout({ children }: Props) {
             {children}
           </Box>
         </Stack>
-      </Container>
+        </Container>
+      </ClerkProvider>
+
     </>
   );
 }
