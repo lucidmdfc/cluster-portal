@@ -10,7 +10,9 @@ import { LocalizationProvider } from 'src/locales';
 import ProgressBar from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
-
+import {
+  ClerkProvider,
+} from "@clerk/nextjs";
 // ----------------------------------------------------------------------
 
 export const viewport = {
@@ -42,6 +44,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
+        <ClerkProvider>
         <LocalizationProvider>
           <SettingsProvider
             defaultSettings={{
@@ -58,7 +61,8 @@ export default function RootLayout({ children }: Props) {
               </MotionLazy>
             </ThemeProvider>
           </SettingsProvider>
-        </LocalizationProvider>
+          </LocalizationProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

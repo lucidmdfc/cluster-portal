@@ -4,9 +4,6 @@ import { useState, useEffect } from 'react';
 
 import MainLayout from 'src/layouts/main';
 // ----------------------------------------------------------------------
-import {
-  ClerkProvider,
-} from "@clerk/nextjs";
 
 type Props = {
   children: React.ReactNode;
@@ -26,10 +23,8 @@ export default function Layout({ children }: Props) {
     fetchFooterData();
   }, []);
   return (
-      <ClerkProvider>
         <MainLayout footerContent={footerData} headerOnDark>
           {children}
         </MainLayout>
-      </ClerkProvider>
   );
 }
