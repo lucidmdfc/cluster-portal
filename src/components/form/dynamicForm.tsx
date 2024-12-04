@@ -61,7 +61,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
     onSubmit: (values) => {
       // Convert form values and files into FormData
       const formData = new FormData();
-      Object.entries(values).forEach(([key, value]) => formData.append(key, value));
+      Object.entries(values).forEach(([key, value]) => formData.append(key, value as string));
       files.forEach((file) => formData.append('files', file));
 
       // formData.forEach((value, key) => {
