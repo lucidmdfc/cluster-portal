@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';

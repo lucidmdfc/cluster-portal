@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { User, getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -16,7 +12,6 @@ import { useOffSetTop } from 'src/hooks/use-off-set-top';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { bgBlur } from 'src/theme/css';
-import { app } from 'src/lib/firebase/firebaseSdk';
 
 import Logo from 'src/components/logo';
 
@@ -27,6 +22,13 @@ import { navConfig } from './config-navigation';
 import HeaderShadow from '../common/header-shadow';
 import SettingsButton from '../common/settings-button';
 
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -35,29 +37,9 @@ type Props = {
 
 export default function Header({ headerOnDark }: Props) {
   const theme = useTheme();
-  const auth = getAuth(app);
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); // Updates the user state based on auth status
-    });
-    return () => unsubscribe();
-  }, [auth]);
   const offset = useOffSetTop();
-  const router = useRouter();
   const mdUp = useResponsive('up', 'md');
-  const handleSignOut = async () => {
-    try {
-      const responseFb = await signOut(getAuth(app));
-      console.log('RESPONSEFB', responseFb);
-      const response = await fetch('/api/logout');
-      console.log('RESPONSE', response);
-      router.push('/auth/sign-in/');
-      console.log('User signed out');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
+
   const renderContent = (
     <>
       <Box sx={{ lineHeight: 0, position: 'relative' }}>
@@ -81,32 +63,14 @@ export default function Header({ headerOnDark }: Props) {
 
       <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
         <Stack spacing={1} direction="row" alignItems="center">
-          {user ? (
-            // Show "Logout" button if authenticated
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                display: { xs: 'none', md: 'inline-flex' },
-              }}
-              onClick={handleSignOut}
-            >
-              Déconnexion
-            </Button>
-          ) : (
-            // Show "Login" button if not authenticated
+          {/* Add Clerk Header */}
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
 
-            <Button
-              variant="contained"
-              color="primary"
-              href={paths.loginCover}
-              sx={{
-                display: { xs: 'none', md: 'inline-flex' },
-              }}
-            >
-              Connexion
-            </Button>
-          )}
           <SettingsButton />
         </Stack>
 

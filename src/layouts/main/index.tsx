@@ -46,6 +46,6 @@ export default function MainLayout({
       </Box>
 
       <Footer footer={footerContent} />
-    </Box>
+      </Box>
   );
 }

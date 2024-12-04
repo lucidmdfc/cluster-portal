@@ -1,7 +1,8 @@
 'use client';
 
-import AuthBackgroundLayout from 'src/layouts/auth/background';
 
+import AccountLayout from 'src/layouts/account';
+// import MainLayout from 'src/layouts/main';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -9,5 +10,6 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
-  return <AuthBackgroundLayout>{children}</AuthBackgroundLayout>;
+
+  return <AccountLayout>{children}</AccountLayout>
 }

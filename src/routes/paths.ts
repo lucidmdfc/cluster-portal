@@ -37,6 +37,7 @@ export const paths = {
     communique: '/communique',
     blog: '/blog',
     contact: '/contact',
+    personal: '/account/personal',
   },
   clusterPortal: {
     root: '/',

@@ -205,6 +205,27 @@ export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
   }
 }`);
 
+// Example Query to fetch candidate data
+
+export const getPersonalSpaceQuery = `*[_type == "candidate" && clerkId == $clerkId] {
+  _id,
+  clerkId,
+  firstName,
+  lastName,
+  email,
+  phone,
+  InterestedSector[]->{
+    _id,
+    sectorName
+  },
+  CV {
+    asset->{
+      _id,
+      url
+    }
+  }
+}`;
+
 
 
 

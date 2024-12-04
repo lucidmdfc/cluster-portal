@@ -61,7 +61,7 @@ export default function EventItem({ Event, Links }: Props) {
           <Stack spacing={1.5} direction="row" alignItems="center" sx={{ pt: 1.5 }}>
             <Avatar src={clusterLogo.src} sx={{ width: 40, height: 40 }} />
             <Stack>
-              <Typography variant="body2">{Event.author.name}</Typography>
+              <Typography variant="body2">{Event?.author?.name}</Typography>
               <Typography variant="caption" sx={{ color: 'text.disabled' }}>
                 {Event.timeToRead} minutes to read
               </Typography>

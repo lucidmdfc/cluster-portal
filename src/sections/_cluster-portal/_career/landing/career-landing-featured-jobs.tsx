@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import toast from 'react-hot-toast';
 
 // Import the DynamicForm component
-// import { DynamicForm } from 'src/components/form/form';
+import { DynamicForm } from 'src/components/form/dynamicForm';
 
 // Import other necessary components and types
 import { paths } from 'src/routes/paths';
@@ -12,6 +12,7 @@ import { RouterLink } from 'src/routes/components';
 import Iconify from 'src/components/iconify';
 import { IJobProps } from 'src/types/job';
 import CareerJobItem from '../list/career-job-item';
+import { handleFormSubmission } from 'src/app/actions/formAction';
 
 // Define the props type for the component
 type Props = {
@@ -22,8 +23,14 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
   // Define form fields configuration
   const fields = [
     {
-      name: 'fullName', // Field name
-      label: 'Full Name', // Label displayed in the form
+      name: 'firstName', // Field name
+      label: 'First Name', // Label displayed in the form
+      required: true, // Indicates if the field is required
+      type: 'text', // Input type
+    },
+    {
+      name: 'lastName', // Field name
+      label: 'Last Name', // Label displayed in the form
       required: true, // Indicates if the field is required
       type: 'text', // Input type
     },
@@ -43,17 +50,19 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
 
   // Define Yup validation schema
   const validationSchema = yup.object({
-    fullName: yup.string().required('Full Name is required'),
+    firstName: yup.string().required('First Name is required'),
+    lastName: yup.string().required('Last Name is required'),
     phone: yup.string().required('Phone Number is required'),
     email: yup.string().email('Invalid email address').required('Email Address is required'),
   });
 
   // Handle form submission
   const handleSubmit = async (formData: FormData) => {
-    console.log('Submitted FormData:', formData);
+
     try {
       // Here, you can send the formData to your backend API
-      console.log('Submitted FormData:', formData);
+      handleFormSubmission(formData, "candidate")
+
       // Display a success message
       toast.success('Votre formulaire a été envoyé avec succès');
     } catch (error) {
@@ -142,12 +151,12 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
         spacing={2}
         sx={{ mt: 3 }}
       >
-        {/* <DynamicForm
+        <DynamicForm
           fields={fields} // Pass form fields configuration
           validationSchema={validationSchema} // Pass validation schema
           onSubmit={handleSubmit} // Pass submit handler
           isSubmitting={false} // Set to `true` during API calls for a loading state
-        /> */}
+        />
       </Stack>
     </Container>
   );
