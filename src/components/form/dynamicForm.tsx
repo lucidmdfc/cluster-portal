@@ -27,7 +27,7 @@ type FieldConfig = {
   label: string; // Label for the field
   type?: string; // Input type, e.g., 'text', 'email'
   required?: boolean; // Whether the field is required
-  initialValue?: string; // Initial value for the field
+  defaultValue?: string; // Initial value for the field
 };
 type FormValues = Record<string, string>;
 
@@ -48,16 +48,16 @@ export const DynamicForm: FC<DynamicFormProps> = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
   const uploadDialog = useDialog();
-
+  // console.log(fields)
   // Generate initialValues dynamically from fields
   const initialValues = fields.reduce(
-    (acc, field) => ({ ...acc, [field.name]: field.initialValue || '' }),
+    (acc, field) => ({ ...acc, [field.name]: field.defaultValue || '' }),
     {}
   );
-
   // Initialize Formik with dynamic configurations
   const formik = useFormik<FormValues>({
     initialValues,
+    enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
       // Convert form values and files into FormData
@@ -68,7 +68,8 @@ export const DynamicForm: FC<DynamicFormProps> = ({
       onSubmit(formData); // Pass FormData to the parent handler
     },
   });
-
+  // console.log(initialValues)
+  // console.log(formik.values)
 
   return (
     <Box>
@@ -83,9 +84,9 @@ export const DynamicForm: FC<DynamicFormProps> = ({
                 name={field.name}
                 type={field.type || 'text'}
                 required={field.required}
-                value={formik.values[field.name]}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                value={formik.values[field.name]}
                 error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
                 helperText={formik.touched[field.name] && formik.errors[field.name]}
               />

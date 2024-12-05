@@ -62,11 +62,7 @@ async function handlePersonalSpaceForm(formData: FormData) {
 
     // Fetch existing user data from Sanity (specific to personal space form logic)
     const userData = await client.fetch(getPersonalSpaceQuery, { clerkId:userId });
-    console.log("Fetched user data from Sanity:", userData);
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-
+// console.log(userData)
     const cvFile = formData.get("files") as File | null;
 
     let uploadedCvId: string | undefined;
@@ -79,7 +75,6 @@ async function handlePersonalSpaceForm(formData: FormData) {
       console.log("Uploaded CV:", uploadResponse);
       uploadedCvId = uploadResponse._id;
     }
-    console.log(uploadedCvId);
 
     // Zod validation schema for personal space form fields
     const personalSpaceSchema = z.object({
@@ -157,11 +152,6 @@ async function handlePublicForm(formData: FormData) {
       // clerkId: z.string().uuid("Invalid Clerk ID").optional(), // clerkId must be a valid UUID (optional)
       // attachedFile: z.string().min(1, "Attached file is required"), // Attached file must be provided
     });
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-
-    console.log(FORM_TYPES.PUBLIC_FORM);
 
     // Validate the form data
     const parsedData = publicFormSchema.parse({

@@ -13,6 +13,8 @@ import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 import {
   ClerkProvider,
 } from "@clerk/nextjs";
+import { frFR } from '@clerk/localizations'
+
 // ----------------------------------------------------------------------
 
 export const viewport = {
@@ -44,7 +46,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
-        <ClerkProvider>
+        <ClerkProvider localization={frFR}>
         <LocalizationProvider>
           <SettingsProvider
             defaultSettings={{

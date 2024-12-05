@@ -1,3 +1,5 @@
+"use client";
+
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -18,6 +20,7 @@ import { _mock } from 'src/_mock';
 
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
+import {  useUser } from '@clerk/nextjs';
 
 // ----------------------------------------------------------------------
 
@@ -36,8 +39,13 @@ type Props = {
   onClose: VoidFunction;
 };
 
+
+
 export default function Nav({ open, onClose }: Props) {
   const mdUp = useResponsive('up', 'md');
+
+  const { user } = useUser();
+  console.log(user)
 
   const renderContent = (
     <Stack
@@ -53,7 +61,7 @@ export default function Nav({ open, onClose }: Props) {
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
+          <Avatar src={user?.imageUrl} sx={{ width: 64, height: 64 }} />
           <Stack
             direction="row"
             alignItems="center"
@@ -69,10 +77,10 @@ export default function Nav({ open, onClose }: Props) {
 
         <Stack spacing={0.5}>
           <TextMaxLine variant="subtitle1" line={1}>
-            Jayvion Simon
+            {user?.fullName || "user"}
           </TextMaxLine>
           <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
-            nannie_abernathy70@yahoo.com
+            {user?.emailAddresses[0]?.emailAddress || 'No email provided'}
           </TextMaxLine>
         </Stack>
       </Stack>

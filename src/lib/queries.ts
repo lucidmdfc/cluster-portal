@@ -214,6 +214,10 @@ export const getPersonalSpaceQuery = `*[_type == "candidate" && clerkId == $cler
   lastName,
   email,
   phone,
+  address,
+  birthday,
+  city,
+  gender,
   InterestedSector[]->{
     _id,
     sectorName

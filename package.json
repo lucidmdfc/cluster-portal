@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.25.6",
+    "@clerk/localizations": "^3.7.4",
     "@clerk/nextjs": "^6.6.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
