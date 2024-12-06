@@ -46,7 +46,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className={primaryFont.className}>
       <body>
-        <ClerkProvider localization={frFR}>
+        <ClerkProvider localization={frFR} signInUrl="/signin" signInForceRedirectUrl="/account/personal">
         <LocalizationProvider>
           <SettingsProvider
             defaultSettings={{

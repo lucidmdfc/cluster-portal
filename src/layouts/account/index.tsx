@@ -79,8 +79,8 @@ export default function AccountLayout({ children }: Props) {
             {children}
           </Box>
         </Stack>
-        </Container>
-
+      </Container>
+      
     </>
   );
 }

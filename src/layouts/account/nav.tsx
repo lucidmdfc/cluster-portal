@@ -45,7 +45,7 @@ export default function Nav({ open, onClose }: Props) {
   const mdUp = useResponsive('up', 'md');
 
   const { user } = useUser();
-  console.log(user)
+  // console.log(user)
 
   const renderContent = (
     <Stack

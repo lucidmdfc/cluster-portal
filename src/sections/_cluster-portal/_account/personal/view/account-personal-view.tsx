@@ -21,7 +21,7 @@ import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/comp
 import { DynamicForm } from 'src/components/form/dynamicForm';
 import { handleFormSubmission } from 'src/app/actions/formAction';
 import toast, { Toaster } from 'react-hot-toast';
-import { client, sanityFetch } from 'src/lib/client';
+import { sanityFetch } from 'src/lib/client';
 import { getPersonalSpaceQuery } from 'src/lib/queries';
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from 'react';
@@ -53,8 +53,11 @@ export default async function AccountPersonalView() {
       // Fetch candidate data based on userId
       const fetchCandidateData = async () => {
         try {
-          const candidateData = await client.fetch(getPersonalSpaceQuery, { clerkId:userId });
-          // console.log(candidateData); 
+          const candidateData = await sanityFetch({
+            query: getPersonalSpaceQuery,
+            params: { clerkId: userId },
+          });
+          // console.log(candidateData);
           setCandidate(candidateData);
         } catch (error) {
           console.error('Error fetching candidate:', error);
@@ -64,7 +67,8 @@ export default async function AccountPersonalView() {
       fetchCandidateData(); // Call the fetch function
     }
   }, [userId]); // Re-run the effect when userId changes
-
+  // console.log(candidate);
+  
   const fields = [
     {
       name: 'firstName', // Field name

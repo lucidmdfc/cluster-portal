@@ -7,6 +7,11 @@ import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
+
+
+// clerk for for auth status 
+import { useAuth } from '@clerk/nextjs'; 
+import { useRouter } from 'next/navigation';
 // ----------------------------------------------------------------------
 
 const STEPS = [
@@ -30,12 +35,15 @@ const STEPS = [
 // ----------------------------------------------------------------------
 
 export default function CareerLandingStep() {
+  const router = useRouter();
+
   const offre = " L'offre d'emploi qui vous correspond!";
   const defaultValues = {
     email: '',
     password: '',
   };
 
+  const { isSignedIn } = useAuth(); // Gets the auth status from Clerk
   const methods = useForm({
     defaultValues,
   });
@@ -100,15 +108,18 @@ export default function CareerLandingStep() {
             </div>
           ))}
         </Box>
-
-        <Button
-          variant="contained"
-          size="large"
-          color="inherit"
-          startIcon={<Iconify icon="carbon:cloud-upload" />}
-        >
-          Créer mon profil
-        </Button>
+        {
+          isSignedIn &&
+          <Button
+            variant="contained"
+            size="large"
+            color="inherit"
+            startIcon={<Iconify icon="carbon:cloud-upload" />}
+            onClick={() => router.push("/account/personal")}
+          >
+            Espace Perso
+          </Button>
+        }
       </Container>
     </Box>
   );
