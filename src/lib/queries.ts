@@ -207,7 +207,7 @@ export const STUDIO_QUERY = defineQuery(`*[_type == "studio"] {
 
 // Example Query to fetch candidate data
 
-export const getPersonalSpaceQuery = `*[_type == "candidate" && clerkId == $clerkId] {
+export const getPersonalSpaceQuery = defineQuery(`*[_type == "candidate" && clerkId == $clerkId] {
   _id,
   clerkId,
   firstName,
@@ -228,8 +228,38 @@ export const getPersonalSpaceQuery = `*[_type == "candidate" && clerkId == $cler
       url
     }
   }
-}`;
+}`);
 
-
+export const JOB_QUERY = defineQuery(`*[_type == "job"]{
+  _id,
+  title,
+  description,
+  location,
+  publicationDate,
+  expirationDatew,
+  experience,
+  contract,
+  salary,
+  salaryDetails {
+    minSalary,
+    maxSalary
+  },
+  level,
+  JobPost {
+    asset->{
+      _id,
+      url
+    }
+  },
+  company->{
+    _id,
+    name,
+    email,
+    logo
+  },
+  sector->{
+    sectorName
+  }
+}`)
 
 

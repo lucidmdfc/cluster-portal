@@ -9,12 +9,18 @@ import CareerLandingFeaturedJobs from '../landing/career-landing-featured-jobs';
 
 // ----------------------------------------------------------------------
 
-export default function CareerLandingView() {
+type Props = {
+  jobs: any;
+};
+
+export default function CareerLandingView({ jobs } : Props) {
+  // console.log(jobs)
   return (
     <>
       <CareerLandingStep />
 
-      <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} />
+      {/* <CareerLandingFeaturedJobs jobs={_jobs.slice(-6)} /> */}
+      <CareerLandingFeaturedJobs jobs={jobs} />
     </>
   );
 }

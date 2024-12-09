@@ -18,6 +18,7 @@ import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
+import urlFor from 'src/lib/sanity';
 
 import { IJobProps } from 'src/types/job';
 
@@ -28,11 +29,15 @@ type Props = {
 };
 
 export default function CareerJobItem({ job }: Props) {
-  const { slug, type, level, salary, location, urgent, createdAt, favorited, experience, company } =
+  const { title, level, salary, location, urgent, publicationDate, favorited, experience, company, contract } =
     job;
-
+  
+  // console.log(company)
+  // console.log(publicationDate)
+  // console.log(company?.logo)
+  // src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
   const [favorite, setFavorite] = useState(favorited);
-
+  const logoUrl = company?.logo?.asset?.url ?? '';
   const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setFavorite(event.target.checked);
   }, []);
@@ -57,8 +62,8 @@ export default function CareerJobItem({ job }: Props) {
       <Stack sx={{ p: 3, pb: 0 }}>
         <Stack direction="row" alignItems="center" spacing={2.5}>
           <Image
-            alt={company.name}
-            src={company.logo}
+            src={logoUrl}
+            alt={company?.name}
             sx={{ width: 48, height: 48, borderRadius: 1 }}
           />
 
@@ -72,12 +77,12 @@ export default function CareerJobItem({ job }: Props) {
             color="inherit"
           >
             <TextMaxLine variant="h6" line={1}>
-              {slug}
+              {title}
             </TextMaxLine>
           </Link>
 
           <Typography variant="body2" sx={{ color: 'info.main' }}>
-            {company.name}
+            {company?.name}
           </Typography>
 
           <Stack
@@ -91,7 +96,7 @@ export default function CareerJobItem({ job }: Props) {
         </Stack>
 
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-          Posted day: {fDate(createdAt)}
+          Posted day: {fDate(publicationDate)} 
         </Typography>
       </Stack>
 
@@ -118,7 +123,7 @@ export default function CareerJobItem({ job }: Props) {
         <Grid xs={6}>
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify icon="carbon:time" sx={{ mr: 1 }} />
-            {type}
+            {contract}
           </Stack>
         </Grid>
 

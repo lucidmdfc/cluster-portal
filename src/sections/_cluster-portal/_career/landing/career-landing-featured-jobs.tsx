@@ -109,7 +109,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
         }}
       >
         {jobs.map((job) => (
-          <CareerJobItem key={job.id} job={job} />
+          <CareerJobItem key={job._id} job={job} />
         ))}
       </Box>
 
