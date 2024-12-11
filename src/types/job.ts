@@ -26,7 +26,7 @@ export type IJobByCountryProps = {
 };
 
 export type IJobProps = {
-  _id: string;
+  id: string;
   type: string;
   slug: string;
   level: string;

@@ -24,6 +24,7 @@ export default function SingleBlogPost({ blog }: Props) {
   const coverImage = blog.illustrations.find(
     (illustration: any) => illustration.isCoverImage === true
   );
+  console.log(blog)
   return (
     <Stack spacing={2.5}>
       {coverImage && (

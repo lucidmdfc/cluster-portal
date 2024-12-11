@@ -236,10 +236,11 @@ export const JOB_QUERY = defineQuery(`*[_type == "job"]{
   description,
   location,
   publicationDate,
-  expirationDatew,
+  expirationDate,
   experience,
   contract,
   salary,
+  body,
   salaryDetails {
     minSalary,
     maxSalary
@@ -255,11 +256,11 @@ export const JOB_QUERY = defineQuery(`*[_type == "job"]{
     _id,
     name,
     email,
-    logo
+    sector ->{
+      sectorName
+    },
+    illustrations
   },
-  sector->{
-    sectorName
-  }
 }`)
 
 

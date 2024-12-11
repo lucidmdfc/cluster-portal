@@ -18,22 +18,29 @@ import { bgGradient } from 'src/theme/css';
 import Iconify from 'src/components/iconify';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
-import { IJobProps } from 'src/types/job';
+// import { IJobProps } from 'src/types/job';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  job: IJobProps;
+  job: Job;
 };
+// type Props = {
+//   job: IJobProps;
+// };
+
+
 
 export default function CareerJobDetailsHero({ job }: Props) {
   const theme = useTheme();
 
-  const [favorite, setFavorite] = useState(job.favorited);
+  // const [favorite, setFavorite] = useState(job.favorited);
 
-  const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setFavorite(event.target.checked);
-  }, []);
+  // const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFavorite(event.target.checked);
+  // }, []);
+  // console.log(job)
 
   return (
     <Box
@@ -51,7 +58,7 @@ export default function CareerJobDetailsHero({ job }: Props) {
           links={[
             { name: 'Home', href: '/' },
             { name: 'Jobs', href: paths.career.jobs },
-            { name: job.slug },
+            { name: job.title },
           ]}
           sx={{
             mb: { xs: 5, md: 8 },
@@ -68,19 +75,19 @@ export default function CareerJobDetailsHero({ job }: Props) {
         >
           <Stack spacing={{ xs: 3, md: 2 }} sx={{ color: 'common.white' }}>
             <Typography variant="h3" component="h1">
-              {job.slug}
+              {job.title}
             </Typography>
 
             <Stack spacing={3} direction={{ xs: 'column', md: 'row' }} sx={{ opacity: 0.48 }}>
               <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
                 <Iconify icon="carbon:baggage-claim" sx={{ mr: 1 }} />
                 <Link color="inherit" underline="always">
-                  {job.category}
+                  {job?.company?.sector?.sectorName}
                 </Link>
               </Stack>
 
               <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
-                <Iconify icon="carbon:view" sx={{ mr: 1 }} /> {`${job.totalViews} views`}
+                {/* <Iconify icon="carbon:view" sx={{ mr: 1 }} /> {`${job.totalViews} views`} */}
               </Stack>
 
               <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
@@ -103,12 +110,12 @@ export default function CareerJobDetailsHero({ job }: Props) {
               <Typography variant="body2" sx={{ color: 'common.white' }}>
                 {`Expiration date: `}
                 <Box component="span" sx={{ color: 'primary.main' }}>
-                  {fDate(job.deadline)}
+                  {fDate(job.expirationDate)}
                 </Box>
               </Typography>
             </Stack>
 
-            <Box sx={{ pt: 0.75 }}>
+            {/* <Box sx={{ pt: 0.75 }}>
               <Checkbox
                 color="error"
                 checked={favorite}
@@ -116,7 +123,7 @@ export default function CareerJobDetailsHero({ job }: Props) {
                 icon={<Iconify icon="carbon:favorite" width={24} />}
                 checkedIcon={<Iconify icon="carbon:favorite-filled" width={24} />}
               />
-            </Box>
+            </Box> */}
           </Stack>
         </Stack>
       </Container>

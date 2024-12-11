@@ -29,7 +29,7 @@ import CareerJobDetailsSummary from '../job-details/career-job-details-summary';
 
 const _mockJob = _jobs[0];
 
-export default function CareerJobView() {
+export default function CareerJobView({job}: any) {
   const mdUp = useResponsive('up', 'md');
 
   const loading = useBoolean(true);
@@ -46,9 +46,11 @@ export default function CareerJobView() {
     return <SplashScreen />;
   }
 
+  console.log(job)
+
   return (
     <>
-      <CareerJobDetailsHero job={_mockJob} />
+      <CareerJobDetailsHero job={job} />
 
       <Container
         sx={{
@@ -60,12 +62,12 @@ export default function CareerJobView() {
         <Grid container spacing={{ xs: 5, md: 8 }}>
           {!mdUp && (
             <Grid xs={12} md={5} lg={4}>
-              <CareerJobDetailsInfo job={_mockJob} />
+              <CareerJobDetailsInfo job={job} />
             </Grid>
           )}
 
           <Grid xs={12} md={7} lg={8}>
-            <CareerJobDetailsSummary job={_mockJob} />
+            <CareerJobDetailsSummary job={job} />
 
             <Divider sx={{ my: 5 }} />
 
@@ -101,14 +103,14 @@ export default function CareerJobView() {
 
           <Grid xs={12} md={5} lg={4}>
             <Stack spacing={5}>
-              {mdUp && <CareerJobDetailsInfo job={_mockJob} />}
+              {mdUp && <CareerJobDetailsInfo job={job} />}
 
               <Advertisement
                 advertisement={{
                   title: 'Advertisement',
                   description: 'Duis leo. Donec orci lectus, aliquam ut, faucibus non',
                   imageUrl: _mock.image.career(2),
-                  path: '',
+                  path: job?.JobPost?.asset?.url,
                 }}
               />
             </Stack>
@@ -116,7 +118,7 @@ export default function CareerJobView() {
         </Grid>
       </Container>
 
-      <CareerJobListSimilar jobs={_jobs.slice(-3)} />
+      {/* <CareerJobListSimilar jobs={_jobs.slice(-3)} /> */}
 
       <CareerNewsletter />
     </>

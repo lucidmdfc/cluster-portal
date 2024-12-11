@@ -20,27 +20,32 @@ import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
 import urlFor from 'src/lib/sanity';
 
-import { IJobProps } from 'src/types/job';
+// import { IJobProps } from 'src/types/job';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  job: IJobProps;
+  job: Job;
 };
+// type Props = {
+//   job: IJobProps;
+// };
 
 export default function CareerJobItem({ job }: Props) {
-  const { title, level, salary, location, urgent, publicationDate, favorited, experience, company, contract } =
+  const { title, level, salary, location,  publicationDate, experience, company, contract } =
     job;
   
-  // console.log(company)
+  console.log(company)
   // console.log(publicationDate)
-  // console.log(company?.logo)
+  // console.log(company?.illustrations)
   // src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
-  const [favorite, setFavorite] = useState(favorited);
-  const logoUrl = company?.logo?.asset?.url ?? '';
-  const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setFavorite(event.target.checked);
-  }, []);
+  // const [favorite, setFavorite] = useState(favorited);
+  // const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFavorite(event.target.checked);
+  // }, []);
+
+
 
   return (
     <Card
@@ -50,30 +55,30 @@ export default function CareerJobItem({ job }: Props) {
         },
       }}
     >
-      <Checkbox
+      {/* <Checkbox
         color="error"
         checked={favorite}
         onChange={handleChangeFavorite}
         icon={<Iconify icon="carbon:favorite" />}
         checkedIcon={<Iconify icon="carbon:favorite-filled" />}
         sx={{ position: 'absolute', right: 16, top: 16 }}
-      />
+      /> */}
 
       <Stack sx={{ p: 3, pb: 0 }}>
         <Stack direction="row" alignItems="center" spacing={2.5}>
-          <Image
-            src={logoUrl}
+          {/* <Image
+            src={urlFor(company?.illustrations[0])?.url() ?? ''}
             alt={company?.name}
             sx={{ width: 48, height: 48, borderRadius: 1 }}
-          />
+          /> */}
 
-          {urgent && <Label color="error">Urgent</Label>}
+          {/* {urgent && <Label color="error">Urgent</Label>} */}
         </Stack>
 
         <Stack spacing={0.5} sx={{ mt: 3, mb: 2 }}>
           <Link
             component={RouterLink}
-            href={`${paths.clusterPortal.jobs}/${'slug'}`}
+            href={`${paths.clusterPortal.jobs}/${job._id}`}
             color="inherit"
           >
             <TextMaxLine variant="h6" line={1}>

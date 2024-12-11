@@ -10,14 +10,19 @@ import { DynamicForm } from 'src/components/form/dynamicForm';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 import Iconify from 'src/components/iconify';
-import { IJobProps } from 'src/types/job';
 import CareerJobItem from '../list/career-job-item';
 import { handleFormSubmission } from 'src/app/actions/formAction';
 
+// import { IJobProps } from 'src/types/job';
+import { Job } from 'src/types/cluster_Types/sanity.types';
+
 // Define the props type for the component
 type Props = {
-  jobs: IJobProps[];
+  jobs: Job[];
 };
+// type Props = {
+//   jobs: IJobProps[];
+// };
 
 export default function CareerLandingFeaturedJobs({ jobs }: Props) {
   // Define form fields configuration

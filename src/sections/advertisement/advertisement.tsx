@@ -7,6 +7,9 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Image from 'src/components/image';
 
 import { AdvertisementProps } from './types';
+import PdfViewer from 'src/components/pdf-viewer/pdf-viewer';
+import { useState } from 'react';
+import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +19,10 @@ interface Props extends BoxProps {
 
 export default function Advertisement({ advertisement, sx, ...other }: Props) {
   const theme = useTheme();
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
+
+  const handleOpen = () => setIsPdfOpen(true);
+  const handleClose = () => setIsPdfOpen(false);
 
   return (
     <Box sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', ...sx }} {...other}>
@@ -38,9 +45,16 @@ export default function Advertisement({ advertisement, sx, ...other }: Props) {
           {advertisement.description}
         </Typography>
 
-        <Button href={advertisement.path} variant="contained" color="primary">
+        {/* <Button href={advertisement.path} variant="contained" color="primary">
           Go Now
-        </Button>
+        </Button> */}
+        <Stack spacing={0.5} direction="row" alignItems="center">
+          <Button onClick={handleOpen}>
+            <Iconify icon="hugeicons:folder-open" sx={{ color: 'warning.main' }} />
+          </Button>
+        </Stack>
+        <PdfViewer pdfUrl={advertisement?.path} open={isPdfOpen} onClose={handleClose} />
+
       </Stack>
 
       <Image

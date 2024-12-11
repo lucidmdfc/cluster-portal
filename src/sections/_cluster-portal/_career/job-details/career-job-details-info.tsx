@@ -8,15 +8,20 @@ import { fCurrency } from 'src/utils/format-number';
 import Iconify from 'src/components/iconify';
 
 import { IJobProps } from 'src/types/job';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  job: IJobProps;
+  job: Job;
 };
+// type Props = {
+//   job: IJobProps;
+// };
 
 export default function CareerJobDetailsInfo({ job }: Props) {
-  const { createdAt, salary, experience, deadline, level, languages } = job;
+  const { publicationDate, salary, experience, expirationDate, level, salaryDetails } = job;
+  console.log(job)
 
   return (
     <Card sx={{ p: 3 }}>
@@ -26,7 +31,7 @@ export default function CareerJobDetailsInfo({ job }: Props) {
           <Stack>
             <Typography variant="subtitle2"> Date Posted </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {fDate(createdAt)}
+              {fDate(publicationDate)}
             </Typography>
           </Stack>
         </Stack>
@@ -36,7 +41,7 @@ export default function CareerJobDetailsInfo({ job }: Props) {
           <Stack>
             <Typography variant="subtitle2"> Expiration date </Typography>
             <Typography variant="body2" sx={{ color: 'error.main' }}>
-              {fDate(deadline)}
+              {fDate(expirationDate)}
             </Typography>
           </Stack>
         </Stack>
@@ -44,10 +49,21 @@ export default function CareerJobDetailsInfo({ job }: Props) {
         <Stack spacing={2} direction="row" alignItems="flex-start">
           <Iconify icon="carbon:money" width={24} />
           <Stack>
-            <Typography variant="subtitle2"> Offered Salary (month) </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {typeof salary === 'number' ? fCurrency(salary) : salary}
-            </Typography>
+            {salary === "competitive" ? 
+              <>
+                <Typography variant="subtitle2"> Salary </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  competitive
+                </Typography>
+              </>
+              :
+              <>
+                <Typography variant="subtitle2"> Offered Salary (month) </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {salaryDetails?.minSalary + "-" + salaryDetails?.maxSalary}
+                </Typography>
+              </>
+          }
           </Stack>
         </Stack>
 
@@ -67,16 +83,6 @@ export default function CareerJobDetailsInfo({ job }: Props) {
             <Typography variant="subtitle2"> Level </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {level}
-            </Typography>
-          </Stack>
-        </Stack>
-
-        <Stack spacing={2} direction="row" alignItems="flex-start">
-          <Iconify icon="carbon:translate" width={24} />
-          <Stack>
-            <Typography variant="subtitle2"> Language </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {typeof languages === 'string' ? languages : languages.join(', ')}
             </Typography>
           </Stack>
         </Stack>

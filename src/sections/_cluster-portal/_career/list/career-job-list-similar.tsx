@@ -11,15 +11,19 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import Iconify from 'src/components/iconify';
 
-import { IJobProps } from 'src/types/job';
+// import { IJobProps } from 'src/types/job';
 
 import CareerJobItem from './career-job-item';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  jobs: IJobProps[];
+  jobs: Job[];
 };
+// type Props = {
+//   jobs: IJobProps[];
+// };
 
 export default function CareerJobListSimilar({ jobs }: Props) {
   const mdUp = useResponsive('up', 'md');
@@ -63,7 +67,7 @@ export default function CareerJobListSimilar({ jobs }: Props) {
           }}
         >
           {jobs.map((job) => (
-            <CareerJobItem key={job.id} job={job} />
+            <CareerJobItem key={job._id} job={job} />
           ))}
         </Box>
 
