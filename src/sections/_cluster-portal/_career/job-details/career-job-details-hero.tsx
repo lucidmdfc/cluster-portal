@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+"use client";
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -20,7 +20,8 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 // import { IJobProps } from 'src/types/job';
 import { Job } from 'src/types/cluster_Types/sanity.types';
-
+import { applyForJob } from 'src/app/actions/applyJob';
+import { useRouter } from "next/navigation";
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -34,6 +35,7 @@ type Props = {
 
 export default function CareerJobDetailsHero({ job }: Props) {
   const theme = useTheme();
+  const router = useRouter();
 
   // const [favorite, setFavorite] = useState(job.favorited);
 
@@ -41,7 +43,17 @@ export default function CareerJobDetailsHero({ job }: Props) {
   //   setFavorite(event.target.checked);
   // }, []);
   // console.log(job)
-
+  const handleApply = async () => {
+    try {
+      const response = await applyForJob(job._id);
+      if (response?.redirectTo) {
+        // Redirect user to the sign-in page
+        router.push(response.redirectTo);
+      }
+    } catch (error) {
+      console.error("Application error:", error);
+    }
+  };
   return (
     <Box
       sx={{
@@ -103,7 +115,7 @@ export default function CareerJobDetailsHero({ job }: Props) {
             sx={{ width: 1, maxWidth: 340 }}
           >
             <Stack spacing={2} alignItems="center" sx={{ width: 1 }}>
-              <Button fullWidth variant="contained" size="large" color="primary">
+              <Button onClick={handleApply} fullWidth variant="contained" size="large" color="primary">
                 Apply Now
               </Button>
 
