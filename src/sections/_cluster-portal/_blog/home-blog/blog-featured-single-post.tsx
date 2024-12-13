@@ -97,7 +97,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
               }),
             }}
           /> */}
-          {blog?.author.name}
+          {blog?.author?.name}
         </Stack>
       </Stack>
     </Box>
