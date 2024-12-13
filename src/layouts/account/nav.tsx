@@ -9,6 +9,7 @@ import { alpha } from '@mui/material/styles';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
+import { useRouter } from 'next/navigation';
 
 import { paths } from 'src/routes/paths';
 import { useActiveLink } from 'src/routes/hooks';
@@ -20,7 +21,7 @@ import { _mock } from 'src/_mock';
 
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
-import {  useUser } from '@clerk/nextjs';
+import { useUser } from '@clerk/nextjs';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,13 @@ export default function Nav({ open, onClose }: Props) {
 
   const { user } = useUser();
   // console.log(user)
+
+  const router = useRouter();
+
+  const handleRetourClick = () => {
+    router.push('/jobs/#jobs');
+  };
+
 
   const renderContent = (
     <Stack
@@ -102,12 +110,13 @@ export default function Nav({ open, onClose }: Props) {
             height: 44,
             borderRadius: 1,
           }}
+          onClick={handleRetourClick}
         >
           <ListItemIcon>
             <Iconify icon="carbon:logout" />
           </ListItemIcon>
           <ListItemText
-            primary="Logout"
+            primary="Retour"
             primaryTypographyProps={{
               typography: 'body2',
             }}

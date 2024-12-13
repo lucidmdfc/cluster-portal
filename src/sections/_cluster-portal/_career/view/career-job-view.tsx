@@ -46,7 +46,7 @@ export default function CareerJobView({job}: any) {
     return <SplashScreen />;
   }
 
-  console.log(job)
+  // console.log(job)
 
   return (
     <>

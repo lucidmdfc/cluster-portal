@@ -32,6 +32,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
         pt: { xs: 5, md: 10 },
         pb: { xs: 10, md: 15 },
       }}
+      id="jobs"
     >
       {/* Introduction section */}
       <Grid container spacing={{ xs: 2, md: 4 }} sx={{ textAlign: { xs: 'center', md: 'unset' } }}>

@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { paths } from 'src/routes/paths';
 
@@ -49,6 +50,13 @@ export default function CareerJobDetailsHero({ job }: Props) {
       if (response?.redirectTo) {
         // Redirect user to the sign-in page
         router.push(response.redirectTo);
+      }
+      if (response?.message) {
+        if (response.success === true) {
+          toast.success(response.message, { duration: 10000 });
+        } else {
+          toast.error(response.message, { duration: 10000 });
+        }
       }
     } catch (error) {
       console.error("Application error:", error);
@@ -139,6 +147,10 @@ export default function CareerJobDetailsHero({ job }: Props) {
           </Stack>
         </Stack>
       </Container>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
     </Box>
   );
 }

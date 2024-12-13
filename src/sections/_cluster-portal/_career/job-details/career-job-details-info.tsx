@@ -21,7 +21,7 @@ type Props = {
 
 export default function CareerJobDetailsInfo({ job }: Props) {
   const { publicationDate, salary, experience, expirationDate, level, salaryDetails } = job;
-  console.log(job)
+  // console.log(job)
 
   return (
     <Card sx={{ p: 3 }}>

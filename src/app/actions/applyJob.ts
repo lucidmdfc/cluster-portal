@@ -4,7 +4,7 @@
 import { auth } from "@clerk/nextjs/server"; // Handles authentication using Clerk
 import { redirect } from "next/navigation"; // Server-side redirection in Next.js 14
 import { client } from "src/lib/client"; // Sanity client to interact with Sanity
-import { getPersonalSpaceQuery } from "src/lib/queries"; // GROQ query to fetch user data
+import { APPLICATION_QUERY, getPersonalSpaceQuery } from "src/lib/queries"; // GROQ query to fetch user data
 import { paths } from 'src/routes/paths';
 
 /**
@@ -20,10 +20,14 @@ export async function applyForJob(jobId: string) {
 
     // Fetching user data from Sanity
     const userData = await client.fetch(getPersonalSpaceQuery, { clerkId: userId });
-    console.log("user data" ,userData.length)
+    const application = await client.fetch(APPLICATION_QUERY, { candidateId: userId, jobId });
+    
     // If no user data is found, throw an error to inform the user.
     if (userData.length < 1) {
       return { success: false, redirectTo: "/account/personal" };
+    }
+    if (application.length > 0) {
+      return { success: false, message:'Vous avez déjà postulé à cette offre.' };
     }
 
     // Job application data (Sanity document creation)
@@ -46,7 +50,7 @@ export async function applyForJob(jobId: string) {
     await client.create(applicationData);
 
     // Return a success response after the application is successfully submitted
-    return { success: true, message: "Your application has been successfully submitted!" };
+    return { success: true, message: "Candidature envoyée avec succès" };
   
   } catch (error) {
     // Error handling (Best Practice)

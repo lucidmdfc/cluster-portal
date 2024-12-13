@@ -263,4 +263,24 @@ export const JOB_QUERY = defineQuery(`*[_type == "job"]{
   },
 }`)
 
+export const APPLICATION_QUERY = defineQuery(`
+  *[_type == "application" && candidate._ref == $candidateId && job._ref == $jobId] {
+    _id, 
+    _createdAt, 
+    _updatedAt, 
+    "slug": slug.current,
+    applicationDate,
+    status,
+    // Reference fields
+    job->{
+      _id,
+      title
+    },
+    recruiter,
+    candidate->{
+      _id
+    }
+  }
+`);
+
 
