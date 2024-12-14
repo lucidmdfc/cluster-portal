@@ -43,8 +43,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
         </Grid>
         <Grid xs={12} md={8}>
           <Typography variant="h3">
-            Whether you're a manager or an engineer, you will find here the latest job offers from
-            our partner companies!
+            Découvrez les dernières opportunités d'emploi, d'appels d'offres et de consultations chez nos partenaires. 
           </Typography>
         </Grid>
       </Grid>
