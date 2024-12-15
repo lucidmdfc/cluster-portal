@@ -37,7 +37,7 @@ const STEPS = [
 export default function CareerLandingStep() {
   const router = useRouter();
 
-  const offre = " L'offre d'emploi qui vous correspond!";
+  const offre = " Déployez votre maîtrise dans l’univers Textile & Mode!";
   const defaultValues = {
     email: '',
     password: '',
