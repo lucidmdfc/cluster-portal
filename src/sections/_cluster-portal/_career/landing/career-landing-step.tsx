@@ -16,18 +16,18 @@ import { useRouter } from 'next/navigation';
 
 const STEPS = [
   {
-    title: 'Créer votre compte',
-    description: "Il suffit d'uploader ensuite votre CV!.",
+    title: 'Authentification',
+    description: "Complétez juste après votre porfil",
     icon: '/assets/icons/ic_resume_job.svg',
   },
   {
-    title: 'Naviguez directement les offres',
-    description: 'Vous pouvez accéder à toutes les offres en un clic',
+    title: 'Choisissez une Offre',
+    description: 'Les offres pour professionnels sont précédées duHashtag #Pro',
     icon: '/assets/icons/ic_resume_job.svg',
   },
   {
     title: 'Postulez',
-    description: 'En un clic votre candidature est reçue par le recruteur',
+    description: 'Vous verrez ensuite un message de confirmation sur votre écran',
     icon: '/assets/icons/ic_search_job.svg',
   },
 ];
