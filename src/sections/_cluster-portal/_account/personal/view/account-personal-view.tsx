@@ -40,9 +40,9 @@ interface Candidate {
   gender: string;
   address: string;
   city: string;
+  CV:any
 }
 // ----------------------------------------------------------------------
-
 export default async function AccountPersonalView() {
 
   const { userId } = useAuth();
@@ -57,7 +57,6 @@ export default async function AccountPersonalView() {
             query: getPersonalSpaceQuery,
             params: { clerkId: userId },
           });
-          // console.log(candidateData);
           setCandidate(candidateData);
         } catch (error) {
           console.error('Error fetching candidate:', error);
@@ -67,8 +66,7 @@ export default async function AccountPersonalView() {
       fetchCandidateData(); // Call the fetch function
     }
   }, [userId]); // Re-run the effect when userId changes
-  // console.log(candidate);
-  
+
   const fields = [
     {
       name: 'firstName', // Field name
@@ -128,10 +126,6 @@ export default async function AccountPersonalView() {
     },
   ];
 
-  
-
-  // console.log(userId);
-  // console.log(fields)
 
 
   const AccountPersonalSchema = Yup.object().shape({
@@ -164,9 +158,16 @@ export default async function AccountPersonalView() {
 
   return (
     <>
+
+    <Box sx={{ p: 3, backgroundColor: '#4f4f4f', borderRadius: 2 ,marginBottom:"12px"}}>
       <Typography variant="h5" sx={{ mb: 3 }}>
-        Personal
+        Créer/Compléter mon profil
       </Typography>
+      <Typography variant="body1" sx={{ mb: 3 }}>
+        Afin de pouvoir postuler aux offres qui vous intéresse, veuillez complétez les champs ci-dessous. Par la suite vous pouvez, à tout moment, les modifier et soumettre de nouveau le formuaire. Votre data sera automatiquement actualisée sur la Base de donnée.
+      </Typography>
+    </Box>
+
 
       <Box
         rowGap={2.5}
@@ -175,54 +176,18 @@ export default async function AccountPersonalView() {
         // gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       >
         <DynamicForm
-          fields={fields}
-          validationSchema={AccountPersonalSchema}
-          onSubmit={handleSubmit}
-          isSubmitting={false}
-          
+        fields={fields}
+        validationSchema={AccountPersonalSchema}
+        onSubmit={handleSubmit}
+        isSubmitting={false}
+        buttonText={candidate[0]?.CV?.asset?.url ? "Remplacer mon CV" : "Télécharger mon CV"}
         />
-        
-        {/* <RHFTextField name="firstName" label="First Name" />
-
-        <RHFTextField name="lastName" label="Last Name" />
-
-        <RHFTextField name="emailAddress" label="Email Address" />
-
-        <RHFTextField name="phoneNumber" label="Phone Number" />
-
-        <Controller
-          name="birthday"
-          render={({ field, fieldState: { error } }) => (
-            <DatePicker
-              label="Birthday"
-              slotProps={{
-                textField: {
-                  helperText: error?.message,
-                  error: !!error?.message,
-                },
-              }}
-              {...field}
-              value={field.value}
-            />
-          )}
-        />
-
-        <RHFSelect native name="gender" label="Gender">
-          {GENDER_OPTIONS.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </RHFSelect>
-
-        <RHFTextField name="streetAddress" label="Street Address" />
-
-        <RHFTextField name="city" label="City" /> */}
+      
       <Toaster
         position="top-center"
         reverseOrder={false}
       />
       </Box>
     </>
-  );
+    );
 }

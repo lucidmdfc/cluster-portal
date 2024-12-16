@@ -29,7 +29,7 @@ export default function AccountLayout({ children }: Props) {
 
       {mdUp ? (
         <Container sx={{ my: 5 }}>
-          <Typography variant="h3">Account</Typography>
+          <Typography variant="h3">Mon espace</Typography>
         </Container>
       ) : (
         <Box

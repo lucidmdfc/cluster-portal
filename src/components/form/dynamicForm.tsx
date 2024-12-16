@@ -37,6 +37,7 @@ type DynamicFormProps = {
   validationSchema: yup.ObjectSchema<any>; // Yup validation schema
   onSubmit: (data: FormData) => void; // Submit handler
   isSubmitting: boolean; // Loading state
+  buttonText:String
 };
 
 // Reusable form component
@@ -45,6 +46,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
   validationSchema,
   onSubmit,
   isSubmitting,
+  buttonText
 }) => {
   const [files, setFiles] = useState<File[]>([]); // State to manage uploaded files
   const uploadDialog = useDialog();
@@ -110,7 +112,7 @@ export const DynamicForm: FC<DynamicFormProps> = ({
               onClick={uploadDialog.handleOpen}
               // onClick={() => document.getElementById('file-upload')?.click()}
             >
-              Téléverser des fichiers
+              {buttonText}
             </Button>
             {/* <input
               type="file"
