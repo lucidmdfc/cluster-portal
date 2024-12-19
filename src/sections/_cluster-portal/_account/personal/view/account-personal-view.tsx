@@ -70,56 +70,56 @@ export default async function AccountPersonalView() {
   const fields = [
     {
       name: 'firstName', // Field name
-      label: 'First Name', // Label displayed in the form
+      label: 'Prénom', // Label displayed in the form
       required: true, // Indicates if the field is required
       type: 'text', // Input type
       defaultValue:candidate[0]?.firstName || ""
     },
     {
       name: 'lastName', 
-      label: 'Last Name',
+      label: 'Nom',
       required: true, 
       type: 'text',
       defaultValue:candidate[0]?.lastName || ""
     },
     {
       name: 'phone',
-      label: 'Phone Number',
+      label: 'Tél',
       required: true,
       type: 'tel',
       defaultValue:candidate[0]?.phone || ""
     },
     {
       name: 'email',
-      label: 'Email Address',
+      label: 'Email',
       required: true,
       type: 'email',
       defaultValue:candidate[0]?.email || ""
       },
     {
       name: 'city',
-      label: 'City',
+      label: 'Ville',
       required: true,
       type: 'text',
       defaultValue:candidate[0]?.city || ""
     },
     {
       name: 'address',
-      label: 'Street Address',
+      label: 'Addresse',
       required: true,
       type: 'text',
       defaultValue:candidate[0]?.address || ""
     },
     {
       name: 'birthday',
-      label: 'Birthday',
+      label: 'Date de naissance',
       required: true,
       type: 'date',
       defaultValue:candidate[0]?.birthday || ""
     },
     {
       name: 'gender',
-      label: 'Gender',
+      label: 'Genre',
       required: true,
       type: 'text',
       defaultValue:candidate[0]?.gender || ""
