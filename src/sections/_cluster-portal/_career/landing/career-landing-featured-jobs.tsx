@@ -38,7 +38,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
       <Grid container spacing={{ xs: 2, md: 4 }} sx={{ textAlign: { xs: 'center', md: 'unset' } }}>
         <Grid xs={12} md={4}>
           <Typography variant="overline" sx={{ color: 'text.disabled' }}>
-            All Job Offers
+            Toutes les offres
           </Typography>
         </Grid>
         <Grid xs={12} md={8}>
@@ -77,7 +77,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
           variant="outlined"
           endIcon={<Iconify icon="carbon:chevron-right" />}
         >
-          View All
+          Voir tout
         </Button>
       </Stack>
     </Container>
