@@ -65,8 +65,8 @@ export default function CareerLandingStep() {
         </Typography>
 
         <Typography sx={{ color: 'text.secondary', maxWidth: 480, mx: 'auto' }}>
-          La Job Marketplace du MDFC vous offre une expérience intuitive pour la recherche des
-          opportunités, avec des offres ciblées et orientées uniquement Textile
+          La plateforme Stitch-in vous offre une expérience intuitive pour la recherche des
+          opportunités, avec des offres ciblées, qu'elles soient pour l'emploi ou encore pour la mise en relation des professionnels du secteur
         </Typography>
 
         <Box
