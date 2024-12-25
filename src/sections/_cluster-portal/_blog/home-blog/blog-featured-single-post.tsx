@@ -16,6 +16,7 @@ import Image from 'src/components/image';
 import TextMaxLine from 'src/components/text-max-line';
 
 import PostTimeBlock from '../../common/post-time-block';
+import { Avatar } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -85,8 +86,8 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
         {largePost && <TextMaxLine sx={{ opacity: 0.48 }}>{blog?.description}</TextMaxLine>}
 
         <Stack direction="row" alignItems="center" sx={{ typography: 'body2', pt: 1.5 }}>
-          {/* <Avatar
-            src={blog ? urlFor(blog?.author?.imageAsset?.image?.asset)?.url() : ''}
+          <Avatar
+            src={blog ? urlFor(blog?.author?.image?.imageAsset?.image?.asset)?.url() : ''}
             sx={{
               mr: 1,
               width: 32,
@@ -96,7 +97,7 @@ export default function BlogFeaturedSinglePost({ blog, largePost }: Props) {
                 height: { xs: 32, md: 40 },
               }),
             }}
-          /> */}
+          />
           {blog?.author?.name}
         </Stack>
       </Stack>

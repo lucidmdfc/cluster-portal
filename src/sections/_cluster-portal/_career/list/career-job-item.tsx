@@ -36,7 +36,7 @@ export default function CareerJobItem({ job }: Props) {
   const { title, level, salary, location,  publicationDate, experience, company, contract } =
     job;
   
-  console.log(company)
+  console.log(job)
   // console.log(publicationDate)
   // console.log(company?.illustrations)
   // src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
@@ -66,11 +66,15 @@ export default function CareerJobItem({ job }: Props) {
 
       <Stack sx={{ p: 3, pb: 0 }}>
         <Stack direction="row" alignItems="center" spacing={2.5}>
-          {/* <Image
-            src={urlFor(company?.illustrations[0])?.url() ?? ''}
+          <Image
+            src={
+              company?.illustrations?.[0]?.imageAsset?.image?.asset
+                ? urlFor(company.illustrations[0].imageAsset.image.asset)?.url()
+                : ''
+            }
             alt={company?.name}
             sx={{ width: 48, height: 48, borderRadius: 1 }}
-          /> */}
+          />
 
           {/* {urgent && <Label color="error">Urgent</Label>} */}
         </Stack>

@@ -98,6 +98,7 @@ export default function CareerJobView({job}: any) {
                   </Button>
                 ))}
               </Stack>
+
             </Stack>
           </Grid>
 

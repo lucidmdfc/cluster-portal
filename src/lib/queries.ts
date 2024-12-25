@@ -259,8 +259,11 @@ export const JOB_QUERY = defineQuery(`*[_type == "job"]{
     sector ->{
       sectorName
     },
-    illustrations
-  },
+	  illustrations[]->{
+        ...,
+        imageAsset->{...}
+      },
+    },
 }`)
 
 export const APPLICATION_QUERY = defineQuery(`

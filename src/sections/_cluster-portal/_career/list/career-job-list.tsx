@@ -1,15 +1,16 @@
 import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
-import { IJobProps } from 'src/types/job';
+// import { IJobProps } from 'src/types/job';
 
 import CareerJobItem from './career-job-item';
 import CareerJobItemSkeleton from './career-job-item-skeleton';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  jobs: IJobProps[];
+  jobs: Job[];
   loading?: boolean;
 };
 

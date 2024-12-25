@@ -16,6 +16,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import PostAuthor from '../../common/post-author';
 import SingleBlogHero from '../single-blog-hero ';
 import PostSidebar from '../../common/post-sidebar';
+import PostSocialsShare from '../../common/post-socials-share';
 
 // import PostSocialsShare from '../../blog/common/post-socials-share';
 // import TravelLatestPosts from '../../blog/travel/travel-latest-posts';
@@ -54,7 +55,7 @@ export default function BlogDetailView({ blog, recentBlogs }: Props) {
 
             {/* <PostTags tags={tags} /> */}
 
-            {/* <PostSocialsShare /> */}
+            <PostSocialsShare />
 
             <Divider sx={{ mt: 8 }} />
 

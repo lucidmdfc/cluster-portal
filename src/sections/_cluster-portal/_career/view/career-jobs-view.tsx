@@ -8,17 +8,20 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { _jobs } from 'src/_mock';
+// import { _jobs } from 'src/_mock';
 
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 import CareerJobList from '../list/career-job-list';
+import { Job } from 'src/types/cluster_Types/sanity.types';
 // import CareerNewsletter from '../career-newsletter';
 // import CareerFilters from '../filters/career-filters';  you can add the filter later
 
 // ----------------------------------------------------------------------
-
-export default function CareerJobsView() {
+type Props = {
+  jobs: Job[];
+};
+export default function CareerJobsView({jobs}:Props) {
   const loading = useBoolean(true);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function CareerJobsView() {
             { name: 'all jobs' },
           ]}
         />
-        <CareerJobList jobs={_jobs} loading={loading.value} />
+        <CareerJobList jobs={jobs} loading={loading.value} />
       </Container>
 
       {/* <CareerNewsletter /> */}

@@ -64,7 +64,6 @@ async function handlePersonalSpaceForm(formData: FormData) {
     const userData = await client.fetch(getPersonalSpaceQuery, { clerkId:userId });
 // console.log(userData)
     const cvFile = formData.get("files") as File | null;
-
     let uploadedCvId: string | undefined;
     if (cvFile) {
       // Upload the file to Sanity
@@ -78,7 +77,7 @@ async function handlePersonalSpaceForm(formData: FormData) {
 
     // Zod validation schema for personal space form fields
     const personalSpaceSchema = z.object({
-      firstName: z.string().min(1, "First Name is required"), // Name field must not be empty
+      firstName: z.string().min(1, "First Name is required"),
       lastName: z.string().min(1, "Last Name is required"),
       email: z.string().min(1, "email is required"),
       phone: z.string().min(1, "phone is required"),
@@ -90,8 +89,8 @@ async function handlePersonalSpaceForm(formData: FormData) {
 
     // Validate the form data
     const parsedData = personalSpaceSchema.parse({
-      firstName: formData.get("firstName"), // Extract the 'name' field
-      lastName: formData.get("lastName"), // Extract the 'name' field
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
       email: formData.get("email"),
       phone: formData.get("phone"),
       birthday: formData.get("birthday"),
@@ -119,7 +118,7 @@ async function handlePersonalSpaceForm(formData: FormData) {
       address:parsedData.address,
       city:parsedData.city,
       gender:parsedData.gender,
-      birthday:parsedData.birthday,
+      // birthday:parsedData.birthday,
     };
 
     // Save updated data to Sanity (replaces the document if it exists, creates otherwise)

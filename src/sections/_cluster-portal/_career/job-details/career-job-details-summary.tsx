@@ -20,7 +20,7 @@ type Props = {
 
 export default function CareerJobDetailsSummary({ job }: Props) {
   const { body } = job;
-  console.log(body)
+  // console.log(body)
   return (
     <Stack spacing={5}>
       <RichText content={body} />
