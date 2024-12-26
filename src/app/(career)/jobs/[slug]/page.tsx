@@ -17,6 +17,7 @@ export default async function CareerJobPage() {
   const { slug } = useParams();
   // console.log("params", slug);
   const jobData = await sanityFetch({ query: JOB_QUERY });
+  // console.log("job data", jobData)
   const SingleJobData = jobData.find(
     (job: any) => job._id === slug
     );

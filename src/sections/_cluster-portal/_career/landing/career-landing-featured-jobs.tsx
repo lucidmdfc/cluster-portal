@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import toast from 'react-hot-toast';
 
 // Import the DynamicForm component
-import { DynamicForm } from 'src/components/form/dynamicForm';
+// import { DynamicForm } from 'src/components/form/dynamicForm';
 
 // Import other necessary components and types
 import { paths } from 'src/routes/paths';

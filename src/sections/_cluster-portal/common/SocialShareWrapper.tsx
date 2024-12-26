@@ -26,7 +26,6 @@ export const SocialShareWrapper: React.FC<SocialShareWrapperProps> = ({
   platform,
   url,
   title,
-  description,
   hashtag,
   children,
 }) => {
@@ -37,7 +36,7 @@ export const SocialShareWrapper: React.FC<SocialShareWrapperProps> = ({
   }
 
   return (
-    <ShareButton url={url} title={title} description={description} hashtag={hashtag}>
+    <ShareButton url={url} title={title} hashtag={hashtag}>
       {children}
     </ShareButton>
   );

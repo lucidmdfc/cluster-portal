@@ -26,17 +26,17 @@ export async function applyForJob(jobId: string) {
     if (userData.length < 1) {
       return { success: false, redirectTo: "/account/personal" };
     }
-    if (application.length > 0) {
-      return { success: false, message:'Vous avez déjà postulé à cette offre.' };
+    if (application && application.length > 0) {
+      console.log(application)
+      return { success: false, message: 'Vous avez déjà postulé à cette offre.' };
     }
 
     // Job application data (Sanity document creation)
     const applicationData = {
       _type: "application", // Document type in Sanity
-      // jobId, // The job ID being applied for
       job: {
         _type: "reference",
-        _ref: jobId, // Reference to the authenticated user
+        _ref: jobId, // Reference to The job ID being applied for
       },
       candidate: {
         _type: "reference",

@@ -247,6 +247,7 @@ export type Job = {
     }
     name: string
     logo: object
+    illustrations:any
   }
   location?: string
   publicationDate?: string

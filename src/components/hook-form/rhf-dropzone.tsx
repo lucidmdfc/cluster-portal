@@ -33,6 +33,7 @@ const RHFDropzone: React.FC<RHFDropzoneProps> = ({ name, helperText, maxFiles })
             acceptedFiles={[...acceptedImageTypes, ...acceptedDocumentTypes]} // Use the mime types based on accepted types
             dropzoneText="Drag and drop files here or click"
             onChange={(files) => {
+              console.log(files)
               onChange(files); // Call the onChange function to update form state
             }}
             filesLimit={maxFiles} // Limit the number of files

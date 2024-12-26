@@ -23,6 +23,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import { Job } from 'src/types/cluster_Types/sanity.types';
 import { applyForJob } from 'src/app/actions/applyJob';
 import { useRouter } from "next/navigation";
+import { useState } from 'react';
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -38,6 +39,8 @@ export default function CareerJobDetailsHero({ job }: Props) {
   const theme = useTheme();
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(true);
   // const [favorite, setFavorite] = useState(job.favorited);
 
   // const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,16 +49,20 @@ export default function CareerJobDetailsHero({ job }: Props) {
   // console.log(job)
   const handleApply = async () => {
     try {
+      setLoading(true)
+      setSuccess(true)
       const response = await applyForJob(job._id);
+      setLoading(false)
+      setSuccess(false)
       if (response?.redirectTo) {
         // Redirect user to the sign-in page
         router.push(response.redirectTo);
       }
       if (response?.message) {
         if (response.success === true) {
-          toast.success(response.message, { duration: 10000 });
+          toast.success(response.message, { duration: 5000 });
         } else {
-          toast.error(response.message, { duration: 10000 });
+          toast.error(response.message, { duration: 5000 });
         }
       }
     } catch (error) {
@@ -123,8 +130,8 @@ export default function CareerJobDetailsHero({ job }: Props) {
             sx={{ width: 1, maxWidth: 340 }}
           >
             <Stack spacing={2} alignItems="center" sx={{ width: 1 }}>
-              <Button onClick={handleApply} fullWidth variant="contained" size="large" color="primary">
-                Apply Now
+              <Button onClick={handleApply} fullWidth variant="contained" size="large" color="primary" disabled={loading || !success}>
+                {success ? loading ? "Applying..." : "Apply Now" : "Applied"}
               </Button>
 
               <Typography variant="body2" sx={{ color: 'common.white' }}>

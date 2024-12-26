@@ -18,6 +18,7 @@ const FieldRenderer = <TFieldValues extends FieldValues>({
   rules,
   label,
   type,
+  onChange,
   ...props
 }: FieldRendererProps<TFieldValues>) => {
   const FieldComponent = fieldTypeMap[fieldType];
@@ -33,6 +34,7 @@ const FieldRenderer = <TFieldValues extends FieldValues>({
       render={({ field, fieldState }) => {
         return (<>
           <FieldComponent
+            control={control}
             options={[]}
             {...props}
             {...field}
@@ -40,7 +42,6 @@ const FieldRenderer = <TFieldValues extends FieldValues>({
             type={type}
             error={fieldState?.error?.message}
             helperText={fieldState?.error?.message}
-            control={control}
           />
           </>
         );

@@ -62,9 +62,11 @@ async function handlePersonalSpaceForm(formData: FormData) {
 
     // Fetch existing user data from Sanity (specific to personal space form logic)
     const userData = await client.fetch(getPersonalSpaceQuery, { clerkId:userId });
-// console.log(userData)
-    const cvFile = formData.get("files") as File | null;
+
+    // const cvFile = formData.get("files") as File | null;
+    const cvFiles = formData.getAll("files[]");
     let uploadedCvId: string | undefined;
+    const cvFile = cvFiles[0] as File; 
     if (cvFile) {
       // Upload the file to Sanity
       const uploadResponse = await client.assets.upload("file", cvFile, {
@@ -118,7 +120,7 @@ async function handlePersonalSpaceForm(formData: FormData) {
       address:parsedData.address,
       city:parsedData.city,
       gender:parsedData.gender,
-      // birthday:parsedData.birthday,
+      birthday:parsedData.birthday,
     };
 
     // Save updated data to Sanity (replaces the document if it exists, creates otherwise)

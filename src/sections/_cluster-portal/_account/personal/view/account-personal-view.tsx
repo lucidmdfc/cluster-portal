@@ -39,8 +39,6 @@ import StepLabel from '@mui/material/StepLabel';
 import { z } from 'zod';
 // ----------------------------------------------------------------------
 
-const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
-
 // Define the types for form data
 interface Candidate {
   firstName: string;
@@ -79,7 +77,30 @@ export default function AccountPersonalView() {
       fetchCandidateData(); // Call the fetch function
     }
   }, [userId]); // Re-run the effect when userId changes
-  const fields = [
+  type FieldOptions = { label: string; value: string };
+
+  type FieldType = "text" | "select" | "fileUpload";
+
+  type Field<T> = {
+    fieldType: FieldType;
+    name: keyof T;
+    label: string;
+    required: boolean;
+    type: string;
+    options?: FieldOptions[];
+  };
+
+  const fields: Array<Field<{
+    address: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    city: string;
+    birthday: string;
+    gender: string;
+    files: File[];
+  }>> = [
     {
       fieldType: "text",
       name: 'firstName',
@@ -140,13 +161,13 @@ export default function AccountPersonalView() {
         { value: "female", label: "Female" },
       ],
     },
-    // {
-    //   fieldType: "fileUpload",
-    //   name: 'fileUploadField',
-    //   label: 'Upload Your File', 
-    //   required: true, 
-    //   type: 'file', 
-    // }
+    {
+      fieldType: "fileUpload",
+      name: 'files',
+      label: 'Upload Your File', 
+      required: true, 
+      type: 'file', 
+    }
   ];
   const defaultValues = {
     firstName: candidate[0]?.firstName || '',
@@ -157,6 +178,7 @@ export default function AccountPersonalView() {
     address:candidate[0]?.address || "",
     birthday:candidate[0]?.birthday || "",
     gender:candidate[0]?.gender || "",
+    // files:candidate[0]?.CV || "",
   };
   // const fields = [
   //   {
@@ -237,10 +259,16 @@ export default function AccountPersonalView() {
       gender: z.string().min(1, "gender is required"),
       address: z.string().min(1, "street Address is required"),
       city: z.string().min(1, "city is required"),
+      files: z
+        .array(z.instanceof(File))
+        .min(1, "At least one file is required")
+        .max(1, "Only one file is allowed"),
     });
   
   // Handle form submission
   const handleSubmit = async (formDataObject: { [key: string]: any }) => {
+    console.log(formDataObject)
+    // console.log(formDataObject.fileUploadField)
     try {
       // Convert the plain object to FormData
       const formData = new FormData();
@@ -316,6 +344,7 @@ export default function AccountPersonalView() {
             onSubmit={handleSubmit}
             schema={personalSpaceSchema}
             defaultValues={defaultValues}
+            isSubmitting={isSubmitting}
           />
       }
       {/* {loading ? (

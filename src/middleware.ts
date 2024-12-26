@@ -4,6 +4,8 @@ const isProtectedRoute = createRouteMatcher(['/account/personal',"/jobs/:slug"])
 
 export default clerkMiddleware(async (auth, req) =>  {
   if (isProtectedRoute(req)) await auth.protect()
+}, {
+  signInUrl: "/signin"
 })
 
 export const config = {
