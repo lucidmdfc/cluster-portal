@@ -13,7 +13,7 @@ import { z } from "zod"; // Zod for schema validation
  */
 const FORM_TYPES = {
   PERSONAL_SPACE: "candidate", // Represents authenticated user forms
-  PUBLIC_FORM: "publicForm", // Represents general, unauthenticated user forms
+  PUBLIC_FORM: "projectCollaboratifs", // Represents general, unauthenticated user forms
 };
 
 /**
@@ -145,35 +145,64 @@ async function handlePersonalSpaceForm(formData: FormData) {
 async function handlePublicForm(formData: FormData) {
   try {
     // Zod validation schema for public form fields
-    const publicFormSchema = z.object({
-      firstName: z.string().min(1, "firstName is required"), // Name field must not be empty
-      lastName: z.string().min(1, "lastName is required"), // Name field must not be empty
-      email: z.string().min(1, "Email is required"), // Name field must not be empty
-      phone: z.string().min(1, "{Phone} is required"), // Name field must not be empty
-      // clerkId: z.string().uuid("Invalid Clerk ID").optional(), // clerkId must be a valid UUID (optional)
-      // attachedFile: z.string().min(1, "Attached file is required"), // Attached file must be provided
+    const projectCollaborationSchema = z.object({
+      entrepriseName: z
+        .string()
+        .min(1, { message: "Nom de votre entreprise est obligatoire" }),
+      partenaires: z
+        .array(z.string())
+        .optional(),
+      projectTitle: z
+        .string()
+        .min(1, { message: "Titre du projet est obligatoire" }),
+      projectDescription: z
+        .string()
+        .min(1, { message: "Descriptif du projet est obligatoire" }),
+      budgetEstimation: z
+        .preprocess(
+          (value) => (typeof value === "string" ? parseFloat(value) : value),
+          z.number().min(1, { message: "Budget estimatif doit être supérieur à 0" })
+      ),
     });
+    
+    const Files = formData.getAll("projectPresentation[]");
+    let uploadedId: string | undefined;
+    const File = Files[0] as File; 
+    if (File) {
+      // Upload the file to Sanity
+      const uploadResponse = await client.assets.upload("file", File, {
+        filename: File.name,
+      });
 
+      // console.log("Uploaded file:", uploadResponse);
+      uploadedId = uploadResponse._id;
+    }
+    // console.log(Files)
     // Validate the form data
-    const parsedData = publicFormSchema.parse({
-      firstName: formData.get("firstName"), // Retrieve the 'name' field
-      // attachedFile: formData.get("attachedFile"), // Retrieve the 'attachedFile' field
-      lastName: formData.get("lastName"), 
-      phone: formData.get("phone"), 
-      email: formData.get("email"), 
+    const parsedData = projectCollaborationSchema.parse({
+      entrepriseName: formData.get("entrepriseName"), // Retrieve the 'name' field
+      partenaires: formData.getAll("partenaires"), 
+      projectTitle: formData.get("projectTitle"), 
+      projectDescription: formData.get("projectDescription"), 
+      budgetEstimation: formData.get("budgetEstimation"), 
     });
-
+    console.log(formData.getAll("partenaires"))
     // Construct a new data object for this form submission
     const newPublicData = {
       _type: FORM_TYPES.PUBLIC_FORM, // Label the type of document for Sanity
-      firstName: parsedData.firstName, // Use validated 'name' field
-      lastName: parsedData.lastName, // Use validated 'name' field
-      email: parsedData.email, // Use validated 'name' field
-      phone: parsedData.phone, // Use validated 'name' field
-      // attachedFile: parsedData.attachedFile, // Use validated 'attachedFile' field
-      // Add more fields here if needed for the form type!
+      entrepriseName: parsedData.entrepriseName, 
+      partenaires: parsedData.partenaires, 
+      projectTitle: parsedData.projectTitle, 
+      projectDescription: parsedData.projectDescription,
+      budgetEstimation: parsedData.budgetEstimation,
+      projectPresentation: {
+      _type: 'file',
+      asset: {
+        _type: 'reference',
+        _ref: uploadedId, // Link the uploaded file via the asset reference
+      },},
     };
-    console.log("from public space")
+    // console.log("from public space")
 
     // Save the new data to Sanity as a new document
     await client.create(newPublicData);

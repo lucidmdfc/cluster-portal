@@ -56,7 +56,7 @@ const DynamicForm = <TFieldValues extends FieldValues>({
         </Box>
       </form>
       {/* Optionally display the current values in a preview */}
-      {/* <ValuesPreview /> */}
+      <ValuesPreview />
     </FormProvider>
   );
 };

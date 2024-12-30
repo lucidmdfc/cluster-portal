@@ -178,78 +178,7 @@ export default function AccountPersonalView() {
     address:candidate[0]?.address || "",
     birthday:candidate[0]?.birthday || "",
     gender:candidate[0]?.gender || "",
-    // files:candidate[0]?.CV || "",
   };
-  // const fields = [
-  //   {
-  //     name: 'firstName', // Field name
-  //     label: 'First Name', // Label displayed in the form
-  //     required: true, // Indicates if the field is required
-  //     type: 'text', // Input type
-  //     defaultValue: candidate[0]?.firstName || ""
-      
-  //   },
-  //   {
-  //     name: 'lastName', 
-  //     label: 'Last Name',
-  //     required: true, 
-  //     type: 'text',
-  //     defaultValue:candidate[0]?.lastName || ""
-  //   },
-  //   {
-  //     name: 'phone',
-  //     label: 'Phone Number',
-  //     required: true,
-  //     type: 'tel',
-  //     defaultValue:candidate[0]?.phone || ""
-  //   },
-  //   {
-  //     name: 'email',
-  //     label: 'Email Address',
-  //     required: true,
-  //     type: 'email',
-  //     defaultValue:candidate[0]?.email || ""
-  //     },
-  //   {
-  //     name: 'city',
-  //     label: 'City',
-  //     required: true,
-  //     type: 'text',
-  //     defaultValue:candidate[0]?.city || ""
-  //   },
-  //   {
-  //     name: 'address',
-  //     label: 'Street Address',
-  //     required: true,
-  //     type: 'text',
-  //     defaultValue:candidate[0]?.address || ""
-  //   },
-  //   {
-  //     name: 'birthday',
-  //     label: 'Birthday',
-  //     required: true,
-  //     type: 'date',
-  //     defaultValue:candidate[0]?.birthday || ""
-  //   },
-  //   {
-  //     name: 'gender',
-  //     label: 'Gender',
-  //     required: true,
-  //     type: 'text',
-  //     defaultValue:candidate[0]?.gender || ""
-  //   },
-  // ];
-
-  // const AccountPersonalSchema = Yup.object().shape({
-  //   firstName: Yup.string().required('First name is required'),
-  //   lastName: Yup.string().required('Last name is required'),
-  //   email: Yup.string().required('Email address is required'),
-  //   phone: Yup.string().required('Phone number is required'),
-  //   birthday: Yup.date().required('Birthday is required'),
-  //   gender: Yup.string().required('Gender is required'),
-  //   address: Yup.string().required('Street address is required'),
-  //   city: Yup.string().required('City is required'),
-  // });
     const personalSpaceSchema = z.object({
       firstName: z.string().min(1, { message: "First Name is required"}),
       lastName: z.string().min(1, "Last Name is required"),
@@ -328,8 +257,6 @@ export default function AccountPersonalView() {
         ))}
       </Stepper>
     </Box>
-
-
       <Box
         rowGap={2.5}
         columnGap={2}
@@ -347,19 +274,6 @@ export default function AccountPersonalView() {
             isSubmitting={isSubmitting}
           />
       }
-      {/* {loading ? (
-        <h1>loading...</h1>
-        ) : 
-          <DynamicForm
-            fields={fields}
-            onSubmit={handleSubmit}
-            // validationSchema={AccountPersonalSchema}
-            // isSubmitting={isSubmitting}
-            // renderField={renderField}
-            // renderSubmitButton={renderSubmitButton}
-            // renderFileUploader={renderFileUploader} // Optional, you can omit this if no file upload is needed
-          />
-      } */}
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -368,66 +282,3 @@ export default function AccountPersonalView() {
     </>
     );
 }
-
-const renderField = (field: { name: string; label: string; type?: string; required?: boolean }, formik: any) => {
-  return (
-    <Grid item xs={12} sm={6} key={field.name} sx={{ mb: 2 }}>
-      <TextField
-        fullWidth
-        label={field.label}
-        name={field.name}
-        type={field.type || 'text'}
-        required={field.required}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values[field.name]}
-        error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
-        helperText={formik.touched[field.name] && formik.errors[field.name]}
-      />
-    </Grid>
-  );
-};
-const renderSubmitButton = (isSubmitting: boolean) => {
-  return (
-    <Box mt={4}>
-      <Button type="submit" variant="contained" disabled={isSubmitting}>
-        {isSubmitting ? 'En cours...' : 'Soumettre'}
-      </Button>
-    </Box>
-
-  );
-};
-
-const renderFileUploader = (setFiles: (files: File[]) => void) => {
-  const uploadDialog = useDialog();
-
-  return (
-    <Grid item xs={12}>
-      <Button
-        sx={{
-            width: '100%',
-            py: 1.3,
-          }}
-        startIcon={
-          <SvgIcon>
-            <Upload01 />
-          </SvgIcon>
-        }
-        color="info"
-        variant="outlined"
-        onClick={uploadDialog.handleOpen}
-        >
-        {/* {buttonText} */}
-        upload file
-      </Button>
-
-        <FileUploader
-          onClose={uploadDialog.handleClose}
-          open={uploadDialog.open}
-          onSelectFiles={(files) => {
-            setFiles(files);
-          }}
-        />
-    </Grid>
-  );
-};

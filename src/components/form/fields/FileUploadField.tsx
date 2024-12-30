@@ -26,12 +26,11 @@ const FileUploadField = <TFieldValues extends FieldValues>({
   } = useController<TFieldValues>({
     name,
     control,
-    rules: { required },
   });
   // console.log(field)
   const handleFileSelect =  (file: File[]) => {
     if (file.length > 0) {
-      console.log("Selected files:", file);
+      // console.log("Selected files:", file);
       field.onChange(file); // Update form state with the file
     }
     uploadDialog.handleClose();

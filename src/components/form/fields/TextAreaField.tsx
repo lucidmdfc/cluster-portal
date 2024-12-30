@@ -12,7 +12,7 @@ interface TextFieldProps<TFieldValues extends FieldValues> {
   helperText?: string | undefined;
 }
 
-const TextField = <TFieldValues extends FieldValues>({
+const TextAreaField = <TFieldValues extends FieldValues>({
   name,
   label,
   required = false,
@@ -29,17 +29,19 @@ const TextField = <TFieldValues extends FieldValues>({
   // console.log(error)
 
   return (
-    <Grid item xs={12} sm={6} key={name} sx={{ mb: 2 }}>
+    <Grid item xs={12} sm={12} key={name} sx={{ mb: 2 }}>
       <MuiTextField
         {...field}
         label={label}
-        type={type}
+        multiline
+        rows={5} 
         fullWidth
         error={!!error}
         helperText={error ? error.message : ""}
       />
+
     </Grid>
   );
 };
 
-export default TextField;
+export default TextAreaField;
