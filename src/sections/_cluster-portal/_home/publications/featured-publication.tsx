@@ -48,10 +48,10 @@ export default function FeaturedPublication({ Publications }: Props) {
         }}
         
       >
-        <Typography variant="h3">Publications</Typography>
+        <Typography variant="h3">Data Room</Typography>
 
         {/* <Typography sx={{ color: 'text.secondary' }}>
-          {`Our Featured Tours can help you find the trip that's perfect for you!`}
+          {`Vous trouverez dans cette section une sélection de rapports et études réalisées par le Cluster ainsi que par des Organismes de renom nationaux ou internationaux`}
         </Typography> */}
       {mdUp && viewAllBtn}
 
