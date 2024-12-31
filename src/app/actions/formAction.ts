@@ -181,12 +181,11 @@ async function handlePublicForm(formData: FormData) {
     // Validate the form data
     const parsedData = projectCollaborationSchema.parse({
       entrepriseName: formData.get("entrepriseName"), // Retrieve the 'name' field
-      partenaires: formData.getAll("partenaires"), 
+      partenaires: formData.getAll("partenaires[]"), 
       projectTitle: formData.get("projectTitle"), 
       projectDescription: formData.get("projectDescription"), 
       budgetEstimation: formData.get("budgetEstimation"), 
     });
-    console.log(formData.getAll("partenaires"))
     // Construct a new data object for this form submission
     const newPublicData = {
       _type: FORM_TYPES.PUBLIC_FORM, // Label the type of document for Sanity

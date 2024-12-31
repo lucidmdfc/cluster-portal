@@ -10,6 +10,8 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import PublicationItem from './publication-item';
+import Iconify from 'src/components/iconify';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 // ----------------------------------------------------------------------
 
@@ -19,18 +21,40 @@ type Props = {
 
 export default function FeaturedPublication({ Publications }: Props) {
   console.log('Publications', Publications[0].pdfUrl);
+  const mdUp = useResponsive('up', 'md');
+  const viewAllBtn = (
+    <Button
+      component={RouterLink}
+      href={`${paths.clusterPortal.AllPublications}`}
+      color="inherit"
+      endIcon={<Iconify icon="carbon:chevron-right" />}
+    >
+      Voir tout
+    </Button>
+  );
+
   return (
     <Container
       sx={{
         py: { xs: 5, md: 10 },
       }}
     >
-      <Stack spacing={3} sx={{ textAlign: 'center' }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent={{ xs: 'center', md: 'space-between' }}
+        sx={{
+          mb: { xs: 8, md: 10 },
+        }}
+        
+      >
         <Typography variant="h3">Publications</Typography>
 
-        <Typography sx={{ color: 'text.secondary' }}>
+        {/* <Typography sx={{ color: 'text.secondary' }}>
           {`Our Featured Tours can help you find the trip that's perfect for you!`}
-        </Typography>
+        </Typography> */}
+      {mdUp && viewAllBtn}
+
       </Stack>
 
       <Box
@@ -49,7 +73,7 @@ export default function FeaturedPublication({ Publications }: Props) {
           <PublicationItem key={Publication._id} Publication={Publication} />
         ))}
       </Box>
-      <Box sx={{ textAlign: 'center' }}>
+      {/* <Box sx={{ textAlign: 'center' }}>
         <Button
           component={RouterLink}
           href={paths.clusterPortal.AllPublications}
@@ -59,7 +83,7 @@ export default function FeaturedPublication({ Publications }: Props) {
         >
           Tout voir
         </Button>
-      </Box>
+      </Box> */}
     </Container>
   );
 }

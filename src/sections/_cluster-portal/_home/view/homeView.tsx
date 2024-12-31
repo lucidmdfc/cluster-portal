@@ -70,6 +70,7 @@ export default function HomeView({ Events, Publications, Accueil }: Props) {
           </Stack>
         )}
       </Container>
+      
       <FeaturedPublication Publications={Publications} />
     </>
   );

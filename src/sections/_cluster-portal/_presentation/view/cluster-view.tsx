@@ -5,6 +5,7 @@ type props = {
   ClusterData: any;
 };
 export default function ClusterView({ ClusterData }: props) {
+  // console.log(ClusterData.faqs)
   return (
     <>
       <AboutUs roj={ClusterData} />

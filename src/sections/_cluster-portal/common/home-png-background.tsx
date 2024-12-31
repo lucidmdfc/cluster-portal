@@ -46,6 +46,10 @@ export default function HomePngBackground({ Accueil, color = 'primary', sx, Link
           '&:hover': {
             bgcolor: `${color}.light`,
           },
+          height: "580px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent:"space-around",
           ...sx,
         }}
       >
