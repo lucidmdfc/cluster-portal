@@ -28,7 +28,7 @@ type Props = {
 export default function HomeView({ Events, Publications, Accueil }: Props) {
   const mdUp = useResponsive('up', 'md');
   const events = 'allEvents';
-  console.log(Events)
+  // console.log(Events)
   const viewAllBtn = (
     <Button
       component={RouterLink}

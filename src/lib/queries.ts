@@ -155,6 +155,7 @@ export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil"]{
   slug,
   "subTitle": SubTitle,
   body,
+  isForm
 }
   `);
 

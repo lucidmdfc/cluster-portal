@@ -12,6 +12,8 @@ import RichText from 'src/components/rich-text/rich-text';
 // import { useResponsive } from 'src/hooks/use-responsive';
 
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import { Button } from '@mui/material';
+import Link from 'next/link';
 
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 
@@ -21,6 +23,7 @@ type Props = {
 };
 
 export default function HomePostsDetail({ Data }: Props) {
+  console.log(Data)
   return (
     <>
       <Container sx={{ overflow: 'hidden' }}>
@@ -35,6 +38,13 @@ export default function HomePostsDetail({ Data }: Props) {
             <RichText content={Data?.body} />
 
             {/* <PostTags tags={Data?.tags} /> */}
+            {Data.isForm ? (
+              <Link href="/projectCollaboration">
+                <Button variant="contained">
+                  Déposer votre projet
+                </Button>
+              </Link>
+            ) : null}
           </Grid>
         </Grid>
       </Container>
