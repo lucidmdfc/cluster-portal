@@ -11,7 +11,9 @@ import urlFor from 'src/lib/sanity';
 import { ColorSchema } from 'src/theme/palette';
 
 import Image from 'src/components/image';
+// import Image from 'next/image';
 import TextMaxLine from 'src/components/text-max-line';
+// import Image from 'next/image';
 
 // ----------------------------------------------------------------------
 
@@ -55,9 +57,10 @@ export default function HomePngBackground({ Accueil, color = 'primary', sx, Link
       >
         <Image
           src={Accueil?.image?.image ? urlFor(Accueil?.image?.image.asset)?.url() : ''}
-          sx={{
-            filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
-          }}
+          ratio="3/4"
+          // sx={{
+          //   filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
+          // }}
         />
 
         <Stack spacing={1} sx={{ textAlign: 'center' }}>

@@ -1,5 +1,8 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 module.exports = {
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
   trailingSlash: true,
   modularizeImports: {
     '@mui/icons-material': {

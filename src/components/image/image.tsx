@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from 'next/image';
 
 import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -9,7 +9,7 @@ import { ImageProps } from './types';
 
 // ----------------------------------------------------------------------
 
-const Image = forwardRef<HTMLSpanElement, ImageProps>(
+const CustomImage = forwardRef<HTMLSpanElement, ImageProps>(
   (
     {
       ratio,
@@ -17,18 +17,8 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
       disabledEffect = false,
       alt,
       src,
-      afterLoad,
-      delayTime,
-      threshold,
-      beforeLoad,
-      delayMethod,
       placeholder,
       wrapperProps,
-      scrollPosition,
-      effect = 'blur',
-      visibleByDefault,
-      wrapperClassName,
-      useIntersectionObserver,
       sx,
       ...other
     },
@@ -49,36 +39,20 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
       },
     };
 
+    // The image content box will fill the parent container
     const content = (
       <Box
-        component={LazyLoadImage}
-        alt={alt}
-        src={src}
-        afterLoad={afterLoad}
-        delayTime={delayTime}
-        threshold={threshold}
-        beforeLoad={beforeLoad}
-        delayMethod={delayMethod}
-        placeholder={placeholder}
-        wrapperProps={wrapperProps}
-        scrollPosition={scrollPosition}
-        visibleByDefault={visibleByDefault}
-        effect={disabledEffect ? undefined : effect}
-        useIntersectionObserver={useIntersectionObserver}
-        wrapperClassName={wrapperClassName || 'component-image-wrapper'}
-        placeholderSrc={disabledEffect ? '/assets/transparent.png' : '/assets/placeholder.svg'}
-        sx={{
-          width: 1,
-          height: 1,
-          objectFit: 'cover',
-          verticalAlign: 'bottom',
-          ...(!!ratio && {
-            top: 0,
-            left: 0,
-            position: 'absolute',
-          }),
-        }}
-      />
+        component="span"
+      >
+        <Image
+          src={src || "/assets/placeholder.svg"}
+          alt={alt || "image"}
+          layout="fill"
+          objectFit="cover"
+          placeholder="blur"
+          blurDataURL="/assets/placeholder.svg"
+        />
+      </Box>
     );
 
     return (
@@ -88,20 +62,18 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
         className="component-image"
         sx={{
           overflow: 'hidden',
-          position: 'relative',
+          position: 'relative', 
           verticalAlign: 'bottom',
           display: 'inline-block',
           ...(!!ratio && {
-            width: 1,
+            width: '100%', 
+            pt: getRatio(ratio),
           }),
           '& span.component-image-wrapper': {
-            width: 1,
-            height: 1,
+            width: '100%',
+            height: '100%',
             verticalAlign: 'bottom',
             backgroundSize: 'cover !important',
-            ...(!!ratio && {
-              pt: getRatio(ratio),
-            }),
           },
           ...overlayStyles,
           ...sx,
@@ -114,4 +86,4 @@ const Image = forwardRef<HTMLSpanElement, ImageProps>(
   }
 );
 
-export default Image;
+export default CustomImage;
