@@ -39,7 +39,10 @@ export const PRESENTATION_QUERY = defineQuery(`*[_type == "presentation"][0]{
   _id,
   slug,
   imagePresentation->{...},
-  faqs,
+  faqs[]->{
+    question,
+    answer
+  },
   about->{...},
   seo->{...}
 }`);
