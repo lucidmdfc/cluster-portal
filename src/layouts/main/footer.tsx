@@ -29,7 +29,6 @@ type Props = {
 //
 export default function Footer({ footer }: Props) {
   const mdUp = useResponsive('up', 'md');
-
   const pathname = usePathname();
 
   const socials = [
@@ -104,16 +103,30 @@ export default function Footer({ footer }: Props) {
         }}
       >
         <Grid container spacing={3} justifyContent={{ md: 'space-between' }}>
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={8}>
             <Stack spacing={{ xs: 3, md: 5 }}>
               <Stack alignItems="flex-start" spacing={3}>
                 <Logo />
-                {footer?.extraSections.map((section: any) => (
+                {/* {footer?.extraSections.map((section: any) => (
                   <Stack spacing={1} alignItems="flex-start">
                     <Typography variant="h6">{section?.title}</Typography>
                     <RichText content={section?.content} />
                   </Stack>
-                ))}
+                ))} */}
+                <Grid container spacing={3}>
+                  {footer?.extraSections.map((section: any, index: number) => (
+                    <Grid
+                      xs={12} 
+                      sm={6}
+                      key={index}
+                    >
+                      <Stack spacing={1} alignItems="flex-start">
+                        <Typography variant="h6">{section?.title}</Typography>
+                        <RichText content={section?.content} />
+                      </Stack>
+                    </Grid>
+                  ))}
+                </Grid>
               </Stack>
               {footer?.socialLink ?? (
                 <Stack spacing={2}>
@@ -153,7 +166,7 @@ export default function Footer({ footer }: Props) {
             </Stack>
           </Grid>
 
-          <Grid xs={12} md={6}>
+          <Grid xs={12} md={4}>
             {mdUp ? (
               <Masonry columns={4} spacing={2} defaultColumns={4} defaultSpacing={2}>
                 <ListDesktop list={renderList[0]} />

@@ -61,7 +61,7 @@ const FileUploadField = <TFieldValues extends FieldValues>({
         onClose={uploadDialog.handleClose}
         open={uploadDialog.open}
       />
-      {error && <div style={{ color: "red" }}>{error.message}</div>}
+      {/* {error && <div style={{ color: "red" }}>{error.message}</div>} */}
     </Grid>
   );
 };

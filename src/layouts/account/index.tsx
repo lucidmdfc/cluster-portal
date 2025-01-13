@@ -46,7 +46,7 @@ export default function AccountLayout({ children }: Props) {
               startIcon={<Iconify icon="carbon:menu" />}
               onClick={menuOpen.onTrue}
             >
-              Account
+              Compte
             </Button>
           </Container>
         </Box>

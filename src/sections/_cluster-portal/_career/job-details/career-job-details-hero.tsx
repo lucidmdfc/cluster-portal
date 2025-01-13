@@ -82,10 +82,10 @@ export default function CareerJobDetailsHero({ job }: Props) {
     >
       <Container>
         <CustomBreadcrumbs
-          links={[
-            { name: 'Home', href: '/' },
-            { name: 'Jobs', href: paths.career.jobs },
-            { name: job.title },
+          links={[ 
+            { name: 'Accueil', href: '/' }, 
+            { name: 'Offres d\'emploi', href: paths.career.jobs }, 
+            { name: job.title }, 
           ]}
           sx={{
             mb: { xs: 5, md: 8 },
@@ -131,11 +131,11 @@ export default function CareerJobDetailsHero({ job }: Props) {
           >
             <Stack spacing={2} alignItems="center" sx={{ width: 1 }}>
               <Button onClick={handleApply} fullWidth variant="contained" size="large" color="primary" disabled={loading || !success}>
-                {success ? loading ? "Applying..." : "Apply Now" : "Applied"}
+                {success ? loading ? "En cours de traitement..." : "Postuler maintenant" : "Postulé"}
               </Button>
 
               <Typography variant="body2" sx={{ color: 'common.white' }}>
-                {`Expiration date: `}
+                {`Date d'expiration: `}
                 <Box component="span" sx={{ color: 'primary.main' }}>
                   {fDate(job.expirationDate)}
                 </Box>

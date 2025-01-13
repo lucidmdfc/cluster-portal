@@ -24,6 +24,7 @@ import CareerJobListSimilar from '../list/career-job-list-similar';
 import CareerJobDetailsInfo from '../job-details/career-job-details-info';
 import CareerJobDetailsHero from '../job-details/career-job-details-hero';
 import CareerJobDetailsSummary from '../job-details/career-job-details-summary';
+import PostSocialsShare from '../../common/socialShare/post-socials-share';
 
 // ----------------------------------------------------------------------
 
@@ -71,9 +72,9 @@ export default function CareerJobView({job}: any) {
 
             <Divider sx={{ my: 5 }} />
 
-            <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
+            {/* <Stack direction="row" flexWrap="wrap" sx={{ mt: 5 }}>
               <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
-                Share:
+                Partager :
               </Typography>
 
               <Stack direction="row" alignItems="center" flexWrap="wrap">
@@ -99,7 +100,9 @@ export default function CareerJobView({job}: any) {
                 ))}
               </Stack>
 
-            </Stack>
+            </Stack> */}
+            <PostSocialsShare buttonType={'primary'} route="jobs"/>
+            
           </Grid>
 
           <Grid xs={12} md={5} lg={4}>

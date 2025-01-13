@@ -28,7 +28,11 @@ export const BLOG_QUERY = defineQuery(`*[_type == "blog"] {
       imageAsset->
     }
   },
-  isDisplayedOnHome
+  isDisplayedOnHome,
+  _updatedAt,
+  tags[]->{
+    title
+  }
 } | order(publishedAt desc)`);
 //  ..., Includes all fields of the "blog" document
 //  category, Retrieves the category of the blog
@@ -86,7 +90,7 @@ export const COMMUNIQUES_QUERY = defineQuery(`*[_type =="communiques"]{
 // publishedAt Retrieves the publication date of the communique
 // illustrations Retrieves the illustrations image with some metadata  of the communique
 // isDisplayedOnHome Indicates if the communique should be displayed on the homepage
-export const EVENTS_QUERY = defineQuery(`*[_type == "ActusEvents"]{
+export const EVENTS_QUERY = defineQuery(`*[_type == "ActusEvents" && ($slug == "" || slug.current == $slug)]{
   _id,
   image->{
     ...,
@@ -111,7 +115,8 @@ export const EVENTS_QUERY = defineQuery(`*[_type == "ActusEvents"]{
     }
   },
   publicationDate,
-  timeToRead
+  timeToRead,
+  _updatedAt,
 } | order(publicationDate desc)`);
 // image Retrieves the image of the event
 // title Retrieves the title of the event
@@ -147,7 +152,7 @@ export const PUBLICATION_QUERY = defineQuery(` *[_type == "publication"]{
 // subTitle Retrieves the subtitle of the publication
 // body Retrieves the body of the publication
 
-export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil"]{
+export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil" && ($slug == "" || slug.current == $slug)]{
   _id,
   image->{
     ...,
@@ -158,7 +163,8 @@ export const ACCUEIL_QUERY = defineQuery(`*[_type == "Accueil"]{
   slug,
   "subTitle": SubTitle,
   body,
-  isForm
+  isForm,
+  _updatedAt,
 }
   `);
 
@@ -234,10 +240,9 @@ export const getPersonalSpaceQuery = defineQuery(`*[_type == "candidate" && cler
   }
 }`);
 
-export const JOB_QUERY = defineQuery(`*[_type == "job"]{
+export const JOB_QUERY = defineQuery(`*[_type == "job" && ($jobId == "" || _id == $jobId)] {
   _id,
   title,
-  description,
   location,
   publicationDate,
   expirationDate,
@@ -268,10 +273,11 @@ export const JOB_QUERY = defineQuery(`*[_type == "job"]{
         imageAsset->{...}
       },
     },
+  _updatedAt,
 }`)
 
 export const APPLICATION_QUERY = defineQuery(`
-  *[_type == "application" && candidate._ref == $candidateId && job._ref == $jobId] {
+  *[_type == "application" && candidate._id == $candidateId && job._id == $jobId] {
     _id, 
     _createdAt, 
     _updatedAt, 

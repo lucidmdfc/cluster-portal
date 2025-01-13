@@ -36,7 +36,7 @@ export default function CareerJobItem({ job }: Props) {
   const { title, level, salary, location,  publicationDate, experience, company, contract } =
     job;
   
-  console.log(job)
+  // console.log(job)
   // console.log(publicationDate)
   // console.log(company?.illustrations)
   // src={urlFor(coverImage?.imageAsset?.image?.asset)?.url() ?? ''}
@@ -105,7 +105,7 @@ export default function CareerJobItem({ job }: Props) {
         </Stack>
 
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-          Posted day: {fDate(publicationDate)} 
+        Jour de publication : {fDate(publicationDate)} 
         </Typography>
       </Stack>
 
@@ -125,7 +125,7 @@ export default function CareerJobItem({ job }: Props) {
         <Grid xs={6}>
           <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
             <Iconify icon="carbon:increase-level" sx={{ mr: 1 }} />
-            {`${experience} year exp`}
+            {`${experience} année d'exp`}
           </Stack>
         </Grid>
 

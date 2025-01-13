@@ -9,6 +9,6 @@ export const metadata = {
 };
 
 export default async function AllEventPage() {
-  const EventsData = await sanityFetch({ query: EVENTS_QUERY });
+  const EventsData = await sanityFetch({ query: EVENTS_QUERY, params: { slug: "" } });
   return <AllEventsView Events={EventsData} />;
 }

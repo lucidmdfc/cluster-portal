@@ -78,7 +78,7 @@ export default function AccountPersonalView() {
     }
   }, [userId]); // Re-run the effect when userId changes
   type FieldOptions = { label: string; value: string };
-
+  console.log(candidate)
   type FieldType = "text" | "select" | "fileUpload";
 
   type Field<T> = {
@@ -104,67 +104,67 @@ export default function AccountPersonalView() {
     {
       fieldType: "text",
       name: 'firstName',
-      label: 'First Name',
+      label: 'Prénom',
       required: true, 
       type: 'text', 
     },
     {
       fieldType: "text",
       name: 'lastName', 
-      label: 'Last Name',
+      label: 'Nom de famille',
       required: true, 
       type: 'text',
     },
     {
       fieldType: "text",
       name: 'phone',
-      label: 'Phone Number',
+      label: 'Numéro de téléphone',
       required: true,
       type: 'tel',
     },
     {
       fieldType: "text",
       name: 'email',
-      label: 'Email Address',
+      label: 'Adresse e-mail',
       required: true,
       type: 'email',
     },
     {
       fieldType: "text",
       name: 'city',
-      label: 'City',
+      label: 'Ville',
       required: true,
       type: 'text',
     },
     {
       fieldType: "text",
       name: 'address',
-      label: 'Street Address',
+      label: 'Adresse',
       required: true,
       type: 'text',
     },
     {
       fieldType: "text",
       name: 'birthday',
-      label: 'Birthday',
+      label: 'Date de naissance',
       required: true,
       type: 'date',
     },
     {
       fieldType: "select",
       name: "gender",
-      label: "Gender",
+      label: "Sexe",
       required: true,
       type: "text",
       options: [
-        { value: "male", label: "Male" },
-        { value: "female", label: "Female" },
+        { value: "male", label: "Homme" },
+        { value: "female", label: "Femme" },
       ],
     },
     {
       fieldType: "fileUpload",
       name: 'files',
-      label: 'Upload Your File', 
+      label: candidate.length === 0 ? 'Téléchargez votre fichier' : "Mettre à jour votre fichier", 
       required: true, 
       type: 'file', 
     }
@@ -179,20 +179,21 @@ export default function AccountPersonalView() {
     birthday:candidate[0]?.birthday || "",
     gender:candidate[0]?.gender || "",
   };
-    const personalSpaceSchema = z.object({
-      firstName: z.string().min(1, { message: "First Name is required"}),
-      lastName: z.string().min(1, "Last Name is required"),
-      email: z.string().email().min(1, "email is required"),
-      phone: z.string().min(1, "phone is required"),
-      birthday: z.string().min(1, "birthday is required"),
-      gender: z.string().min(1, "gender is required"),
-      address: z.string().min(1, "street Address is required"),
-      city: z.string().min(1, "city is required"),
-      files: z
-        .array(z.instanceof(File))
-        .min(1, "At least one file is required")
-        .max(1, "Only one file is allowed"),
-    });
+  const personalSpaceSchema = z.object({
+    firstName: z.string().min(1, { message: "Le prénom est requis" }),
+    lastName: z.string().min(1, "Le nom de famille est requis"),
+    email: z.string().email().min(1, "L'email est requis"),
+    phone: z.string().min(1, "Le numéro de téléphone est requis"),
+    birthday: z.string().min(1, "La date de naissance est requise"),
+    gender: z.string().min(1, "Le sexe est requis"),
+    address: z.string().min(1, "L'adresse est requise"),
+    city: z.string().min(1, "La ville est requise"),
+    files: z
+      .array(z.instanceof(File))
+      .min(1, "Au moins un fichier est requis")
+      .max(1, "Un seul fichier est autorisé"),
+  });
+  
   
   // Handle form submission
   const handleSubmit = async (formDataObject: { [key: string]: any }) => {

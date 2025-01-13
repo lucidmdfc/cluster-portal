@@ -29,7 +29,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 import PostAuthor from '../../common/post-author';
 import PostPrevAndNext from '../../common/post-prev-and-next';
-import PostSocialsShare from '../../common/post-socials-share';
+import PostSocialsShare from '../../common/socialShare/post-socials-share';
 // import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
 
 // ----------------------------------------------------------------------
@@ -112,7 +112,7 @@ export default function EventBodyView({ Event }: Props) {
 
             {/* <PostTags tags={Event?.tags} /> */}
 
-            <PostSocialsShare />
+            <PostSocialsShare buttonType={'primary'} route="allEvents"/>
 
             <Divider sx={{ mt: 8 }} />
 
@@ -141,12 +141,13 @@ export default function EventBodyView({ Event }: Props) {
           },
         }}
       >
-        {_socials.map((social) => (
+        {/* {_socials.map((social) => (
           <MenuItem key={social.value} onClick={handleClose}>
             <Iconify icon={social.icon} width={24} sx={{ mr: 1, color: social.color }} />
             Share via {social.label}
           </MenuItem>
-        ))}
+        ))} */}
+        <PostSocialsShare buttonType={'secondary'} route="allEvents"/>
       </Popover>
     </>
   );

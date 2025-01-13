@@ -64,16 +64,28 @@ export default function Header({ headerOnDark }: Props) {
       <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
         <Stack spacing={1} direction="row" alignItems="center">
         {/* Add Clerk Header */}
+
+        <SettingsButton />
+        </Stack>
+        
         <SignedOut>
-          <SignInButton />
+          <SignInButton>
+            <Button
+              variant="contained"
+              color="inherit"
+              sx={{
+                display: { xs: 'none', md: 'inline-flex' },
+              }}
+            >
+              Sign In
+            </Button>
+          </SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
         </SignedIn>
-          <SettingsButton />
-        </Stack>
 
-        <Button
+        {/* <Button
           variant="contained"
           color="inherit"
           href={paths.clusterPortal.communique}
@@ -82,7 +94,7 @@ export default function Header({ headerOnDark }: Props) {
           }}
         >
           Espace media
-        </Button>
+        </Button> */}
       </Stack>
 
       {!mdUp && <NavMobile data={navConfig} />}

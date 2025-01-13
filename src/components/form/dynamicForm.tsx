@@ -51,7 +51,7 @@ const DynamicForm = <TFieldValues extends FieldValues>({
         <Box mt={4}>
           {/* Submit button with a loading state */}
           <Button type="submit" variant="contained" disabled={isSubmitting}>
-            {isSubmitting ? "Uploading..." : "Submit"}
+            {isSubmitting ? "Téléchargement..." : "Soumettre"}
           </Button>
         </Box>
       </form>

@@ -29,7 +29,7 @@ export default function CareerJobDetailsInfo({ job }: Props) {
         <Stack spacing={2} direction="row" alignItems="flex-start">
           <Iconify icon="carbon:calendar" width={24} />
           <Stack>
-            <Typography variant="subtitle2"> Date Posted </Typography>
+            <Typography variant="subtitle2"> Date de publication </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {fDate(publicationDate)}
             </Typography>
@@ -39,7 +39,7 @@ export default function CareerJobDetailsInfo({ job }: Props) {
         <Stack spacing={2} direction="row" alignItems="flex-start">
           <Iconify icon="carbon:hourglass" width={24} />
           <Stack>
-            <Typography variant="subtitle2"> Expiration date </Typography>
+            <Typography variant="subtitle2"> Date d'expiration </Typography>
             <Typography variant="body2" sx={{ color: 'error.main' }}>
               {fDate(expirationDate)}
             </Typography>
@@ -51,14 +51,14 @@ export default function CareerJobDetailsInfo({ job }: Props) {
           <Stack>
             {salary === "competitive" ? 
               <>
-                <Typography variant="subtitle2"> Salary </Typography>
+                <Typography variant="subtitle2"> Salaire </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  competitive
+                  compétitive
                 </Typography>
               </>
               :
               <>
-                <Typography variant="subtitle2"> Offered Salary (month) </Typography>
+                <Typography variant="subtitle2"> Salaire offert (mois) </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   {salaryDetails?.minSalary + "-" + salaryDetails?.maxSalary}
                 </Typography>
@@ -70,9 +70,9 @@ export default function CareerJobDetailsInfo({ job }: Props) {
         <Stack spacing={2} direction="row" alignItems="flex-start">
           <Iconify icon="carbon:increase-level" width={24} />
           <Stack>
-            <Typography variant="subtitle2"> Experience </Typography>
+            <Typography variant="subtitle2"> Expérience </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {`${experience} year exp`}
+              {`${experience} année d'exp`}
             </Typography>
           </Stack>
         </Stack>
@@ -80,7 +80,7 @@ export default function CareerJobDetailsInfo({ job }: Props) {
         <Stack spacing={2} direction="row" alignItems="flex-start">
           <Iconify icon="carbon:user" width={24} />
           <Stack>
-            <Typography variant="subtitle2"> Level </Typography>
+            <Typography variant="subtitle2"> Niveau </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {level}
             </Typography>

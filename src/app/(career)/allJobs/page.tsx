@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function CareerJobsPage() {
-  const jobData = await sanityFetch({ query: JOB_QUERY });
+  const jobData = await sanityFetch({ query: JOB_QUERY, params: { jobId: "" } });
 
   return <CareerJobsView jobs={jobData} />;
 }

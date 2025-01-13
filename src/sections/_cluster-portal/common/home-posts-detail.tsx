@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default function HomePostsDetail({ Data }: Props) {
-  console.log(Data)
+  // console.log(Data)
   return (
     <>
       <Container sx={{ overflow: 'hidden' }}>

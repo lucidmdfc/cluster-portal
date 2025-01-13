@@ -27,7 +27,7 @@ import { useUser } from '@clerk/nextjs';
 
 const navigations = [
   {
-    title: 'Personal Info',
+    title: 'Informations personnelles',
     path: paths.career.personal,
     icon: <Iconify icon="carbon:user" />,
   },
@@ -51,7 +51,7 @@ export default function Nav({ open, onClose }: Props) {
   const router = useRouter();
 
   const handleRetourClick = () => {
-    router.push('/jobs/#jobs');
+    router.push('/jobs');
   };
 
 

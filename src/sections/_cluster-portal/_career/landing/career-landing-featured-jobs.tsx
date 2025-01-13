@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Container, Grid, Typography, Stack, Box, Button } from '@mui/material';
 import * as yup from 'yup';
@@ -25,7 +26,7 @@ type Props = {
 // };
 
 export default function CareerLandingFeaturedJobs({ jobs }: Props) {
-
+  console.log(jobs)
   return (
     <Container
       sx={{
@@ -77,7 +78,7 @@ export default function CareerLandingFeaturedJobs({ jobs }: Props) {
           variant="outlined"
           endIcon={<Iconify icon="carbon:chevron-right" />}
         >
-          View All
+          Tout voir
         </Button>
       </Stack>
     </Container>

@@ -14,8 +14,8 @@ export const metadata = {
 };
 
 export default async function ClusterLandingPage() {
-  const EventsData = await sanityFetch({ query: EVENTS_QUERY });
-  const AccueilData = await sanityFetch({ query: ACCUEIL_QUERY });
+  const EventsData = await sanityFetch({ query: EVENTS_QUERY, params: { slug: "" } });
+  const AccueilData = await sanityFetch({ query: ACCUEIL_QUERY, params: { slug: "" } });
   const PublicationData = await sanityFetch({ query: PUBLICATION_QUERY });
   // const tokens = await getTokens(cookies(), {
   //   apiKey: clientConfig.apiKey,

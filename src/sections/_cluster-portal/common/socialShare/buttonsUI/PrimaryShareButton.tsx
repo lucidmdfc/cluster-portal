@@ -1,5 +1,5 @@
 import React from "react";
-import { SocialShareWrapper } from "./SocialShareWrapper";
+import { SocialShareWrapper } from "../SocialShareWrapper";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { alpha } from '@mui/material/styles';
@@ -14,7 +14,7 @@ interface CustomShareButtonProps {
   description?: string;
 }
 
-export const CustomShareButton: React.FC<CustomShareButtonProps> = ({
+export const PrimaryShareButton: React.FC<CustomShareButtonProps> = ({
   platform,
   url,
   title,

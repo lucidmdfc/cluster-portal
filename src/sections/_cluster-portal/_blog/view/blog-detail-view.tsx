@@ -16,7 +16,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import PostAuthor from '../../common/post-author';
 import SingleBlogHero from '../single-blog-hero ';
 import PostSidebar from '../../common/post-sidebar';
-import PostSocialsShare from '../../common/post-socials-share';
+import PostSocialsShare from '../../common/socialShare/post-socials-share';
 
 // import PostSocialsShare from '../../blog/common/post-socials-share';
 // import TravelLatestPosts from '../../blog/travel/travel-latest-posts';
@@ -27,6 +27,7 @@ type Props = {
   recentBlogs: any;
 };
 export default function BlogDetailView({ blog, recentBlogs }: Props) {
+  console.log(blog)
   return (
     <>
       <SingleBlogHero blog={blog} />
@@ -55,7 +56,7 @@ export default function BlogDetailView({ blog, recentBlogs }: Props) {
 
             {/* <PostTags tags={tags} /> */}
 
-            <PostSocialsShare />
+            <PostSocialsShare buttonType={'primary'} route="blog"/>
 
             <Divider sx={{ mt: 8 }} />
 
@@ -63,7 +64,7 @@ export default function BlogDetailView({ blog, recentBlogs }: Props) {
           </Grid>
 
           <Grid xs={12} md={4}>
-            <PostSidebar author={blog.author} popularTags={_tags} recentPosts={recentBlogs} />
+            <PostSidebar author={blog.author} popularTags={blog.tags} recentPosts={recentBlogs} />
           </Grid>
         </Grid>
       </Container>

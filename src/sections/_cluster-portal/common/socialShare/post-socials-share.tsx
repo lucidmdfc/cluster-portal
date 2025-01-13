@@ -45,15 +45,21 @@
 
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
-import { CustomShareButton } from './CustomShareButtons';
+import { PrimaryShareButton } from './buttonsUI/PrimaryShareButton';
 import { useParams } from 'next/navigation';
+import { SecondaryShareButton } from './buttonsUI/SecondaryShareButton';
+import { buttonTypeMap } from './buttonTypeMap';
 
-const PostSocialsShare = () => {
+interface PostSocialsShareProps {
+  buttonType: 'primary' | 'secondary';
+  route?: string;
+}
+const PostSocialsShare = ({buttonType, route} : PostSocialsShareProps) => {
   const { slug } = useParams();
 
-  const shareUrl = `https://cluster-portal.vercel.app/blog/${slug}`;
+  const shareUrl = `https://mdfc.ma/${route}/${slug}`;
   const shareTitle = 'Share';
-  const _socials = [
+  const socials = [
     {
       value: 'facebook',
       label: 'FaceBook',
@@ -73,22 +79,26 @@ const PostSocialsShare = () => {
       color: '#00AAEC',
     },
   ];
+  
+  // Dynamically get the correct button component
+  const ShareButton = buttonTypeMap[buttonType];
+  
 
   return (
-    <Stack direction="row" sx={{ mt: 5 }}>
-      <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
+    <Stack direction="row" >
+      {/* <Typography variant="subtitle2" sx={{ mt: 0.75, mr: 1.5 }}>
         Share:
-      </Typography>
+      </Typography> */}
       <Stack direction="row" alignItems="center" flexWrap="wrap">
-
-      {_socials.map((social) => {
-        return (
-          <CustomShareButton platform={social.value} url={shareUrl} title={shareTitle} styling={social} />
-        )
-      })}
-      {/* <CustomShareButton platform="twitter" url={shareUrl} title={shareTitle} />
-      <CustomShareButton platform="whatsapp" url={shareUrl} title={shareTitle} />
-      <CustomShareButton platform="linkedin" url={shareUrl} title={shareTitle} /> */}
+      {socials.map((social) => (
+          <ShareButton
+            key={social.value}
+            platform={social.value}
+            url={shareUrl}
+            title={shareTitle}
+            styling={social}
+          />
+        ))}
       </Stack>
     </Stack>
   );

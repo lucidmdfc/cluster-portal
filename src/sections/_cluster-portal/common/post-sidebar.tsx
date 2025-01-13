@@ -22,7 +22,7 @@ import PostItemMobile from './post-item-mobile';
 
 interface Props extends StackProps {
   author?: any;
-  popularTags?: string[];
+  popularTags?: any[];
   recentPosts?: any;
 }
 
@@ -114,7 +114,7 @@ export default function PostSidebar({ author, popularTags, recentPosts, sx, ...o
 
       <Stack direction="row" flexWrap="wrap" spacing={1}>
         {popularTags.map((tag) => (
-          <Chip key={tag} label={tag} variant="soft" size="small" onClick={() => {}} />
+          <Chip key={tag.title} label={tag.title} variant="soft" size="small" onClick={() => {}} />
         ))}
       </Stack>
     </Stack>
